@@ -12,7 +12,7 @@ async function bootstrap() {
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
 
-  const options = new DocumentBuilder().addBearerAuth().setTitle('Boilerplate API').setVersion('1.0').build();
+  const options = new DocumentBuilder().addBearerAuth().setTitle('Meridio API').setVersion('1.0').build();
 
   const document = SwaggerModule.createDocument(app, options, {});
   SwaggerModule.setup(GLOBAL_PREFIX, app, document);

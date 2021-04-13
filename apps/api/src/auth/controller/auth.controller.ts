@@ -1,4 +1,4 @@
-import { AccessTokenInterface } from '@boilerplate/contracts';
+import { AccessTokenInterface } from '@meridio/contracts';
 import { Body, Controller, Logger, Post, UnauthorizedException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 

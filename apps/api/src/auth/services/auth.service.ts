@@ -1,4 +1,4 @@
-import { AccessTokenInterface, JwtPayloadInterface, UserDTO } from '@boilerplate/contracts';
+import { AccessTokenInterface, JwtPayloadInterface, UserDTO } from '@meridio/contracts';
 import { Injectable } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';

@@ -1,4 +1,4 @@
-import { ValueObject } from '@boilerplate/domain';
+import { ValueObject } from '@meridio/domain';
 
 interface Props {
   value: string;

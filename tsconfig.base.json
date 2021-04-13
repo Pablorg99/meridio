@@ -16,9 +16,9 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@boilerplate/domain": ["libs/domain/src/index.ts"],
-      "@boilerplate/ui": ["libs/ui/src/index.ts"],
-      "@boilerplate/contracts": ["libs/contracts/src/index.ts"]
+      "@meridio/domain": ["libs/domain/src/index.ts"],
+      "@meridio/ui": ["libs/ui/src/index.ts"],
+      "@meridio/contracts": ["libs/contracts/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

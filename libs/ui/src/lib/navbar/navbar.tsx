@@ -31,7 +31,7 @@ export function Navbar({ open, onOpenSidebar: onOpenDrawer, session }: NavbarPro
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          Boilerplate
+          Meridio
         </Typography>
         {session && (
           <Link href="/api/auth/signout">

@@ -1,4 +1,4 @@
-import { CreateUserDTO, EditUserDTO, Role, UserDTO } from '@boilerplate/contracts';
+import { CreateUserDTO, EditUserDTO, Role, UserDTO } from '@meridio/contracts';
 import {
   BadRequestException,
   Body,

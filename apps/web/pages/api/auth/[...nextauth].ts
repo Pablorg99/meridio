@@ -1,4 +1,4 @@
-import { isAccessToken, isCredentials, isJwtPayload } from '@boilerplate/contracts';
+import { isAccessToken, isCredentials, isJwtPayload } from '@meridio/contracts';
 import axios from 'axios';
 import jose from 'jose';
 import jwt from 'jsonwebtoken';

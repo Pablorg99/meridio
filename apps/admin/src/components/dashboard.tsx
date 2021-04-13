@@ -3,7 +3,7 @@ import React from 'react';
 
 export const Dashboard: React.FunctionComponent = () => (
   <Card>
-    <CardHeader title="Boilerplate" />
+    <CardHeader title="Meridio" />
     <CardContent>Boilerplate de un admin de react</CardContent>
   </Card>
 );

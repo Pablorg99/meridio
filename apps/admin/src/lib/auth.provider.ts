@@ -1,4 +1,4 @@
-import { isAccessToken, isCredentials, isJwtPayload, JwtPayloadInterface } from '@boilerplate/contracts';
+import { isAccessToken, isCredentials, isJwtPayload, JwtPayloadInterface } from '@meridio/contracts';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import { AuthProvider } from 'react-admin';
