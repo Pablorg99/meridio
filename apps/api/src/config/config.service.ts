@@ -33,9 +33,7 @@ class ConfigService {
         type: 'sqlite',
         database: path.join(__dirname, '../../../tmp/test.sqlite3'),
         dropSchema: true,
-        entities: [
-          path.join(__dirname, '../../../../libs/**/*.entity{.ts,.js}'),
-        ],
+        entities: [path.join(__dirname, '../../../../libs/**/*.entity{.ts,.js}')],
         synchronize: true,
         autoLoadEntities: true,
         logging: false,

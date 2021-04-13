@@ -2,9 +2,7 @@ import editPageFactory from '../../support/EditPage';
 import loginPageFactory from '../../support/LoginPage';
 
 describe('Edit users', () => {
-  const EditPage = editPageFactory(
-    '/#/users/f60d593d-9ea9-4add-8f6c-5d86dd8c9f87'
-  );
+  const EditPage = editPageFactory('/#/users/f60d593d-9ea9-4add-8f6c-5d86dd8c9f87');
   const LoginPage = loginPageFactory('/#/login');
 
   beforeEach(() => {
@@ -26,11 +24,7 @@ describe('Edit users', () => {
     EditPage.submit();
     EditPage.navigate();
 
-    cy.get(EditPage.elements.input('username')).should((el) =>
-      expect(el).to.have.value('admin')
-    );
-    cy.get(EditPage.elements.input('plainPassword')).should(
-      (el) => expect(el).to.be.empty
-    );
+    cy.get(EditPage.elements.input('username')).should((el) => expect(el).to.have.value('admin'));
+    cy.get(EditPage.elements.input('plainPassword')).should((el) => expect(el).to.be.empty);
   });
 });

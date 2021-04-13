@@ -10,8 +10,7 @@ import { AuthController } from './auth.controller';
 const ID = '78dbd5bd-86c1-4925-a08c-1d0170e4851d';
 const USERNAME = 'username';
 const PASSWORD = 'password';
-const CRYPT_PASSWORD =
-  '$2a$04$J.qvJcqZRPBlGFKWIxPOYOsPRXpkZmTyTHScEF3Kq5/QXV.8oMcfy';
+const CRYPT_PASSWORD = '$2a$04$J.qvJcqZRPBlGFKWIxPOYOsPRXpkZmTyTHScEF3Kq5/QXV.8oMcfy';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -51,22 +50,16 @@ describe('AuthController', () => {
   });
 
   it('should login valid user', async () => {
-    expect(
-      await controller.login({ username: USERNAME, password: PASSWORD })
-    ).toHaveProperty('access_token');
+    expect(await controller.login({ username: USERNAME, password: PASSWORD })).toHaveProperty('access_token');
   });
 
   it('should not login invalid password', () => {
-    expect(
-      controller.login({ username: USERNAME, password: 'wrong password' })
-    ).rejects.toThrow(UnauthorizedException);
+    expect(controller.login({ username: USERNAME, password: 'wrong password' })).rejects.toThrow(UnauthorizedException);
   });
 
   it('should not login invalid user', () => {
     queryBus.execute = jest.fn().mockResolvedValue(null);
 
-    expect(
-      controller.login({ username: USERNAME, password: PASSWORD })
-    ).rejects.toThrow(UnauthorizedException);
+    expect(controller.login({ username: USERNAME, password: PASSWORD })).rejects.toThrow(UnauthorizedException);
   });
 });

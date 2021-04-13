@@ -1,11 +1,5 @@
 import { AccessTokenInterface } from '@boilerplate/contracts';
-import {
-  Body,
-  Controller,
-  Logger,
-  Post,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Body, Controller, Logger, Post, UnauthorizedException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { LoginDTO } from '../dto/login.dto';

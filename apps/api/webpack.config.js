@@ -1,7 +1,5 @@
 module.exports = (config, _context) => {
-  const tsLoader = config.module.rules.find((r) =>
-    r.loader.includes('ts-loader')
-  );
+  const tsLoader = config.module.rules.find((r) => r.loader.includes('ts-loader'));
 
   if (tsLoader) {
     tsLoader.options.transpileOnly = false;

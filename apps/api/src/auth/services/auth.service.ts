@@ -1,8 +1,4 @@
-import {
-  AccessTokenInterface,
-  JwtPayloadInterface,
-  UserDTO,
-} from '@boilerplate/contracts';
+import { AccessTokenInterface, JwtPayloadInterface, UserDTO } from '@boilerplate/contracts';
 import { Injectable } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
@@ -21,17 +17,13 @@ export class AuthService {
   }
 
   async validateUser(username: string, password: string): Promise<boolean> {
-    const user = await this.queryBus.execute<GetUserByUsernameQuery, UserDTO>(
-      new GetUserByUsernameQuery(username)
-    );
+    const user = await this.queryBus.execute<GetUserByUsernameQuery, UserDTO>(new GetUserByUsernameQuery(username));
 
     return user && (await bcrypt.compareSync(password, user.password));
   }
 
   async generateAccessToken(username: string): Promise<AccessTokenInterface> {
-    const user = await this.queryBus.execute<GetUserByUsernameQuery, UserDTO>(
-      new GetUserByUsernameQuery(username)
-    );
+    const user = await this.queryBus.execute<GetUserByUsernameQuery, UserDTO>(new GetUserByUsernameQuery(username));
 
     const payload: JwtPayloadInterface = {
       username: user.username,

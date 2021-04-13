@@ -13,9 +13,7 @@ module.exports = async ({ config, mode }) => {
     configFile: './tsconfig.base.json',
   });
 
-  config.resolve.plugins
-    ? config.resolve.plugins.push(tsPaths)
-    : (config.resolve.plugins = [tsPaths]);
+  config.resolve.plugins ? config.resolve.plugins.push(tsPaths) : (config.resolve.plugins = [tsPaths]);
 
   // Found this here: https://github.com/nrwl/nx/issues/2859
   // And copied the part of the solution that made it work
@@ -25,9 +23,7 @@ module.exports = async ({ config, mode }) => {
 
     return test.toString().startsWith('/\\.(svg|ico');
   });
-  config.module.rules[
-    svgRuleIndex
-  ].test = /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/;
+  config.module.rules[svgRuleIndex].test = /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/;
 
   config.module.rules.push(
     {

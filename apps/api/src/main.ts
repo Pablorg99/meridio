@@ -8,18 +8,11 @@ const GLOBAL_PREFIX = 'api';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule.forRoot(), {
-    logger:
-      process.env.NODE_ENV == 'development'
-        ? ['debug', 'error', 'log', 'verbose', 'warn']
-        : ['error', 'warn'],
+    logger: process.env.NODE_ENV == 'development' ? ['debug', 'error', 'log', 'verbose', 'warn'] : ['error', 'warn'],
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
 
-  const options = new DocumentBuilder()
-    .addBearerAuth()
-    .setTitle('Boilerplate API')
-    .setVersion('1.0')
-    .build();
+  const options = new DocumentBuilder().addBearerAuth().setTitle('Boilerplate API').setVersion('1.0').build();
 
   const document = SwaggerModule.createDocument(app, options, {});
   SwaggerModule.setup(GLOBAL_PREFIX, app, document);

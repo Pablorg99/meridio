@@ -44,12 +44,8 @@ describe('Create users', () => {
     CreatePage.submit();
     EditPage.waitUntilVisible();
 
-    cy.get(EditPage.elements.input('username')).should((el) =>
-      expect(el).to.have.value('johndoe')
-    );
-    cy.get(EditPage.elements.input('plainPassword')).should(
-      (el) => expect(el).to.be.empty
-    );
+    cy.get(EditPage.elements.input('username')).should((el) => expect(el).to.have.value('johndoe'));
+    cy.get(EditPage.elements.input('plainPassword')).should((el) => expect(el).to.be.empty);
   });
 
   it('should appears in list page', () => {

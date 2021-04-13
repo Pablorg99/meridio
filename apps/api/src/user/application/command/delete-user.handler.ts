@@ -7,10 +7,7 @@ import { DeleteUserCommand } from './delete-user.command';
 
 @CommandHandler(DeleteUserCommand)
 export class DeleteUserHandler implements ICommandHandler<DeleteUserCommand> {
-  constructor(
-    @Inject(USERS) private users: Users,
-    private userMapper: UserMapper
-  ) {}
+  constructor(@Inject(USERS) private users: Users, private userMapper: UserMapper) {}
 
   async execute(command: DeleteUserCommand) {
     const userId = UserId.fromString(command.userId);

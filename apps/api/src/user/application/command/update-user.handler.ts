@@ -1,24 +1,13 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import {
-  Password,
-  Role,
-  User,
-  UserId,
-  UserIdNotFoundError,
-  USERS,
-  Users,
-} from '../../domain';
+import { Password, Role, User, UserId, UserIdNotFoundError, USERS, Users } from '../../domain';
 import { UserMapper } from '../../infrastructure/repository/user.mapper';
 import { UpdateUserCommand } from './update-user.command';
 
 @CommandHandler(UpdateUserCommand)
 export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
-  constructor(
-    @Inject(USERS) private users: Users,
-    private userMapper: UserMapper
-  ) {}
+  constructor(@Inject(USERS) private users: Users, private userMapper: UserMapper) {}
 
   async execute(command: UpdateUserCommand) {
     const userId = UserId.fromString(command.userId);
@@ -38,14 +27,11 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
   }
 
   private updatePassword(user: User, command: UpdateUserCommand) {
-    command.password &&
-      user.updatePassword(Password.fromString(command.password));
+    command.password && user.updatePassword(Password.fromString(command.password));
   }
 
   private updateRoles(user: User, command: UpdateUserCommand) {
-    user.roles.map(
-      (role) => !command.roles.includes(role.value) && user.removeRole(role)
-    );
+    user.roles.map((role) => !command.roles.includes(role.value) && user.removeRole(role));
     command.roles.map((role) => user.addRole(Role.fromString(role)));
   }
 }

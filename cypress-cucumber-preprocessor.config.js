@@ -1,10 +1,7 @@
 const path = require('path');
 
 const stepDefinitionsPath = path.resolve(process.cwd(), './src/integration');
-const outputFolder = path.resolve(
-  process.cwd(),
-  '../../cyreport/cucumber-json'
-);
+const outputFolder = path.resolve(process.cwd(), '../../cyreport/cucumber-json');
 
 module.exports = {
   nonGlobalStepDefinitions: true,

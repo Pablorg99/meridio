@@ -16,23 +16,12 @@ import { UserWasDeletedSaga } from './saga/user-was-deleted.saga';
 import { userProviders } from './user.providers';
 
 const CommandHandlers = [CreateUserHandler, DeleteUserHandler];
-const QueryHandlers = [
-  GetUserByUsernameHandler,
-  GetUserHandler,
-  GetUsersHandler,
-  UpdateUserHandler,
-];
+const QueryHandlers = [GetUserByUsernameHandler, GetUserHandler, GetUsersHandler, UpdateUserHandler];
 const Sagas = [UserWasDeletedSaga];
 
 @Module({
   controllers: [UserController],
   imports: [AuthModule, CqrsModule, TypeOrmModule.forFeature([UserEntity])],
-  providers: [
-    ...userProviders,
-    ...CommandHandlers,
-    ...QueryHandlers,
-    ...Sagas,
-    UserMapper,
-  ],
+  providers: [...userProviders, ...CommandHandlers, ...QueryHandlers, ...Sagas, UserMapper],
 })
 export class UserModule {}

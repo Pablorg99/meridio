@@ -1,11 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import {
-  UserPasswordWasUpdated,
-  UserRoleWasAdded,
-  UserRoleWasRemoved,
-  UserWasCreated,
-} from '../event';
+import { UserPasswordWasUpdated, UserRoleWasAdded, UserRoleWasRemoved, UserWasCreated } from '../event';
 import { UserWasDeleted } from '../event/user-was-deleted.event';
 import { Password } from './password';
 import { Role } from './role';
@@ -23,16 +18,10 @@ export class User extends AggregateRoot {
     super();
   }
 
-  public static add(
-    userId: UserId,
-    username: Username,
-    password: Password
-  ): User {
+  public static add(userId: UserId, username: Username, password: Password): User {
     const user = new User();
 
-    user.apply(
-      new UserWasCreated(userId.value, username.value, password.value)
-    );
+    user.apply(new UserWasCreated(userId.value, username.value, password.value));
 
     return user;
   }
@@ -102,9 +91,7 @@ export class User extends AggregateRoot {
   }
 
   private onUserRoleWasRemoved(event: UserRoleWasRemoved) {
-    this._roles = this._roles.filter(
-      (item: Role) => !item.equals(Role.fromString(event.role))
-    );
+    this._roles = this._roles.filter((item: Role) => !item.equals(Role.fromString(event.role)));
   }
 
   private onUserPasswordWasUpdated(event: UserPasswordWasUpdated) {

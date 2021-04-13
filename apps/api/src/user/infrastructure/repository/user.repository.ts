@@ -16,7 +16,7 @@ export class UserRepository implements Users {
     private publisher: EventPublisher
   ) {}
 
-  async find(userId: UserId): Promise<User|null> {
+  async find(userId: UserId): Promise<User | null> {
     const user = await this.userRepository.findOne(userId.value);
 
     if (!user) {
@@ -32,7 +32,7 @@ export class UserRepository implements Users {
     return users.map(this.userMapper.entityToAggregate);
   }
 
-  async findOneByUsername(username: Username): Promise<User|null> {
+  async findOneByUsername(username: Username): Promise<User | null> {
     const user = await this.userRepository.findOne({
       username: username.value,
     });

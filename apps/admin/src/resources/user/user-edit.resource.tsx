@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Edit,
-  PasswordInput,
-  required,
-  SelectInput,
-  SimpleForm,
-  TextInput,
-} from 'react-admin';
+import { Edit, PasswordInput, required, SelectInput, SimpleForm, TextInput } from 'react-admin';
 
 import { transformUserForm, validateUserForm } from './user.form';
 

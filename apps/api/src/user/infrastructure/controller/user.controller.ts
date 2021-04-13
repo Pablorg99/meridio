@@ -1,9 +1,4 @@
-import {
-  CreateUserDTO,
-  EditUserDTO,
-  Role,
-  UserDTO,
-} from '@boilerplate/contracts';
+import { CreateUserDTO, EditUserDTO, Role, UserDTO } from '@boilerplate/contracts';
 import {
   BadRequestException,
   Body,
@@ -20,12 +15,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { Roles } from '../../../auth/security/roles.decorator';
@@ -44,28 +34,17 @@ import { UserIdNotFoundError } from '../../domain';
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
-  constructor(
-    private authService: AuthService,
-    private queryBus: QueryBus,
-    private commandBus: CommandBus
-  ) {}
+  constructor(private authService: AuthService, private queryBus: QueryBus, private commandBus: CommandBus) {}
 
   @Post()
   @Roles(Role.Admin)
   @ApiResponse({ status: 200, description: 'User created' })
   async create(@Body() createUserDto: CreateUserDTO): Promise<UserDTO> {
     try {
-      const password = await this.authService.encodePassword(
-        createUserDto.plainPassword
-      );
+      const password = await this.authService.encodePassword(createUserDto.plainPassword);
 
       return await this.commandBus.execute(
-        new CreateUserCommand(
-          createUserDto.id,
-          createUserDto.username,
-          password,
-          createUserDto.roles
-        )
+        new CreateUserCommand(createUserDto.id, createUserDto.username, password, createUserDto.roles)
       );
     } catch (e) {
       if (e instanceof Error) {
@@ -81,9 +60,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: 'Users found' })
   async findAll(@Res({ passthrough: true }) res: Response) {
     try {
-      const users = await this.queryBus.execute<GetUsersQuery, UserDTO[]>(
-        new GetUsersQuery()
-      );
+      const users = await this.queryBus.execute<GetUsersQuery, UserDTO[]>(new GetUsersQuery());
 
       res.setHeader('X-Total-Count', users.length);
 
@@ -103,9 +80,7 @@ export class UserController {
   @ApiResponse({ status: 404, description: 'Not found' })
   async findOne(@Param('id') id: string): Promise<UserDTO> {
     try {
-      const user = await this.queryBus.execute<GetUserQuery, UserDTO>(
-        new GetUserQuery(id)
-      );
+      const user = await this.queryBus.execute<GetUserQuery, UserDTO>(new GetUserQuery(id));
 
       if (!user) throw new NotFoundException();
 
@@ -126,24 +101,14 @@ export class UserController {
   @ApiOperation({ summary: 'Updated user' })
   @ApiResponse({ status: 200, description: 'User updated' })
   @ApiResponse({ status: 404, description: 'Not found' })
-  async update(
-    @Param('id') id: string,
-    @Body() editUserDTO: EditUserDTO
-  ): Promise<UserDTO> {
+  async update(@Param('id') id: string, @Body() editUserDTO: EditUserDTO): Promise<UserDTO> {
     try {
-      const user = await this.queryBus.execute<GetUserQuery, UserDTO>(
-        new GetUserQuery(id)
-      );
+      const user = await this.queryBus.execute<GetUserQuery, UserDTO>(new GetUserQuery(id));
 
       if (!user) throw new NotFoundException();
 
       return this.commandBus.execute(
-        new UpdateUserCommand(
-          id,
-          editUserDTO.username,
-          editUserDTO.plainPassword,
-          editUserDTO.roles
-        )
+        new UpdateUserCommand(id, editUserDTO.username, editUserDTO.plainPassword, editUserDTO.roles)
       );
     } catch (e) {
       if (e instanceof UserIdNotFoundError) {

@@ -1,9 +1,4 @@
-import {
-  isAccessToken,
-  isCredentials,
-  isJwtPayload,
-  JwtPayloadInterface,
-} from '@boilerplate/contracts';
+import { isAccessToken, isCredentials, isJwtPayload, JwtPayloadInterface } from '@boilerplate/contracts';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import { AuthProvider } from 'react-admin';
@@ -54,9 +49,7 @@ const authProvider: AuthProvider = {
 
 const saveToken = (token) => {
   if (!isAccessToken(token)) {
-    throw new Error(
-      'authProvider - missing attributes in response access token'
-    );
+    throw new Error('authProvider - missing attributes in response access token');
   }
 
   const decodedToken = jwt(token.access_token);

@@ -20,9 +20,7 @@ Given('que estoy en la página de creación de usuarios', () => {
 
 When('relleno el formulario con los siguientes datos:', (table) => {
   console.info(table);
-  CreatePage.setValues(
-    table.rawTable.map((el) => ({ name: el[0], type: el[1], value: el[2] }))
-  );
+  CreatePage.setValues(table.rawTable.map((el) => ({ name: el[0], type: el[1], value: el[2] })));
 });
 
 When('pulso guardar', () => {
@@ -36,7 +34,5 @@ Then('tengo que ver {int} elementos', (count) => {
 Then('estoy en la página de edición del usuario {string}', (username) => {
   EditPage.waitUntilVisible();
 
-  cy.get(EditPage.elements.input('username')).should((el) =>
-    expect(el).to.have.value(username)
-  );
+  cy.get(EditPage.elements.input('username')).should((el) => expect(el).to.have.value(username));
 });

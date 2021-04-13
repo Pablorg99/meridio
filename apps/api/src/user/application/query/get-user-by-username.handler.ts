@@ -8,17 +8,11 @@ import { UserMapper } from '../../infrastructure/repository/user.mapper';
 import { GetUserByUsernameQuery } from './get-user-by-username.query';
 
 @QueryHandler(GetUserByUsernameQuery)
-export class GetUserByUsernameHandler
-  implements IQueryHandler<GetUserByUsernameQuery> {
-  constructor(
-    @Inject(USERS) private users: Users,
-    private userMapper: UserMapper
-  ) {}
+export class GetUserByUsernameHandler implements IQueryHandler<GetUserByUsernameQuery> {
+  constructor(@Inject(USERS) private users: Users, private userMapper: UserMapper) {}
 
   async execute(query: GetUserByUsernameQuery): Promise<UserDTO | null> {
-    const user = await this.users.findOneByUsername(
-      Username.fromString(query.username)
-    );
+    const user = await this.users.findOneByUsername(Username.fromString(query.username));
 
     if (!user) {
       return null;

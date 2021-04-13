@@ -8,10 +8,7 @@ import { GetUsersQuery } from './get-users.query';
 
 @QueryHandler(GetUsersQuery)
 export class GetUsersHandler implements IQueryHandler<GetUsersQuery> {
-  constructor(
-    @Inject(USERS) private users: Users,
-    private userMapper: UserMapper
-  ) {}
+  constructor(@Inject(USERS) private users: Users, private userMapper: UserMapper) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async execute(query: GetUsersQuery): Promise<UserDTO[] | null> {

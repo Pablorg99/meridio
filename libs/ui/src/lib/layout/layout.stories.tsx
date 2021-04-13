@@ -21,5 +21,5 @@ const Template: Story<LayoutProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  session: {}
+  session: {},
 };

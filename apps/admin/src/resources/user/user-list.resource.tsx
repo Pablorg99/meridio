@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  ArrayField,
-  Datagrid,
-  List,
-  SingleFieldList,
-  TextField,
-} from 'react-admin';
+import { ArrayField, Datagrid, List, SingleFieldList, TextField } from 'react-admin';
 
 import SimpleChipField from '../../components/simple-chip-field';
 

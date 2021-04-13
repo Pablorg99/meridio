@@ -24,10 +24,7 @@ describe('User mapper', () => {
 
   it('converts from entity to aggregate', () => {
     const aggregate = userMapper.entityToAggregate(
-      new UserEntity(userId.value, username.value, password.value, [
-        roleUser.value,
-        roleAdmin.value,
-      ])
+      new UserEntity(userId.value, username.value, password.value, [roleUser.value, roleAdmin.value])
     );
 
     expect(aggregate.id.equals(userId)).toBeTruthy();
@@ -48,11 +45,7 @@ describe('User mapper', () => {
     expect(entity.id).toEqual(userId.value);
     expect(entity.username).toEqual(username.value);
     expect(entity.password).toEqual(password.value);
-    expect(entity.roles).toEqual(
-      expect.arrayContaining([roleUser.value, roleAdmin.value])
-    );
-    expect(entity.roles).not.toEqual(
-      expect.arrayContaining([roleAnonymous.value])
-    );
+    expect(entity.roles).toEqual(expect.arrayContaining([roleUser.value, roleAdmin.value]));
+    expect(entity.roles).not.toEqual(expect.arrayContaining([roleAnonymous.value]));
   });
 });

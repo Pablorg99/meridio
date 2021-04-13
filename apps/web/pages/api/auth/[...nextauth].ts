@@ -1,8 +1,4 @@
-import {
-  isAccessToken,
-  isCredentials,
-  isJwtPayload,
-} from '@boilerplate/contracts';
+import { isAccessToken, isCredentials, isJwtPayload } from '@boilerplate/contracts';
 import axios from 'axios';
 import jose from 'jose';
 import jwt from 'jsonwebtoken';
@@ -65,30 +61,18 @@ const options: InitOptions = {
 
             return Promise.resolve(null);
           }
-          const res = await axios.post(
-            `${process.env.NEXTAUTH_URL}/api/login`,
-            credentials
-          );
+          const res = await axios.post(`${process.env.NEXTAUTH_URL}/api/login`, credentials);
 
           if (!isAccessToken(res.data)) {
-            console.error(
-              'next-auth - missing attributes in response access token',
-              JSON.stringify(res.data)
-            );
+            console.error('next-auth - missing attributes in response access token', JSON.stringify(res.data));
 
             return Promise.resolve(null);
           }
 
-          const verify = jwt.verify(
-            res.data.access_token,
-            process.env.JWT_SECRET
-          );
+          const verify = jwt.verify(res.data.access_token, process.env.JWT_SECRET);
 
           if (!isJwtPayload(verify)) {
-            console.error(
-              'next-auth - missing attributes in response payload',
-              JSON.stringify(verify)
-            );
+            console.error('next-auth - missing attributes in response payload', JSON.stringify(verify));
 
             return Promise.resolve(null);
           }
@@ -108,5 +92,4 @@ const options: InitOptions = {
   ],
 };
 
-export default (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
-  NextAuth(req, res, options);
+export default (req: NextApiRequest, res: NextApiResponse): Promise<void> => NextAuth(req, res, options);

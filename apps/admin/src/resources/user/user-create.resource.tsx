@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Create,
-  PasswordInput,
-  required,
-  SelectInput,
-  SimpleForm,
-  TextInput,
-} from 'react-admin';
+import { Create, PasswordInput, required, SelectInput, SimpleForm, TextInput } from 'react-admin';
 import * as uuid from 'uuid';
 
 import { transformUserForm, validateUserForm } from './user.form';
@@ -17,7 +10,8 @@ export const UserCreate = (props) => (
   <Create {...props} transform={transformUserForm}>
     <SimpleForm initialValues={postDefaultValue} validate={validateUserForm}>
       <TextInput source="username" data-test="usuario" />
-      <SelectInput data-test="roles"
+      <SelectInput
+        data-test="roles"
         source="roles"
         choices={[
           { id: 'ROLE_ADMIN', name: 'Administrador' },

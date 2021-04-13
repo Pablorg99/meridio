@@ -1,10 +1,4 @@
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -21,18 +15,11 @@ export interface NavbarProps {
   session: Session;
 }
 
-export function Navbar({
-  open,
-  onOpenSidebar: onOpenDrawer,
-  session,
-}: NavbarProps) {
+export function Navbar({ open, onOpenSidebar: onOpenDrawer, session }: NavbarProps) {
   const classes = useStyles();
 
   return (
-    <AppBar
-      position="absolute"
-      className={clsx(classes.appBar, open && classes.appBarShift)}
-    >
+    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
       <Toolbar className={classes.toolbar}>
         <IconButton
           edge="start"
@@ -43,13 +30,7 @@ export function Navbar({
         >
           <MenuIcon />
         </IconButton>
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.title}
-        >
+        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           Boilerplate
         </Typography>
         {session && (

@@ -7,9 +7,7 @@ import { UserEntity } from '../entity/user.entity';
 
 @EventsHandler(UserWasDeleted)
 export class UserWasDeletedSaga implements IEventHandler<UserWasDeleted> {
-  constructor(
-    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
-  ) {}
+  constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) {}
 
   async handle(event: UserWasDeleted) {
     const user = await this.userRepository.findOne(event.id);
