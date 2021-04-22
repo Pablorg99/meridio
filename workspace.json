@@ -1,5 +1,31 @@
 {
   "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "defaultProject": "web",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "none",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "none"
+      },
+      "library": {
+        "style": "none",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
   "projects": {
     "web": {
       "root": "apps/web",
@@ -278,65 +304,37 @@
     },
     "admin": {
       "root": "apps/admin",
-      "sourceRoot": "apps/admin/src",
+      "sourceRoot": "apps/admin",
       "projectType": "application",
       "targets": {
         "build": {
-          "executor": "@nrwl/web:build",
+          "executor": "@nrwl/next:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/admin",
-            "index": "apps/admin/src/index.html",
-            "main": "apps/admin/src/main.tsx",
-            "polyfills": "apps/admin/src/polyfills.ts",
-            "tsConfig": "apps/admin/tsconfig.app.json",
-            "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-            "styles": [],
-            "scripts": [],
-            "webpackConfig": "apps/admin/webpack.config.js"
+            "root": "apps/admin",
+            "outputPath": "dist/apps/admin"
           },
           "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/admin/src/environments/environment.ts",
-                  "with": "apps/admin/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
+            "production": {}
           }
         },
         "serve": {
-          "executor": "@nrwl/web:dev-server",
+          "executor": "@nrwl/next:server",
           "options": {
             "buildTarget": "admin:build",
-            "dev": true,
-            "proxyConfig": "apps/admin/proxy.conf.json"
+            "dev": true
           },
           "configurations": {
             "production": {
-              "buildTarget": "admin:build:production"
+              "buildTarget": "admin:build:production",
+              "dev": false
             }
           }
         },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
+        "export": {
+          "executor": "@nrwl/next:export",
           "options": {
-            "lintFilePatterns": ["apps/admin/**/*.{ts,tsx,js,jsx}"]
+            "buildTarget": "admin:build:production"
           }
         },
         "test": {
@@ -345,6 +343,12 @@
           "options": {
             "jestConfig": "apps/admin/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/admin/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }
@@ -375,31 +379,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "none",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "none"
-      },
-      "library": {
-        "style": "none",
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/next": {
-      "application": {
-        "style": "css",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "web"
+  }
 }
