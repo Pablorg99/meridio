@@ -26,7 +26,9 @@
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
       "parserOptions": { "project": "./tsconfig.*?.json" },
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-empty-function": ["off"]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
