@@ -14,7 +14,7 @@ type FormValues = {
   logoFile: FileList;
 };
 
-const CreateConference: React.FunctionComponent<Props> = ({ onCreateConference }) => {
+const CreateConferenceComponent: React.FunctionComponent<Props> = ({ onCreateConference }) => {
   const { handleSubmit, register } = useForm<FormValues>();
 
   return (
@@ -42,4 +42,4 @@ const CreateConference: React.FunctionComponent<Props> = ({ onCreateConference }
   );
 };
 
-export default CreateConference;
+export default CreateConferenceComponent;

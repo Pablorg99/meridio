@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 import React from 'react';
 
-import CreateConference from '../pages/new-conference';
+import CreateConferenceComponent from '../components/CreateConference';
 
 describe('Create new conference', () => {
   const defaultProps = {
@@ -14,7 +14,7 @@ describe('Create new conference', () => {
 
   describe('layout', () => {
     it('should show all the inputs and a submit button', () => {
-      render(<CreateConference {...defaultProps} />);
+      render(<CreateConferenceComponent {...defaultProps} />);
 
       expect(screen.getByRole('textbox', { name: 'Nombre de la conferencia' })).toBeInTheDocument();
       expect(screen.getByRole('textbox', { name: 'Enlace para la página principal' })).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('Create new conference', () => {
         onCreateConference: jest.fn(),
       };
 
-      render(<CreateConference {...props} />);
+      render(<CreateConferenceComponent {...props} />);
       const nameInput = screen.getByRole('textbox', { name: 'Nombre de la conferencia' });
       const urlInput = screen.getByRole('textbox', { name: 'Enlace para la página principal' });
       const submitButton = screen.getByRole('button', { name: 'Crear conferencia' });
@@ -51,7 +51,7 @@ describe('Create new conference', () => {
         onCreateConference: jest.fn(),
       };
 
-      render(<CreateConference {...props} />);
+      render(<CreateConferenceComponent {...props} />);
       const submitButton = screen.getByRole('button', { name: 'Crear conferencia' });
       userEvent.click(submitButton);
 
