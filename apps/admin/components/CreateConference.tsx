@@ -2,10 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 type Props = {
-  onCreateConference: () => Promise<void>;
+  onCreateConference: (data: CreateConferenceForm) => Promise<void>;
 };
 
-type FormValues = {
+export type CreateConferenceForm = {
   name: string;
   url: string;
   place: string;
@@ -15,10 +15,10 @@ type FormValues = {
 };
 
 const CreateConferenceComponent: React.FunctionComponent<Props> = ({ onCreateConference }) => {
-  const { handleSubmit, register } = useForm<FormValues>();
+  const { handleSubmit, register } = useForm<CreateConferenceForm>();
 
   return (
-    <form onSubmit={handleSubmit(onCreateConference)}>
+    <form onSubmit={handleSubmit((data) => onCreateConference(data))}>
       <label>
         Nombre de la conferencia <input {...register('name', { required: true })} type="text" />
       </label>
