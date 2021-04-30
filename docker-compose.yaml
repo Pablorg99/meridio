@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_DATABASE}
+
+  mongo-express:
+    image: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+
+volumes:
+  db_data:

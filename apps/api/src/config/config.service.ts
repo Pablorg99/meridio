@@ -41,7 +41,7 @@ class ConfigService {
     }
 
     return {
-      type: 'mariadb',
+      type: 'mongodb',
 
       host: this.getValue('DB_HOST'),
       port: parseInt(this.getValue('DB_PORT')),
@@ -61,6 +61,7 @@ class ConfigService {
       keepConnectionAlive: true,
       autoLoadEntities: true,
       synchronize: this.isTest(),
+      useUnifiedTopology: true,
     };
   }
 }
