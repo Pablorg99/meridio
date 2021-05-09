@@ -36,10 +36,16 @@ describe('Create new conference', () => {
       render(<CreateConferenceComponent {...props} />);
       const nameInput = screen.getByRole('textbox', { name: 'Nombre de la conferencia' });
       const urlInput = screen.getByRole('textbox', { name: 'Enlace para la página principal' });
+      const placeInput = screen.getByRole('textbox', { name: 'Lugar de celebración' });
+      const startDateInput = screen.getByLabelText('Fecha de inicio');
+      const endDateInput = screen.getByLabelText('Fecha de fin');
       const submitButton = screen.getByRole('button', { name: 'Crear conferencia' });
 
       userEvent.type(nameInput, faker.random.word());
       userEvent.type(urlInput, faker.internet.url());
+      userEvent.type(placeInput, faker.random.word());
+      userEvent.type(startDateInput, faker.date.soon().toISOString());
+      userEvent.type(endDateInput, faker.date.future().toISOString());
       userEvent.click(submitButton);
 
       await waitFor(() => expect(props.onCreateConference).toHaveBeenCalledTimes(1));

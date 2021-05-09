@@ -26,13 +26,13 @@ const CreateConferenceComponent: React.FunctionComponent<Props> = ({ onCreateCon
         Enlace para la página principal <input {...register('url', { required: true })} type="text" />
       </label>
       <label>
-        Lugar de celebración <input {...register('place')} type="text" />
+        Lugar de celebración <input {...register('place', { required: true })} type="text" />
       </label>
       <label>
-        Fecha de inicio <input {...register('startDate')} type="date" />
+        Fecha de inicio <input {...register('startDate', { required: true })} type="date" />
       </label>
       <label>
-        Fecha de fin <input {...register('endDate')} type="date" />
+        Fecha de fin <input {...register('endDate', { required: true })} type="date" />
       </label>
       <label>
         Logo de conferencia <input {...register('logoFile')} type="file" />
