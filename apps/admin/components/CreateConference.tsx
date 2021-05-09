@@ -9,9 +9,9 @@ export type CreateConferenceForm = {
   name: string;
   url: string;
   place: string;
-  startDate: Date;
-  endDate: Date;
-  logoFile: FileList;
+  startDate: string;
+  endDate: string;
+  logoFile?: FileList;
 };
 
 const CreateConferenceComponent: React.FunctionComponent<Props> = ({ onCreateConference }) => {

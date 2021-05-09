@@ -1,6 +1,8 @@
+import { CreateConferenceDTO } from '@meridio/contracts';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import React, { useCallback } from 'react';
+import * as uuid from 'uuid';
 
 import CreateConferenceComponent, { CreateConferenceForm } from '../../components/CreateConference';
 
@@ -9,8 +11,9 @@ export default function CreateConference() {
 
   const onCreateConference = useCallback(
     async (data: CreateConferenceForm) => {
-      const conferenceId = await axios.post('http://localhost:3333/api/conference', data);
-      router.push(`/conference/${conferenceId}`);
+      const body: CreateConferenceDTO = { id: uuid.v4(), ...data };
+      await axios.post('http://localhost:3333/api/conference', body);
+      router.push(`/conference/${body.id}`);
     },
     [router]
   );
