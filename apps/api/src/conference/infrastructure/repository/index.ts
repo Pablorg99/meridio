@@ -1,0 +1,1 @@
+export * from './conference-in-memory-repository'

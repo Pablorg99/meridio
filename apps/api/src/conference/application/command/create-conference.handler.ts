@@ -9,12 +9,12 @@ import {
   ConferencePlace,
   ConferenceUrl,
 } from '../../domain/model';
-import { ConferenceRepository } from '../../domain/repository';
+import { ConferenceRepository,conferenceRepository } from '../../domain/repository';
 import { CreateConferenceCommand } from './create-conference.command';
 
 @CommandHandler(CreateConferenceCommand)
 export class CreateConferenceHandler implements ICommandHandler<CreateConferenceCommand> {
-  constructor(@Inject() private repository: ConferenceRepository) {}
+  constructor(@Inject(conferenceRepository) private repository: ConferenceRepository) {}
 
   async execute(command: CreateConferenceCommand) {
     const conference = Conference.create({
