@@ -25,6 +25,7 @@ export class ConferenceWasCreated extends StorableEvent {
     this.id = params.id;
     this.name = params.name;
     this.url = params.url;
+    this.place = params.place;
     this.startDate = params.startDate;
     this.endDate = params.endDate;
     this.logoSource = params.logoSource;

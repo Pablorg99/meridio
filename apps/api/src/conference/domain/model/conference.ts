@@ -14,7 +14,7 @@ export class Conference extends AggregateRoot {
   private _url: ConferenceUrl;
   private _place: ConferencePlace;
   private _dateRange: ConferenceDateRange;
-  private _logoSource?: ConferenceLogoSource;
+  private _logoSource: ConferenceLogoSource | null;
 
   private constructor() {
     super();
@@ -81,12 +81,12 @@ export class Conference extends AggregateRoot {
     return this._logoSource;
   }
 
-  private ConferenceWasCreated(event: ConferenceWasCreated) {
+  private onConferenceWasCreated(event: ConferenceWasCreated) {
     this._id = ConferenceId.fromString(event.id);
     this._name = ConferenceName.fromString(event.name);
     this._url = ConferenceUrl.fromString(event.url);
     this._place = ConferencePlace.fromString(event.place);
     this._dateRange = ConferenceDateRange.fromStartAndEndDate(new Date(event.startDate), new Date(event.endDate));
-    this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : undefined;
+    this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : null;
   }
 }
