@@ -9,7 +9,7 @@ import {
   ConferencePlace,
   ConferenceUrl,
 } from '../../domain/model';
-import { ConferenceRepository,conferenceRepository } from '../../domain/repository';
+import { ConferenceRepository, conferenceRepository } from '../../domain/repository';
 import { CreateConferenceCommand } from './create-conference.command';
 
 @CommandHandler(CreateConferenceCommand)
