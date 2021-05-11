@@ -1,6 +1,5 @@
 import { CreateConferenceDTO } from '@meridio/contracts';
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import * as faker from 'faker';
 import * as request from 'supertest';
