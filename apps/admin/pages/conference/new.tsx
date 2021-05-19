@@ -12,7 +12,7 @@ export default function CreateConference() {
   const onCreateConference = useCallback(
     async (data: CreateConferenceForm) => {
       const body: CreateConferenceDTO = { id: uuid.v4(), ...data };
-      await axios.post('http://localhost:3333/api/conference', body);
+      await axios.post('http://localhost:3333/api/conferences', body);
       router.push(`/conference/${body.id}`);
     },
     [router]

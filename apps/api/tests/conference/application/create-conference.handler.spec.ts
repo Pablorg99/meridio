@@ -1,5 +1,5 @@
 import { CreateConferenceHandler } from '../../../src/conference/application';
-import { ConferenceMother } from '../domain/conference.mother';
+import { ConferenceMother } from '../domain/mother/conference.mother';
 import { ConferenceMockRepository } from '../mock/conference-repository.mock';
 import { CreateConferenceCommandMother } from './mother/create-conference-command.mother';
 
