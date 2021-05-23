@@ -4,7 +4,7 @@ import { StoreEventPublisher } from 'event-sourcing-nestjs';
 import { Conference, ConferenceRepository } from '../../domain';
 
 @Injectable()
-export class ConferenceEventStoreRepository implements ConferenceRepository {
+export class ConferenceMongoRepository implements ConferenceRepository {
   constructor(private publisher: StoreEventPublisher) {}
 
   async save(conference: Conference): Promise<void> {

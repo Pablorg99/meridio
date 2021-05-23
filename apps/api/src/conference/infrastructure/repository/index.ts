@@ -1,1 +1,1 @@
-export * from './conference-event-store-repository'
+export * from './conference-mongo-repository'
