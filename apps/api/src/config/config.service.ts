@@ -41,13 +41,9 @@ class ConfigService {
     }
 
     return {
-      type: 'mariadb',
+      type: 'mongodb',
 
-      host: this.getValue('DB_HOST'),
-      port: parseInt(this.getValue('DB_PORT')),
-      username: this.getValue('DB_USER'),
-      password: this.getValue('DB_PASSWORD'),
-      database: this.getValue('DB_DATABASE'),
+      url: this.getValue('MONGO_DB_URI'),
 
       migrationsTableName: 'migrations',
 
@@ -61,16 +57,13 @@ class ConfigService {
       keepConnectionAlive: true,
       autoLoadEntities: true,
       synchronize: this.isTest(),
+      useUnifiedTopology: true,
     };
   }
 }
 
 const configService = new ConfigService(process.env).ensureValues([
-  'DB_HOST',
-  'DB_PORT',
-  'DB_USER',
-  'DB_PASSWORD',
-  'DB_DATABASE',
+  'MONGO_DB_URI',
 ]);
 
 export { configService };
