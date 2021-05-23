@@ -1,1 +1,1 @@
-export * from './conference-in-memory-repository'
+export * from './conference-event-store-repository'
