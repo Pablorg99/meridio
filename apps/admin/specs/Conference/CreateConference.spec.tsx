@@ -5,7 +5,8 @@ import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 import React from 'react';
 
-import CreateConferenceComponent from '../components/CreateConference';
+import CreateConferenceComponent from '../../components/Conference/CreateConference';
+
 
 describe('Create new conference', () => {
   const defaultProps = {

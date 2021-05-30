@@ -4,7 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useCallback } from 'react';
 import * as uuid from 'uuid';
 
-import CreateConferenceComponent, { CreateConferenceForm } from '../../components/CreateConference';
+import CreateConferenceComponent, { CreateConferenceForm } from '../../components/Conference/CreateConference';
 
 export default function CreateConference() {
   const router = useRouter();
