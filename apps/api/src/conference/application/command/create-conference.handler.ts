@@ -25,6 +25,6 @@ export class CreateConferenceHandler implements ICommandHandler<CreateConference
       dateRange: ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate),
     });
 
-    this.repository.save(conference);
+    await this.repository.save(conference);
   }
 }
