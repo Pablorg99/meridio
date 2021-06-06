@@ -9,7 +9,7 @@ describe('CreateConference', () => {
   const conferenceUrl = `${faker.internet.url()}/${faker.datatype.number()}`;
   const conferencePlace = faker.random.word();
   const startDate = faker.date.soon().toISOString().split('T')[0];
-  const endDate = faker.date.soon().toISOString().split('T')[0];
+  const endDate = faker.date.future().toISOString().split('T')[0];
 
   it('filling the form creates a conference', () => {
     cy.intercept('POST', '/conferences').as('createConference');
