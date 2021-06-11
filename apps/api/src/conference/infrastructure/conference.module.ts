@@ -6,11 +6,12 @@ import { DatabaseModule } from '../../database/database.module';
 import { CreateConferenceHandler } from '../application';
 import { conferenceProviders } from './conference.providers';
 import { ConferenceController } from './controller';
+import { FindConferenceByIdHandler } from './query';
 import { ConferenceWasCreatedProjection } from './read-model';
 
 @Module({
   controllers: [ConferenceController],
   imports: [CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
-  providers: [CreateConferenceHandler, ...conferenceProviders, ConferenceWasCreatedProjection],
+  providers: [CreateConferenceHandler, ...conferenceProviders, ConferenceWasCreatedProjection, FindConferenceByIdHandler],
 })
 export class ConferenceModule {}
