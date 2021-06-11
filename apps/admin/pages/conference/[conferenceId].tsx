@@ -14,16 +14,18 @@ export default function ViewConference() {
   const [conference, setConference] = useState<ConferenceDTO>();
 
   const fetchConference = useCallback(async () => {
-    setIsFetching(true);
-    axios
-      .get(`http://localhost:3333/api/conferences/${conferenceId}`)
-      .then((response) => {
-        setConference(response.data);
-        setIsFetching(false);
-      })
-      .catch(() => {
-        setIsError(true);
-      });
+    if (conferenceId) {
+      setIsFetching(true);
+      axios
+        .get(`http://localhost:3333/api/conferences/${conferenceId}`)
+        .then((response) => {
+          setConference(response.data);
+          setIsFetching(false);
+        })
+        .catch(() => {
+          setIsError(true);
+        });
+    }
   }, [conferenceId]);
 
   return (
