@@ -6,8 +6,8 @@ import { DatabaseModule } from '../../database/database.module';
 import { CreateConferenceHandler } from '../application';
 import { conferenceProviders } from './conference.providers';
 import { ConferenceController } from './controller';
+import { ConferenceWasCreatedProjection } from './projection';
 import { FindConferenceByIdHandler } from './query';
-import { ConferenceWasCreatedProjection } from './read-model';
 
 @Module({
   controllers: [ConferenceController],

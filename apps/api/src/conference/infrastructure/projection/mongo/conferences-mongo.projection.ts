@@ -4,9 +4,9 @@ import { Connection, Model } from 'mongoose';
 
 import { mongoConnection } from '../../../../database/database.provider';
 import { ConferenceMapper } from '../../mapper';
-import { ConferenceDocument } from '../conference.document';
-import { ConferenceSchema } from '../conference.schema';
-import { ConferencesProjection } from './conferences.projection';
+import { ConferencesProjection } from '../conferences.projection';
+import { ConferenceDocument } from './conference.document';
+import { ConferenceSchema } from './conference.schema';
 
 export class ConferencesMongoProjection implements ConferencesProjection {
   private model: Model<ConferenceDocument>;

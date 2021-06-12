@@ -1,7 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ConferenceDTO, CreateConferenceDTOMother } from '@meridio/contracts';
+import { ConferenceDTO} from '@meridio/contracts';
 
-import { ConferencesProjection } from '../../../src/conference/infrastructure';
+import { ConferencesProjection } from '../../../src/conference/infrastructure/projection/conferences.projection';
+
 
 export class ConferencesMockProjection implements ConferencesProjection {
   readonly saveSpy = jest.fn();

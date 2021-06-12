@@ -1,4 +1,4 @@
-import { ConferenceDocument } from '../read-model';
+import { ConferenceDocument } from '../projection';
 
 export class ConferenceMapper {
   static documentToDTO(projection: ConferenceDocument) {

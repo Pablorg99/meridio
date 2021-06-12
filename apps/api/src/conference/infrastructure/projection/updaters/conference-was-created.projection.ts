@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common';
 import { IViewUpdater, ViewUpdaterHandler } from 'event-sourcing-nestjs';
 
 import { ConferenceWasCreated } from '../../../domain';
-import { ConferencesProjection, conferencesProjection } from './conferences.projection';
+import { ConferencesProjection, conferencesProjection } from '../conferences.projection';
 
 @ViewUpdaterHandler(ConferenceWasCreated)
 export class ConferenceWasCreatedProjection implements IViewUpdater<ConferenceWasCreated> {

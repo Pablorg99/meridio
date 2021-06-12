@@ -1,5 +1,6 @@
 import { conferenceRepository } from '../domain';
-import { ConferencesMongoProjection, conferencesProjection } from './read-model';
+import { ConferencesMongoProjection } from './projection';
+import { conferencesProjection } from './projection/conferences.projection';
 import { ConferenceMongoRepository } from './repository';
 
 export const conferenceProviders = [

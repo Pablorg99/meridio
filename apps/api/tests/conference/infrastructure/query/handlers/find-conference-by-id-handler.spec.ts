@@ -1,9 +1,9 @@
 import { CreateConferenceDTOMother } from '@meridio/contracts';
 import * as faker from 'faker';
 
-import { ConferenceNotFound } from '../../../src/conference/domain';
-import { FindConferenceByIdHandler, FindConferenceByIdQuery } from '../../../src/conference/infrastructure/query';
-import { ConferencesMockProjection } from '../mock/conferences-projection.mock';
+import { ConferenceNotFound } from '../../../../../src/conference/domain';
+import { FindConferenceByIdHandler, FindConferenceByIdQuery } from '../../../../../src/conference/infrastructure/query';
+import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
 
 describe('FindConferenceByIdHandler', function () {
   it('should return a conference with the id of the query', async function () {
