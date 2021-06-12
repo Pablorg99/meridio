@@ -13,4 +13,12 @@ export class CreateConferenceDTOMother {
       endDate: faker.date.future().toISOString().split('T')[0],
     }
   }
+
+  static withId(id: string) {
+    const conferenceDTO = this.random()
+    return {
+      ...conferenceDTO,
+      id: id
+    }
+  }
 }

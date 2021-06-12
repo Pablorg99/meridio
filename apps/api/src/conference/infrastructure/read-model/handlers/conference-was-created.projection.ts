@@ -1,22 +1,21 @@
 import { Inject } from '@nestjs/common';
 import { IViewUpdater, ViewUpdaterHandler } from 'event-sourcing-nestjs';
-import { Model } from 'mongoose';
 
 import { ConferenceWasCreated } from '../../../domain';
-import { ConferenceProjection, conferenceProjection } from '../conference.projection';
+import { ConferencesProjection, conferencesProjection } from './conferences.projection';
 
 @ViewUpdaterHandler(ConferenceWasCreated)
 export class ConferenceWasCreatedProjection implements IViewUpdater<ConferenceWasCreated> {
-  constructor(@Inject(conferenceProjection) private projection: Model<ConferenceProjection>) {}
+  constructor(@Inject(conferencesProjection) private conferences: ConferencesProjection) {}
 
-  async handle(event: ConferenceWasCreated): Promise<void> {
-    await this.projection.create({
-      _id: event.id,
+  async handle(event: ConferenceWasCreated) {
+    await this.conferences.save({
+      id: event.id,
       name: event.name,
       url: event.url,
       place: event.place,
-      startDate: event.startDate,
-      endDate: event.endDate,
+      startDate: new Date(event.startDate).toISOString().split('T')[0],
+      endDate: new Date(event.endDate).toISOString().split('T')[0],
       logoSource: event.logoSource,
     });
   }

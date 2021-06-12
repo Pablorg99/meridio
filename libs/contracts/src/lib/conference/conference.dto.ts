@@ -5,4 +5,5 @@ export class ConferenceDTO {
   place: string;
   startDate: string;
   endDate: string;
+  logoSource?: string;
 }

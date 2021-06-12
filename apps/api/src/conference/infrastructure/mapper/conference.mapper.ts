@@ -1,7 +1,7 @@
-import { ConferenceProjection } from '../read-model';
+import { ConferenceDocument } from '../read-model';
 
 export class ConferenceMapper {
-  static projectionToDTO(projection: ConferenceProjection) {
+  static documentToDTO(projection: ConferenceDocument) {
     const { name, url, place, logoSource } = projection;
     const id = projection.id as string;
     const startDate = projection.startDate.toISOString().split('T')[0];

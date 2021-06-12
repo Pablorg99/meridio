@@ -1,24 +1,23 @@
 import { ConferenceDTO } from '@meridio/contracts';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { Model } from 'mongoose';
 
 import { ConferenceNotFound } from '../../../domain';
-import { ConferenceMapper } from '../../mapper';
-import { ConferenceProjection, conferenceProjection } from '../../read-model';
+import { ConferencesProjection,conferencesProjection } from '../../read-model';
 import { FindConferenceByIdQuery } from '../find-conference-by-id.query';
 
 @QueryHandler(FindConferenceByIdQuery)
 export class FindConferenceByIdHandler implements IQueryHandler<FindConferenceByIdQuery, ConferenceDTO> {
-  constructor(@Inject(conferenceProjection) private projections: Model<ConferenceProjection>) {}
+  constructor(@Inject(conferencesProjection) private conferences: ConferencesProjection) {
+  }
 
   async execute(query: FindConferenceByIdQuery) {
-    const projection = await this.projections.findOne({ _id: query.id });
+    const conference = await this.conferences.find(query.id);
 
-    if (!projection) {
+    if (!conference) {
       throw new ConferenceNotFound(query.id);
     }
 
-    return ConferenceMapper.projectionToDTO(projection);
+    return conference;
   }
 }
