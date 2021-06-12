@@ -10,7 +10,6 @@
     "test:file": "nx test --watch=true --testFile",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
-    "e2e:file": "nx e2e --watch --spec",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
