@@ -29,6 +29,6 @@ export class ConferencesMongoProjection implements ConferencesProjection {
       return null;
     }
 
-    return ConferenceMapper.documentToDTO(document)
+    return ConferenceMapper.documentToDTO(document);
   }
 }

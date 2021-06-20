@@ -5,7 +5,7 @@ describe('CreateConference', () => {
     cy.visit('/conference/new');
   });
 
-  const conference = CreateConferenceDTOMother.random()
+  const conference = CreateConferenceDTOMother.random();
 
   it('filling the form creates a conference', () => {
     cy.intercept('POST', '/conferences').as('createConference');

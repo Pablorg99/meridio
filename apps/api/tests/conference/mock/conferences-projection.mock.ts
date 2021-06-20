@@ -1,7 +1,6 @@
-import { ConferenceDTO} from '@meridio/contracts';
+import { ConferenceDTO } from '@meridio/contracts';
 
 import { ConferencesProjection } from '../../../src/conference/infrastructure/projection/conferences.projection';
-
 
 export class ConferencesMockProjection implements ConferencesProjection {
   readonly saveSpy = jest.fn();
@@ -18,6 +17,6 @@ export class ConferencesMockProjection implements ConferencesProjection {
 
   async find(id: string): Promise<ConferenceDTO | null> {
     this.findSpy(id);
-    return this.onFind
+    return this.onFind;
   }
 }

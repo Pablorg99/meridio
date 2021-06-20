@@ -1,1 +1,1 @@
-export * from './conference-repository'
+export * from './conference-repository';

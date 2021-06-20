@@ -11,7 +11,7 @@ describe('ViewConference', () => {
     fetchConference: () => {},
     conference,
     isFetching: false,
-    isError: false
+    isError: false,
   };
 
   describe('Layout', () => {

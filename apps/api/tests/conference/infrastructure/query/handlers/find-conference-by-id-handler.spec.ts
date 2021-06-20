@@ -23,6 +23,6 @@ describe('FindConferenceByIdHandler', function () {
     const conferences = new ConferencesMockProjection({ onFind: null });
     const handler = new FindConferenceByIdHandler(conferences);
 
-    await expect(handler.execute(query)).rejects.toThrowError(ConferenceNotFound)
+    await expect(handler.execute(query)).rejects.toThrowError(ConferenceNotFound);
   });
 });

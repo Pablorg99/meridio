@@ -7,7 +7,6 @@ import React from 'react';
 
 import CreateConferenceComponent from '../../components/Conference/CreateConference';
 
-
 describe('Create new conference', () => {
   const defaultProps = {
     onCreateConference: async () => {},

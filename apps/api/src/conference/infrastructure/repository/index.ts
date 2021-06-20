@@ -1,1 +1,1 @@
-export * from './conference-mongo-repository'
+export * from './conference-mongo-repository';

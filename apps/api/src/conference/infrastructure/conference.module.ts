@@ -12,6 +12,11 @@ import { FindConferenceByIdHandler } from './query';
 @Module({
   controllers: [ConferenceController],
   imports: [CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
-  providers: [CreateConferenceHandler, ...conferenceProviders, ConferenceWasCreatedProjection, FindConferenceByIdHandler],
+  providers: [
+    CreateConferenceHandler,
+    ...conferenceProviders,
+    ConferenceWasCreatedProjection,
+    FindConferenceByIdHandler,
+  ],
 })
 export class ConferenceModule {}

@@ -1,1 +1,1 @@
-export * from './conference.mapper'
+export * from './conference.mapper';

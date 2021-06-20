@@ -1,2 +1,2 @@
-export * from './find-conference-by-id.query'
-export * from './handlers'
+export * from './find-conference-by-id.query';
+export * from './handlers';

@@ -2,8 +2,6 @@ import * as faker from 'faker';
 
 import { CreateConferenceCommand } from '../../../../src/conference/application/command';
 
-
-
 export class CreateConferenceCommandMother {
   static random() {
     return new CreateConferenceCommand({

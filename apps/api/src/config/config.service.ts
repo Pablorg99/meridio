@@ -62,8 +62,6 @@ class ConfigService {
   }
 }
 
-const configService = new ConfigService(process.env).ensureValues([
-  'MONGO_DB_URI',
-]);
+const configService = new ConfigService(process.env).ensureValues(['MONGO_DB_URI']);
 
 export { configService };

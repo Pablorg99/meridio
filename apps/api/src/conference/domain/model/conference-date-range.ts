@@ -2,7 +2,6 @@ import { ValueObject } from '@meridio/domain';
 
 import { StartDateIsPastError, StartDateLaterThanEndDateError } from '../exception';
 
-
 export class ConferenceDateRange extends ValueObject<{ startDate: number; endDate: number }> {
   static fromStartAndEndDate(startDate: Date, endDate: Date) {
     ConferenceDateRange.validateDateRange(startDate, endDate);

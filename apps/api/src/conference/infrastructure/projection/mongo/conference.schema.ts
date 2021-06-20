@@ -9,4 +9,3 @@ export const ConferenceSchema = new Schema({
   endDate: Date,
   logoSource: String,
 });
-

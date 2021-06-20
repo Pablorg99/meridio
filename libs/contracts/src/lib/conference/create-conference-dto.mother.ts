@@ -11,14 +11,14 @@ export class CreateConferenceDTOMother {
       place: faker.random.word(),
       startDate: faker.date.soon().toISOString().split('T')[0],
       endDate: faker.date.future().toISOString().split('T')[0],
-    }
+    };
   }
 
   static withId(id: string) {
-    const conferenceDTO = this.random()
+    const conferenceDTO = this.random();
     return {
       ...conferenceDTO,
-      id: id
-    }
+      id: id,
+    };
   }
 }
