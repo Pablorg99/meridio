@@ -64,5 +64,32 @@ describe('Conference form', function () {
       await waitFor(() => {});
       expect(props.onSubmit).not.toHaveBeenCalled();
     });
+
+    it('should render the form with the conference values when passed as prop', function () {
+      const conference = aConference();
+      const props = {
+        ...defaultProps,
+        conference,
+      };
+
+      render(<ConferenceForm {...props} />);
+
+      screen.getByDisplayValue(conference.name);
+      screen.getByDisplayValue(conference.url);
+      screen.getByDisplayValue(conference.place);
+      screen.getByDisplayValue(conference.startDate);
+      screen.getByDisplayValue(conference.endDate);
+    });
   });
 });
+
+function aConference() {
+  return {
+    id: faker.datatype.uuid(),
+    name: faker.random.word(),
+    url: faker.internet.url(),
+    place: faker.random.word(),
+    startDate: faker.date.soon().toISOString().split('T')[0],
+    endDate: faker.date.future().toISOString().split('T')[0],
+  };
+}

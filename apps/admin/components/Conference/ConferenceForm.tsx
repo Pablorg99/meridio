@@ -1,4 +1,5 @@
-import React from 'react';
+import { ConferenceDTO } from '@meridio/contracts';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 export type ConferenceFormData = {
@@ -12,27 +13,33 @@ export type ConferenceFormData = {
 
 type Props = {
   onSubmit(data: ConferenceFormData): void;
+  conference?: ConferenceDTO;
 };
 
-export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit }) => {
-  const { handleSubmit, register } = useForm<ConferenceFormData>();
+export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conference }) => {
+  const { handleSubmit, register, setValue } = useForm<ConferenceFormData>();
 
   return (
     <form aria-label="conference-form" onSubmit={handleSubmit((data) => onSubmit(data))}>
       <label>
-        Nombre de la conferencia <input {...register('name', { required: true })} type="text" />
+        Nombre de la conferencia{' '}
+        <input {...register('name', { required: true })} type="text" defaultValue={conference?.name} />
       </label>
       <label>
-        Enlace para la página principal <input {...register('url', { required: true })} type="text" />
+        Enlace para la página principal{' '}
+        <input {...register('url', { required: true })} type="text" defaultValue={conference?.url} />
       </label>
       <label>
-        Lugar de celebración <input {...register('place', { required: true })} type="text" />
+        Lugar de celebración{' '}
+        <input {...register('place', { required: true })} type="text" defaultValue={conference?.place} />
       </label>
       <label>
-        Fecha de inicio <input {...register('startDate', { required: true })} type="date" />
+        Fecha de inicio{' '}
+        <input {...register('startDate', { required: true })} type="date" defaultValue={conference?.startDate} />
       </label>
       <label>
-        Fecha de fin <input {...register('endDate', { required: true })} type="date" />
+        Fecha de fin{' '}
+        <input {...register('endDate', { required: true })} type="date" defaultValue={conference?.endDate} />
       </label>
       <label>
         Logo de conferencia <input {...register('logoFile')} type="file" />
