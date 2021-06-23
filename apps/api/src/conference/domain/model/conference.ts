@@ -1,7 +1,7 @@
 import { Nullable } from '@meridio/domain';
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import { ConferenceWasCreated } from '../event/conference-was-created.event';
+import { ConferenceWasCreated, ConferenceWasEdited } from '../event';
 import { ConferenceDateRange } from './conference-date-range';
 import { ConferenceId } from './conference-id';
 import { ConferenceLogoSource } from './conference-logo-source';
@@ -53,6 +53,33 @@ export class Conference extends AggregateRoot {
     return new ConferenceWasCreated({ id, name, url, place, startDate, endDate, logoSource });
   }
 
+  public update(params: {
+    name: ConferenceName;
+    url: ConferenceUrl;
+    place: ConferencePlace;
+    dateRange: ConferenceDateRange;
+  }) {
+    const event = this.buildConferenceWasEditedEvent(params);
+    this.apply(event);
+  }
+
+  private buildConferenceWasEditedEvent(params: {
+    name: ConferenceName;
+    url: ConferenceUrl;
+    place: ConferencePlace;
+    dateRange: ConferenceDateRange;
+    logoSource?: ConferenceLogoSource;
+  }) {
+    const id = this._id.value;
+    const name = params.name.value;
+    const url = params.url.value;
+    const place = params.place.value;
+    const startDate = params.dateRange.startDate;
+    const endDate = params.dateRange.endDate;
+    const logoSource = params.logoSource?.value;
+    return new ConferenceWasEdited({ id, name, url, place, startDate, endDate, logoSource });
+  }
+
   get id() {
     return this._id;
   }
@@ -83,6 +110,14 @@ export class Conference extends AggregateRoot {
 
   private onConferenceWasCreated(event: ConferenceWasCreated) {
     this._id = ConferenceId.fromString(event.id);
+    this._name = ConferenceName.fromString(event.name);
+    this._url = ConferenceUrl.fromString(event.url);
+    this._place = ConferencePlace.fromString(event.place);
+    this._dateRange = ConferenceDateRange.fromStartAndEndDate(new Date(event.startDate), new Date(event.endDate));
+    this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : null;
+  }
+
+  private onConferenceWasEdited(event: ConferenceWasEdited) {
     this._name = ConferenceName.fromString(event.name);
     this._url = ConferenceUrl.fromString(event.url);
     this._place = ConferencePlace.fromString(event.place);
