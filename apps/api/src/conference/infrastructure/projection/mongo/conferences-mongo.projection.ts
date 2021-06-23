@@ -23,6 +23,15 @@ export class ConferencesMongoProjection implements ConferencesProjection {
     });
   }
 
+  async update(conference: ConferenceDTO): Promise<void> {
+    const { id, ...document } = conference;
+    await this.model.updateOne({ _id: id }, { $replaceWith: document });
+  }
+
+  async exists(id: string): Promise<boolean> {
+    return await this.model.exists({ _id: id });
+  }
+
   async find(id: string): Promise<Nullable<ConferenceDTO>> {
     const document = await this.model.findOne({ _id: id });
 

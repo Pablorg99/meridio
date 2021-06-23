@@ -14,7 +14,6 @@ describe('FindConferenceByIdHandler', function () {
 
     const foundConference = await handler.execute(query);
 
-    expect(conferences.findSpy).toHaveBeenCalledWith(query.id);
     expect(foundConference.id).toBe(query.id);
   });
 
