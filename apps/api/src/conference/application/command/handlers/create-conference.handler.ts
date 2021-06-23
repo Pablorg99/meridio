@@ -8,9 +8,9 @@ import {
   ConferenceName,
   ConferencePlace,
   ConferenceUrl,
-} from '../../domain/model';
-import { ConferenceRepository, conferenceRepository } from '../../domain/repository';
-import { CreateConferenceCommand } from './create-conference.command';
+} from '../../../domain/model';
+import { ConferenceRepository, conferenceRepository } from '../../../domain/repository';
+import { CreateConferenceCommand } from '../create-conference.command';
 
 @CommandHandler(CreateConferenceCommand)
 export class CreateConferenceHandler implements ICommandHandler<CreateConferenceCommand> {
