@@ -1,11 +1,11 @@
 import * as faker from 'faker';
 
-import { CreateConferenceDTO } from './create-conference.dto';
+import { ConferenceDTO } from './conference.dto';
 
-export class CreateConferenceDTOMother {
-  static random(): CreateConferenceDTO {
+export class ConferenceDTOMother {
+  static withId(id: string): ConferenceDTO {
     return {
-      id: faker.datatype.uuid(),
+      id,
       name: faker.random.word(),
       url: `${faker.internet.url()}/${faker.datatype.number()}`,
       place: faker.random.word(),

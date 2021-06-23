@@ -1,4 +1,4 @@
-import { CreateConferenceDTOMother } from '@meridio/contracts';
+import { ConferenceDTOMother } from '@meridio/contracts';
 import * as faker from 'faker';
 
 import { ConferenceNotFound } from '../../../../../src/conference/domain';
@@ -8,7 +8,7 @@ import { ConferencesMockProjection } from '../../../mock/conferences-projection.
 describe('FindConferenceByIdHandler', function () {
   it('should return a conference with the id of the query', async function () {
     const query = new FindConferenceByIdQuery(faker.datatype.uuid());
-    const conferenceDTO = CreateConferenceDTOMother.withId(query.id);
+    const conferenceDTO = ConferenceDTOMother.withId(query.id);
     const conferences = new ConferencesMockProjection({ onFind: conferenceDTO });
     const handler = new FindConferenceByIdHandler(conferences);
 
