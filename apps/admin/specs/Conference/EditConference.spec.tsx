@@ -4,18 +4,19 @@ import { render, screen } from '@testing-library/react';
 import faker from 'faker';
 import React from 'react';
 
-import { EditConference } from '../../components/Conference/EditConference';
+import { EditConferenceComponent } from '../../components/Conference/EditConference';
 
 describe('Edit existing conference', function () {
   const conference = aConference();
   const defaultProps = {
     onEditConference: () => {},
     conference,
+    fetchConference: () => {},
   };
 
   describe('layout', () => {
     it('should render the conference form with the conference attributes', () => {
-      render(<EditConference {...defaultProps} />);
+      render(<EditConferenceComponent {...defaultProps} />);
 
       expect(screen.getByRole('form', { name: 'conference-form' })).toBeInTheDocument();
       expect(screen.getByDisplayValue(conference.name)).toBeInTheDocument();
@@ -23,6 +24,30 @@ describe('Edit existing conference', function () {
       expect(screen.getByDisplayValue(conference.place)).toBeInTheDocument();
       expect(screen.getByDisplayValue(conference.startDate)).toBeInTheDocument();
       expect(screen.getByDisplayValue(conference.endDate)).toBeInTheDocument();
+    });
+
+    it('should not render the form while there is no conference', function () {
+      const props = {
+        ...defaultProps,
+        conference: undefined,
+      };
+
+      render(<EditConferenceComponent {...props} />);
+
+      expect(() => screen.getByRole('form', { name: 'conference-form' })).toThrow();
+    });
+  });
+
+  describe('behaviour', function () {
+    it('should fetch the conference when rendered', function () {
+      const props = {
+        ...defaultProps,
+        fetchConference: jest.fn(),
+      };
+
+      render(<EditConferenceComponent {...props} />);
+
+      expect(props.fetchConference).toHaveBeenCalledTimes(1);
     });
   });
 });

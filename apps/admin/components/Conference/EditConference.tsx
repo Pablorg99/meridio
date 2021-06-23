@@ -1,13 +1,26 @@
 import { ConferenceDTO } from '@meridio/contracts';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { ConferenceForm, ConferenceFormData } from './ConferenceForm';
 
 type Props = {
+  conference?: ConferenceDTO;
+  fetchConference: () => void;
   onEditConference: (data: ConferenceFormData) => void;
-  conference: ConferenceDTO;
 };
 
-export const EditConference: React.FunctionComponent<Props> = ({ onEditConference, conference }) => (
-  <ConferenceForm onSubmit={onEditConference} conference={conference} />
-);
+export const EditConferenceComponent: React.FunctionComponent<Props> = ({
+  conference,
+  fetchConference,
+  onEditConference,
+}) => {
+  useEffect(() => {
+    fetchConference();
+  }, [fetchConference]);
+
+  if (!conference) {
+    return null;
+  }
+
+  return <ConferenceForm onSubmit={onEditConference} conference={conference} />;
+};
