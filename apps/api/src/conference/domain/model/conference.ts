@@ -1,3 +1,4 @@
+import { Nullable } from '@meridio/domain';
 import { AggregateRoot } from '@nestjs/cqrs';
 
 import { ConferenceWasCreated } from '../event/conference-was-created.event';
@@ -14,7 +15,7 @@ export class Conference extends AggregateRoot {
   private _url: ConferenceUrl;
   private _place: ConferencePlace;
   private _dateRange: ConferenceDateRange;
-  private _logoSource: ConferenceLogoSource | null;
+  private _logoSource: Nullable<ConferenceLogoSource>;
 
   private constructor() {
     super();
@@ -49,8 +50,7 @@ export class Conference extends AggregateRoot {
     const startDate = params.dateRange.startDate;
     const endDate = params.dateRange.endDate;
     const logoSource = params.logoSource?.value;
-    const event = new ConferenceWasCreated({ id, name, url, place, startDate, endDate, logoSource });
-    return event;
+    return new ConferenceWasCreated({ id, name, url, place, startDate, endDate, logoSource });
   }
 
   get id() {

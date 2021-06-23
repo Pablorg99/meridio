@@ -1,4 +1,5 @@
 import { UserDTO } from '@meridio/contracts';
+import { Nullable } from '@meridio/domain';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
@@ -11,7 +12,7 @@ import { GetUserByUsernameQuery } from './get-user-by-username.query';
 export class GetUserByUsernameHandler implements IQueryHandler<GetUserByUsernameQuery> {
   constructor(@Inject(USERS) private users: Users, private userMapper: UserMapper) {}
 
-  async execute(query: GetUserByUsernameQuery): Promise<UserDTO | null> {
+  async execute(query: GetUserByUsernameQuery): Promise<Nullable<UserDTO>> {
     const user = await this.users.findOneByUsername(Username.fromString(query.username));
 
     if (!user) {

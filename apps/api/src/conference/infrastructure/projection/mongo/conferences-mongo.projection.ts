@@ -1,4 +1,5 @@
 import { ConferenceDTO } from '@meridio/contracts';
+import { Nullable } from '@meridio/domain';
 import { Inject } from '@nestjs/common';
 import { Connection, Model } from 'mongoose';
 
@@ -22,7 +23,7 @@ export class ConferencesMongoProjection implements ConferencesProjection {
     });
   }
 
-  async find(id: string): Promise<ConferenceDTO | null> {
+  async find(id: string): Promise<Nullable<ConferenceDTO>> {
     const document = await this.model.findOne({ _id: id });
 
     if (!document) {

@@ -1,13 +1,14 @@
 import { ConferenceDTO } from '@meridio/contracts';
+import { Nullable } from '@meridio/domain';
 
 import { ConferencesProjection } from '../../../src/conference/infrastructure/projection/conferences.projection';
 
 export class ConferencesMockProjection implements ConferencesProjection {
   readonly saveSpy = jest.fn();
   readonly findSpy = jest.fn();
-  private readonly onFind: ConferenceDTO | null;
+  private readonly onFind: Nullable<ConferenceDTO>;
 
-  constructor(params?: { onFind?: ConferenceDTO | null }) {
+  constructor(params?: { onFind?: Nullable<ConferenceDTO> }) {
     this.onFind = params?.onFind || null;
   }
 
@@ -15,7 +16,7 @@ export class ConferencesMockProjection implements ConferencesProjection {
     this.saveSpy(conference);
   }
 
-  async find(id: string): Promise<ConferenceDTO | null> {
+  async find(id: string): Promise<Nullable<ConferenceDTO>> {
     this.findSpy(id);
     return this.onFind;
   }
