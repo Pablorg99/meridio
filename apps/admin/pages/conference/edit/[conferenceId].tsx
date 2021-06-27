@@ -1,8 +1,9 @@
-import { ConferenceDTO } from '@meridio/contracts';
+import { ConferenceDTO, EditConferenceDTO } from '@meridio/contracts';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import { useCallback, useState } from 'react';
 
+import { ConferenceFormData } from '../../../components/Conference/ConferenceForm';
 import { EditConferenceComponent } from '../../../components/Conference/EditConference';
 
 export default function EditConference() {
@@ -24,9 +25,15 @@ export default function EditConference() {
     }
   }, [conferenceId]);
 
-  const updateConference = useCallback(async () => {
-    await axios.put(`http://localhost:3333/api/conferences/${conferenceId}`, conference);
-  }, [conference, conferenceId]);
+  const updateConference = useCallback(
+    async (data: ConferenceFormData) => {
+      if (conferenceId) {
+        const body: EditConferenceDTO = { ...data };
+        await axios.put(`http://localhost:3333/api/conferences/${conferenceId}`, body);
+      }
+    },
+    [conferenceId]
+  );
 
   return (
     <EditConferenceComponent
