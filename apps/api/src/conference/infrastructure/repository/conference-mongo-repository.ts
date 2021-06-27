@@ -6,7 +6,7 @@ import { Conference, ConferenceId, ConferenceRepository } from '../../domain';
 
 @Injectable()
 export class ConferenceMongoRepository implements ConferenceRepository {
-  constructor(private publisher: StoreEventPublisher, private readonly events: EventStore) {}
+  constructor(private readonly publisher: StoreEventPublisher, private readonly events: EventStore) {}
 
   async save(conference: Conference): Promise<void> {
     conference = this.publisher.mergeObjectContext(conference);
