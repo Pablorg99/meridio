@@ -12,10 +12,9 @@ import {
   ConferenceUrl,
 } from '../../../domain';
 import { EditConferenceCommand } from '../edit-conference.command';
-import { CreateConferenceCommand } from '../index';
 
 @CommandHandler(EditConferenceCommand)
-export class EditConferenceHandler implements ICommandHandler<CreateConferenceCommand> {
+export class EditConferenceHandler implements ICommandHandler<EditConferenceCommand> {
   constructor(@Inject(conferenceRepository) private repository: ConferenceRepository) {}
 
   async execute(command: EditConferenceCommand) {
