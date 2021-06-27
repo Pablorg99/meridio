@@ -1,8 +1,8 @@
-import { ConferenceDTO, CreateConferenceDTO } from '@meridio/contracts';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ConferenceDTO, CreateConferenceDTO, EditConferenceDTO } from '@meridio/contracts';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
-import { CreateConferenceCommand } from '../../application';
+import { CreateConferenceCommand, EditConferenceCommand } from '../../application';
 import { FindConferenceByIdQuery } from '../query';
 
 @Controller('conferences')
@@ -19,6 +19,21 @@ export class ConferenceController {
       startDate: new Date(createConferenceDto.startDate),
       endDate: new Date(createConferenceDto.endDate),
       logoFile: createConferenceDto.logoFile,
+    });
+
+    await this.commandBus.execute(command);
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() editConferenceDto: EditConferenceDTO) {
+    const command = new EditConferenceCommand({
+      id,
+      name: editConferenceDto.name,
+      url: editConferenceDto.url,
+      place: editConferenceDto.place,
+      startDate: new Date(editConferenceDto.startDate),
+      endDate: new Date(editConferenceDto.endDate),
+      logoFile: editConferenceDto.logoFile,
     });
 
     await this.commandBus.execute(command);

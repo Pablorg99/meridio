@@ -3,20 +3,19 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { EventSourcingModule } from 'event-sourcing-nestjs';
 
 import { DatabaseModule } from '../../database/database.module';
-import { CreateConferenceHandler } from '../application';
+import { CreateConferenceHandler, EditConferenceHandler } from '../application';
 import { conferenceProviders } from './conference.providers';
 import { ConferenceController } from './controller';
-import { ConferenceWasCreatedProjection } from './projection';
+import { ConferenceWasCreatedProjection, ConferenceWasEditedProjection } from './projection';
 import { FindConferenceByIdHandler } from './query';
+
+const commandHandlers = [CreateConferenceHandler, EditConferenceHandler];
+const queryHandlers = [FindConferenceByIdHandler];
+const viewUpdaters = [ConferenceWasCreatedProjection, ConferenceWasEditedProjection];
 
 @Module({
   controllers: [ConferenceController],
   imports: [CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
-  providers: [
-    CreateConferenceHandler,
-    ...conferenceProviders,
-    ConferenceWasCreatedProjection,
-    FindConferenceByIdHandler,
-  ],
+  providers: [...conferenceProviders, ...commandHandlers, ...queryHandlers, ...viewUpdaters],
 })
 export class ConferenceModule {}
