@@ -13,7 +13,7 @@ export default function ViewConference() {
   const [isError, setIsError] = useState(false);
   const [conference, setConference] = useState<ConferenceDTO>();
 
-  const fetchConference = useCallback(async () => {
+  const fetchConference = useCallback(() => {
     if (conferenceId) {
       setIsFetching(true);
       axios

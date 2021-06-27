@@ -5,7 +5,7 @@ export const ConferenceSchema = new Schema({
   name: String,
   url: String,
   place: String,
-  startDate: Date,
-  endDate: Date,
+  startDate: String,
+  endDate: String,
   logoSource: String,
 });

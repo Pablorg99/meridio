@@ -1,4 +1,5 @@
 import { UserDTO } from '@meridio/contracts';
+import { Nullable } from '@meridio/domain';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
@@ -11,7 +12,7 @@ import { GetUserQuery } from './get-user.query';
 export class GetUserHandler implements IQueryHandler<GetUserQuery> {
   constructor(@Inject(USERS) private users: Users, private userMapper: UserMapper) {}
 
-  async execute(query: GetUserQuery): Promise<UserDTO | null> {
+  async execute(query: GetUserQuery): Promise<Nullable<UserDTO>> {
     const user = await this.users.find(UserId.fromString(query.id));
 
     if (!user) {
