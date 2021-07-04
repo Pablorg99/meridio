@@ -1,5 +1,5 @@
 import { ConferenceDTO } from '@meridio/contracts';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 
 export type ConferenceFormData = {
@@ -9,6 +9,9 @@ export type ConferenceFormData = {
   startDate: string;
   endDate: string;
   logoFile?: FileList;
+  isLandingPageOpen: boolean;
+  isCallForPapersOpen: boolean;
+  isTicketSalesOpen: boolean;
 };
 
 type Props = {
@@ -17,7 +20,7 @@ type Props = {
 };
 
 export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conference }) => {
-  const { handleSubmit, register, setValue } = useForm<ConferenceFormData>();
+  const { handleSubmit, register } = useForm<ConferenceFormData>();
 
   return (
     <form aria-label="conference-form" onSubmit={handleSubmit((data) => onSubmit(data))}>
@@ -44,7 +47,16 @@ export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, confe
       <label>
         Logo de conferencia <input {...register('logoFile')} type="file" />
       </label>
-      <input type="submit" value="Crear conferencia" />
+      <label>
+        Abrir página de conferencia <input {...register('isLandingPageOpen')} type="checkbox" />
+      </label>
+      <label>
+        Abrir call for papers <input {...register('isCallForPapersOpen')} type="checkbox" />
+      </label>
+      <label>
+        Abrir venta de tickets <input {...register('isTicketSalesOpen')} type="checkbox" />
+      </label>
+      <input type="submit" value=" Crear conferencia" />
     </form>
   );
 };
