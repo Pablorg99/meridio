@@ -8,6 +8,7 @@
     "build": "nx build",
     "test": "nx test",
     "test:file": "nx test --watch=true --testFile",
+    "test:all": "nx run-many --all --target=test && nx e2e",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
     "affected:apps": "nx affected:apps",
