@@ -17,6 +17,9 @@ export class ConferenceWasCreatedProjection implements IViewUpdater<ConferenceWa
       startDate: new Date(event.startDate).toISOString().split('T')[0],
       endDate: new Date(event.endDate).toISOString().split('T')[0],
       logoSource: event.logoSource,
+      isLandingPageOpen: event.isLandingPageOpen,
+      isCallForPapersOpen: event.isCallForPapersOpen,
+      isTicketSalesOpen: event.isTicketSalesOpen,
     });
   }
 }

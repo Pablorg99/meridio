@@ -6,4 +6,7 @@ export class ConferenceDTO {
   startDate: string;
   endDate: string;
   logoSource?: string;
+  isLandingPageOpen: boolean;
+  isCallForPapersOpen: boolean;
+  isTicketSalesOpen: boolean;
 }

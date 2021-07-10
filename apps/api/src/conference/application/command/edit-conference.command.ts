@@ -8,6 +8,9 @@ export class EditConferenceCommand implements ICommand {
   readonly startDate: Date;
   readonly endDate: Date;
   readonly logoFile?: FileList;
+  readonly isLandingPageOpen: boolean;
+  readonly isCallForPapersOpen: boolean;
+  readonly isTicketSalesOpen: boolean;
 
   constructor(params: {
     id: string;
@@ -17,6 +20,9 @@ export class EditConferenceCommand implements ICommand {
     startDate: Date;
     endDate: Date;
     logoFile?: FileList;
+    isLandingPageOpen: boolean;
+    isCallForPapersOpen: boolean;
+    isTicketSalesOpen: boolean;
   }) {
     this.id = params.id;
     this.name = params.name;
@@ -25,5 +31,8 @@ export class EditConferenceCommand implements ICommand {
     this.startDate = params.startDate;
     this.endDate = params.endDate;
     this.logoFile = params.logoFile;
+    this.isLandingPageOpen = params.isLandingPageOpen;
+    this.isCallForPapersOpen = params.isCallForPapersOpen;
+    this.isTicketSalesOpen = params.isTicketSalesOpen;
   }
 }

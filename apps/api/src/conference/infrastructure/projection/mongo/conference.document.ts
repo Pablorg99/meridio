@@ -7,4 +7,7 @@ export interface ConferenceDocument extends Document {
   readonly startDate: string;
   readonly endDate: string;
   readonly logoSource: string;
+  readonly isLandingPageOpen: boolean;
+  readonly isCallForPapersOpen: boolean;
+  readonly isTicketSalesOpen: boolean;
 }

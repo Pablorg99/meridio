@@ -19,6 +19,9 @@ export class ConferenceController {
       startDate: new Date(createConferenceDto.startDate),
       endDate: new Date(createConferenceDto.endDate),
       logoFile: createConferenceDto.logoFile,
+      isLandingPageOpen: createConferenceDto.isLandingPageOpen,
+      isCallForPapersOpen: createConferenceDto.isCallForPapersOpen,
+      isTicketSalesOpen: createConferenceDto.isTicketSalesOpen,
     });
 
     await this.commandBus.execute(command);
@@ -34,6 +37,9 @@ export class ConferenceController {
       startDate: new Date(editConferenceDto.startDate),
       endDate: new Date(editConferenceDto.endDate),
       logoFile: editConferenceDto.logoFile,
+      isLandingPageOpen: editConferenceDto.isLandingPageOpen,
+      isCallForPapersOpen: editConferenceDto.isCallForPapersOpen,
+      isTicketSalesOpen: editConferenceDto.isTicketSalesOpen,
     });
 
     await this.commandBus.execute(command);

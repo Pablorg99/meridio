@@ -7,6 +7,7 @@ import {
   ConferenceId,
   ConferenceName,
   ConferencePlace,
+  ConferenceSettings,
   ConferenceUrl,
 } from '../../../domain/model';
 import { ConferenceRepository, conferenceRepository } from '../../../domain/repository';
@@ -23,6 +24,11 @@ export class CreateConferenceHandler implements ICommandHandler<CreateConference
       url: ConferenceUrl.fromString(command.url),
       place: ConferencePlace.fromString(command.place),
       dateRange: ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate),
+      settings: ConferenceSettings.fromValues(
+        command.isLandingPageOpen,
+        command.isCallForPapersOpen,
+        command.isTicketSalesOpen
+      ),
     });
 
     await this.repository.save(conference);

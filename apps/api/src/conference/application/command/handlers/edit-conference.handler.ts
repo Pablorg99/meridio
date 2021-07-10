@@ -9,6 +9,7 @@ import {
   ConferencePlace,
   ConferenceRepository,
   conferenceRepository,
+  ConferenceSettings,
   ConferenceUrl,
 } from '../../../domain';
 import { EditConferenceCommand } from '../edit-conference.command';
@@ -29,7 +30,12 @@ export class EditConferenceHandler implements ICommandHandler<EditConferenceComm
     const url = ConferenceUrl.fromString(command.url);
     const place = ConferencePlace.fromString(command.place);
     const dateRange = ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate);
-    conference.update({ name, url, place, dateRange });
+    const settings = ConferenceSettings.fromValues(
+      command.isLandingPageOpen,
+      command.isCallForPapersOpen,
+      command.isTicketSalesOpen
+    );
+    conference.update({ name, url, place, dateRange, settings });
 
     await this.repository.save(conference);
   }

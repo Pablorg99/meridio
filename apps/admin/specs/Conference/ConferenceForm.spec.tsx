@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 
+import { ConferenceDTO } from '@meridio/contracts';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import faker from 'faker';
@@ -87,7 +88,7 @@ describe('Conference form', function () {
   });
 });
 
-function aConference() {
+function aConference(): ConferenceDTO {
   return {
     id: faker.datatype.uuid(),
     name: faker.random.word(),
@@ -95,5 +96,8 @@ function aConference() {
     place: faker.random.word(),
     startDate: faker.date.soon().toISOString().split('T')[0],
     endDate: faker.date.future().toISOString().split('T')[0],
+    isLandingPageOpen: faker.datatype.boolean(),
+    isCallForPapersOpen: faker.datatype.boolean(),
+    isTicketSalesOpen: faker.datatype.boolean(),
   };
 }
