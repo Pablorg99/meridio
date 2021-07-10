@@ -6,4 +6,7 @@ export class CreateConferenceDTO {
   startDate: string;
   endDate: string;
   logoFile?: FileList;
+  isLandingPageOpen: boolean;
+  isCallForPapersOpen: boolean;
+  isTicketSalesOpen: boolean;
 }

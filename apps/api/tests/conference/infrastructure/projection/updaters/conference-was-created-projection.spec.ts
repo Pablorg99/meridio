@@ -19,6 +19,9 @@ describe('ConferenceWasCreatedProjection', function () {
       place: event.place,
       startDate: new Date(event.startDate).toISOString().split('T')[0],
       endDate: new Date(event.endDate).toISOString().split('T')[0],
+      isLandingPageOpen: event.isLandingPageOpen,
+      isCallForPapersOpen: event.isCallForPapersOpen,
+      isTicketSalesOpen: event.isTicketSalesOpen,
     };
 
     expect(conferences.saveSpy).toHaveBeenCalledWith(expectedDto);

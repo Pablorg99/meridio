@@ -4,6 +4,7 @@ import {
   ConferenceDateRange,
   ConferenceName,
   ConferencePlace,
+  ConferenceSettings,
   ConferenceUrl,
 } from '../../../src/conference/domain';
 import { ConferenceMother } from '../domain/mother/conference.mother';
@@ -25,12 +26,20 @@ describe('Edit conference command handler', function () {
       url: ConferenceUrl.fromString(command.url),
       place: ConferencePlace.fromString(command.place),
       dateRange: ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate),
+      settings: ConferenceSettings.fromValues(
+        command.isLandingPageOpen,
+        command.isCallForPapersOpen,
+        command.isTicketSalesOpen
+      ),
     });
     expect(existingConference.name).toStrictEqual(expectedConference.name);
     expect(existingConference.url).toStrictEqual(expectedConference.url);
     expect(existingConference.place).toStrictEqual(expectedConference.place);
     expect(existingConference.startDate).toStrictEqual(expectedConference.startDate);
     expect(existingConference.endDate).toStrictEqual(expectedConference.endDate);
+    expect(existingConference.isLandingPageOpen).toStrictEqual(expectedConference.isLandingPageOpen);
+    expect(existingConference.isCallForPapersOpen).toStrictEqual(expectedConference.isCallForPapersOpen);
+    expect(existingConference.isTicketSalesOpen).toStrictEqual(expectedConference.isTicketSalesOpen);
     expect(repository.mockSave).toHaveBeenCalledWith(existingConference);
   });
 });

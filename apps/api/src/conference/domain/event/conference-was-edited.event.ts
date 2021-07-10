@@ -11,6 +11,9 @@ export class ConferenceWasEdited extends StorableEvent {
   readonly startDate: number;
   readonly endDate: number;
   readonly logoSource?: string;
+  readonly isLandingPageOpen: boolean;
+  readonly isCallForPapersOpen: boolean;
+  readonly isTicketSalesOpen: boolean;
 
   constructor(params: {
     id: string;
@@ -20,6 +23,9 @@ export class ConferenceWasEdited extends StorableEvent {
     startDate: number;
     endDate: number;
     logoSource?: string;
+    isLandingPageOpen: boolean;
+    isCallForPapersOpen: boolean;
+    isTicketSalesOpen: boolean;
   }) {
     super();
     this.id = params.id;
@@ -29,5 +35,8 @@ export class ConferenceWasEdited extends StorableEvent {
     this.startDate = params.startDate;
     this.endDate = params.endDate;
     this.logoSource = params.logoSource;
+    this.isLandingPageOpen = params.isLandingPageOpen;
+    this.isCallForPapersOpen = params.isCallForPapersOpen;
+    this.isTicketSalesOpen = params.isTicketSalesOpen;
   }
 }

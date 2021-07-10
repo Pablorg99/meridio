@@ -8,4 +8,7 @@ export const ConferenceSchema = new Schema({
   startDate: String,
   endDate: String,
   logoSource: String,
+  isLandingPageOpen: Boolean,
+  isCallForPapersOpen: Boolean,
+  isTicketSalesOpen: Boolean,
 });

@@ -7,6 +7,7 @@ import { ConferenceId } from './conference-id';
 import { ConferenceLogoSource } from './conference-logo-source';
 import { ConferenceName } from './conference-name';
 import { ConferencePlace } from './conference-place';
+import { ConferenceSettings } from './conference-settings';
 import { ConferenceUrl } from './conference-url';
 
 export class Conference extends AggregateRoot {
@@ -16,6 +17,7 @@ export class Conference extends AggregateRoot {
   private _place: ConferencePlace;
   private _dateRange: ConferenceDateRange;
   private _logoSource: Nullable<ConferenceLogoSource>;
+  private _settings: ConferenceSettings;
 
   private constructor() {
     super();
@@ -28,6 +30,7 @@ export class Conference extends AggregateRoot {
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     logoSource?: ConferenceLogoSource;
+    settings: ConferenceSettings;
   }) {
     const conference = new Conference();
     const event = Conference.buildConferenceWasCreatedEvent(params);
@@ -42,15 +45,20 @@ export class Conference extends AggregateRoot {
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     logoSource?: ConferenceLogoSource;
+    settings: ConferenceSettings;
   }) {
-    const id = params.id.value;
-    const name = params.name.value;
-    const url = params.url.value;
-    const place = params.place.value;
-    const startDate = params.dateRange.startDate;
-    const endDate = params.dateRange.endDate;
-    const logoSource = params.logoSource?.value;
-    return new ConferenceWasCreated({ id, name, url, place, startDate, endDate, logoSource });
+    return new ConferenceWasCreated({
+      id: params.id.value,
+      name: params.name.value,
+      url: params.url.value,
+      place: params.place.value,
+      startDate: params.dateRange.startDate,
+      endDate: params.dateRange.endDate,
+      logoSource: params.logoSource?.value,
+      isLandingPageOpen: params.settings.isLandingPageOpen,
+      isCallForPapersOpen: params.settings.isCallForPapersOpen,
+      isTicketSalesOpen: params.settings.isTicketSalesOpen,
+    });
   }
 
   public update(params: {
@@ -58,6 +66,7 @@ export class Conference extends AggregateRoot {
     url: ConferenceUrl;
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
+    settings: ConferenceSettings;
   }) {
     const event = this.buildConferenceWasEditedEvent(params);
     this.apply(event);
@@ -69,15 +78,20 @@ export class Conference extends AggregateRoot {
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     logoSource?: ConferenceLogoSource;
+    settings: ConferenceSettings;
   }) {
-    const id = this._id.value;
-    const name = params.name.value;
-    const url = params.url.value;
-    const place = params.place.value;
-    const startDate = params.dateRange.startDate;
-    const endDate = params.dateRange.endDate;
-    const logoSource = params.logoSource?.value;
-    return new ConferenceWasEdited({ id, name, url, place, startDate, endDate, logoSource });
+    return new ConferenceWasEdited({
+      id: this._id.value,
+      name: params.name.value,
+      url: params.url.value,
+      place: params.place.value,
+      startDate: params.dateRange.startDate,
+      endDate: params.dateRange.endDate,
+      logoSource: params.logoSource?.value,
+      isLandingPageOpen: params.settings.isLandingPageOpen,
+      isCallForPapersOpen: params.settings.isCallForPapersOpen,
+      isTicketSalesOpen: params.settings.isTicketSalesOpen,
+    });
   }
 
   get id() {
@@ -108,6 +122,18 @@ export class Conference extends AggregateRoot {
     return this._logoSource;
   }
 
+  get isLandingPageOpen() {
+    return this._settings.isLandingPageOpen;
+  }
+
+  get isCallForPapersOpen() {
+    return this._settings.isCallForPapersOpen;
+  }
+
+  get isTicketSalesOpen() {
+    return this._settings.isTicketSalesOpen;
+  }
+
   private onConferenceWasCreated(event: ConferenceWasCreated) {
     this._id = ConferenceId.fromString(event.id);
     this._name = ConferenceName.fromString(event.name);
@@ -115,6 +141,11 @@ export class Conference extends AggregateRoot {
     this._place = ConferencePlace.fromString(event.place);
     this._dateRange = ConferenceDateRange.fromStartAndEndDate(new Date(event.startDate), new Date(event.endDate));
     this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : null;
+    this._settings = ConferenceSettings.fromValues(
+      event.isLandingPageOpen,
+      event.isCallForPapersOpen,
+      event.isTicketSalesOpen
+    );
   }
 
   private onConferenceWasEdited(event: ConferenceWasEdited) {
@@ -123,5 +154,10 @@ export class Conference extends AggregateRoot {
     this._place = ConferencePlace.fromString(event.place);
     this._dateRange = ConferenceDateRange.fromStartAndEndDate(new Date(event.startDate), new Date(event.endDate));
     this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : null;
+    this._settings = ConferenceSettings.fromValues(
+      event.isLandingPageOpen,
+      event.isCallForPapersOpen,
+      event.isTicketSalesOpen
+    );
   }
 }

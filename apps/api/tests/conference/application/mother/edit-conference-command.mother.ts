@@ -11,6 +11,9 @@ export class EditConferenceCommandMother {
       place: faker.random.word(),
       startDate: new Date(faker.date.soon()),
       endDate: new Date(faker.date.future()),
+      isLandingPageOpen: faker.datatype.boolean(),
+      isCallForPapersOpen: faker.datatype.boolean(),
+      isTicketSalesOpen: faker.datatype.boolean(),
     });
   }
 }

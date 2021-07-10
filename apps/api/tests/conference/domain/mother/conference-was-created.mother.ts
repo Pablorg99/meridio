@@ -11,6 +11,9 @@ export class ConferenceWasCreatedMother {
       place: faker.random.word(),
       startDate: faker.date.soon().getTime(),
       endDate: faker.date.future().getTime(),
+      isLandingPageOpen: faker.datatype.boolean(),
+      isCallForPapersOpen: faker.datatype.boolean(),
+      isTicketSalesOpen: faker.datatype.boolean(),
     });
   }
 }
