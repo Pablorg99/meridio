@@ -30,4 +30,8 @@ export class ConferencesMockProjection implements ConferencesProjection {
   async find(id: string): Promise<Nullable<ConferenceDTO>> {
     return this.onFind;
   }
+
+  async findByUrl(url: string): Promise<Nullable<ConferenceDTO>> {
+    return this.onFind;
+  }
 }

@@ -3,9 +3,9 @@ import * as faker from 'faker';
 import { ConferenceDTO } from './conference.dto';
 
 export class ConferenceDTOMother {
-  static withId(id: string): ConferenceDTO {
+  static random(): ConferenceDTO {
     return {
-      id,
+      id: faker.datatype.uuid(),
       name: faker.random.word(),
       url: `${faker.internet.url()}/${faker.datatype.number()}`,
       place: faker.random.word(),
@@ -14,6 +14,29 @@ export class ConferenceDTOMother {
       isLandingPageOpen: faker.datatype.boolean(),
       isCallForPapersOpen: faker.datatype.boolean(),
       isTicketSalesOpen: faker.datatype.boolean(),
+    };
+  }
+
+  static withId(id: string): ConferenceDTO {
+    return {
+      ...ConferenceDTOMother.random(),
+      id,
+    };
+  }
+
+  static withLandingOpenAndUrl(url: string): ConferenceDTO {
+    return {
+      ...ConferenceDTOMother.random(),
+      url,
+      isLandingPageOpen: true,
+    };
+  }
+
+  static withLandingClosedAndUrl(url: string): ConferenceDTO {
+    return {
+      ...ConferenceDTOMother.random(),
+      url,
+      isLandingPageOpen: false,
     };
   }
 }

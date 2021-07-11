@@ -9,6 +9,8 @@ export interface ConferencesProjection {
   exists(id: string): Promise<boolean>;
 
   find(id: string): Promise<Nullable<ConferenceDTO>>;
+
+  findByUrl(url: string): Promise<Nullable<ConferenceDTO>>;
 }
 
 export const conferencesProjection = 'conferencesProjection';
