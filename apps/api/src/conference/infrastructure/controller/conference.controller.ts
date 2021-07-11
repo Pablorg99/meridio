@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import { CreateConferenceCommand, EditConferenceCommand } from '../../application';
-import { FindConferenceByIdQuery } from '../query';
+import { FindConferenceByIdQuery, FindConferenceByUrlQuery } from '../query';
 
 @Controller('conferences')
 export class ConferenceController {
@@ -50,5 +50,12 @@ export class ConferenceController {
     const query = new FindConferenceByIdQuery(id);
 
     return this.queryBus.execute<FindConferenceByIdQuery, ConferenceDTO>(query);
+  }
+
+  @Get('/landings/:url')
+  async findOneByUrl(@Param('url') url: string) {
+    const query = new FindConferenceByUrlQuery(url);
+
+    return this.queryBus.execute<FindConferenceByUrlQuery, ConferenceDTO>(query);
   }
 }
