@@ -1,6 +1,6 @@
 import { ConferenceDTO } from '@meridio/contracts';
 
-import { ConferenceNotFound } from '../../../../../src/conference/domain';
+import { ConferenceIdNotFound } from '../../../../../src/conference/domain';
 import { ConferenceWasEditedProjection } from '../../../../../src/conference/infrastructure';
 import { ConferenceWasEditedMother } from '../../../domain/mother/conference-was-edited.mother';
 import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
@@ -16,7 +16,7 @@ describe('ConferenceWasEditedProjection', function () {
     const expectedDto: ConferenceDTO = {
       id: event.id,
       name: event.name,
-      url: event.url,
+      slug: event.slug,
       place: event.place,
       startDate: new Date(event.startDate).toISOString().split('T')[0],
       endDate: new Date(event.endDate).toISOString().split('T')[0],
@@ -33,6 +33,6 @@ describe('ConferenceWasEditedProjection', function () {
     const conferences = new ConferencesMockProjection({ onExists: false });
     const viewUpdater = new ConferenceWasEditedProjection(conferences);
 
-    await expect(viewUpdater.handle(event)).rejects.toThrowError(ConferenceNotFound);
+    await expect(viewUpdater.handle(event)).rejects.toThrowError(ConferenceIdNotFound);
   });
 });

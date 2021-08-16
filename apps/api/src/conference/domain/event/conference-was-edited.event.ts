@@ -6,7 +6,7 @@ export class ConferenceWasEdited extends StorableEvent {
 
   readonly id: string;
   readonly name: string;
-  readonly url: string;
+  readonly slug: string;
   readonly place: string;
   readonly startDate: number;
   readonly endDate: number;
@@ -18,7 +18,7 @@ export class ConferenceWasEdited extends StorableEvent {
   constructor(params: {
     id: string;
     name: string;
-    url: string;
+    slug: string;
     place: string;
     startDate: number;
     endDate: number;
@@ -30,7 +30,7 @@ export class ConferenceWasEdited extends StorableEvent {
     super();
     this.id = params.id;
     this.name = params.name;
-    this.url = params.url;
+    this.slug = params.slug;
     this.place = params.place;
     this.startDate = params.startDate;
     this.endDate = params.endDate;

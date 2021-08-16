@@ -9,7 +9,7 @@ describe('GetConference', function () {
     cy.visit(`conference/${conference.id}`);
 
     cy.findByText(conference.name);
-    cy.findByText(conference.url);
+    cy.findByText(conference.slug);
     cy.findByText(conference.place);
     cy.findByText(conference.startDate);
     cy.findByText(conference.endDate);

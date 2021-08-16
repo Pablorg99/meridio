@@ -42,4 +42,14 @@ export class ConferencesMongoProjection implements ConferencesProjection {
 
     return ConferenceMapper.documentToDTO(document);
   }
+
+  async findBySlug(slug: string): Promise<Nullable<ConferenceDTO>> {
+    const document = await this.model.findOne({ slug });
+
+    if (!document) {
+      return null;
+    }
+
+    return ConferenceMapper.documentToDTO(document);
+  }
 }

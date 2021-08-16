@@ -8,7 +8,7 @@ import {
   ConferenceName,
   ConferencePlace,
   ConferenceSettings,
-  ConferenceUrl,
+  ConferenceSlug,
 } from '../../../domain/model';
 import { ConferenceRepository, conferenceRepository } from '../../../domain/repository';
 import { CreateConferenceCommand } from '../create-conference.command';
@@ -21,7 +21,7 @@ export class CreateConferenceHandler implements ICommandHandler<CreateConference
     const conference = Conference.create({
       id: ConferenceId.fromString(command.id),
       name: ConferenceName.fromString(command.name),
-      url: ConferenceUrl.fromString(command.url),
+      slug: ConferenceSlug.fromString(command.slug),
       place: ConferencePlace.fromString(command.place),
       dateRange: ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate),
       settings: ConferenceSettings.fromValues(

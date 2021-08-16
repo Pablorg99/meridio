@@ -8,12 +8,12 @@ import { ConferenceLogoSource } from './conference-logo-source';
 import { ConferenceName } from './conference-name';
 import { ConferencePlace } from './conference-place';
 import { ConferenceSettings } from './conference-settings';
-import { ConferenceUrl } from './conference-url';
+import { ConferenceSlug } from './conference-slug';
 
 export class Conference extends AggregateRoot {
   private _id: ConferenceId;
   private _name: ConferenceName;
-  private _url: ConferenceUrl;
+  private _slug: ConferenceSlug;
   private _place: ConferencePlace;
   private _dateRange: ConferenceDateRange;
   private _logoSource: Nullable<ConferenceLogoSource>;
@@ -26,7 +26,7 @@ export class Conference extends AggregateRoot {
   public static create(params: {
     id: ConferenceId;
     name: ConferenceName;
-    url: ConferenceUrl;
+    slug: ConferenceSlug;
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     logoSource?: ConferenceLogoSource;
@@ -41,7 +41,7 @@ export class Conference extends AggregateRoot {
   private static buildConferenceWasCreatedEvent(params: {
     id: ConferenceId;
     name: ConferenceName;
-    url: ConferenceUrl;
+    slug: ConferenceSlug;
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     logoSource?: ConferenceLogoSource;
@@ -50,7 +50,7 @@ export class Conference extends AggregateRoot {
     return new ConferenceWasCreated({
       id: params.id.value,
       name: params.name.value,
-      url: params.url.value,
+      slug: params.slug.value,
       place: params.place.value,
       startDate: params.dateRange.startDate,
       endDate: params.dateRange.endDate,
@@ -63,7 +63,7 @@ export class Conference extends AggregateRoot {
 
   public update(params: {
     name: ConferenceName;
-    url: ConferenceUrl;
+    slug: ConferenceSlug;
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     settings: ConferenceSettings;
@@ -74,7 +74,7 @@ export class Conference extends AggregateRoot {
 
   private buildConferenceWasEditedEvent(params: {
     name: ConferenceName;
-    url: ConferenceUrl;
+    slug: ConferenceSlug;
     place: ConferencePlace;
     dateRange: ConferenceDateRange;
     logoSource?: ConferenceLogoSource;
@@ -83,7 +83,7 @@ export class Conference extends AggregateRoot {
     return new ConferenceWasEdited({
       id: this._id.value,
       name: params.name.value,
-      url: params.url.value,
+      slug: params.slug.value,
       place: params.place.value,
       startDate: params.dateRange.startDate,
       endDate: params.dateRange.endDate,
@@ -102,8 +102,8 @@ export class Conference extends AggregateRoot {
     return this._name;
   }
 
-  get url() {
-    return this._url;
+  get slug() {
+    return this._slug;
   }
 
   get place() {
@@ -137,7 +137,7 @@ export class Conference extends AggregateRoot {
   private onConferenceWasCreated(event: ConferenceWasCreated) {
     this._id = ConferenceId.fromString(event.id);
     this._name = ConferenceName.fromString(event.name);
-    this._url = ConferenceUrl.fromString(event.url);
+    this._slug = ConferenceSlug.fromString(event.slug);
     this._place = ConferencePlace.fromString(event.place);
     this._dateRange = ConferenceDateRange.fromStartAndEndDate(new Date(event.startDate), new Date(event.endDate));
     this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : null;
@@ -150,7 +150,7 @@ export class Conference extends AggregateRoot {
 
   private onConferenceWasEdited(event: ConferenceWasEdited) {
     this._name = ConferenceName.fromString(event.name);
-    this._url = ConferenceUrl.fromString(event.url);
+    this._slug = ConferenceSlug.fromString(event.slug);
     this._place = ConferencePlace.fromString(event.place);
     this._dateRange = ConferenceDateRange.fromStartAndEndDate(new Date(event.startDate), new Date(event.endDate));
     this._logoSource = event.logoSource ? ConferenceLogoSource.fromString(event.logoSource) : null;

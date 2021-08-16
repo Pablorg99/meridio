@@ -2,14 +2,14 @@ import { ConferenceDocument } from '../projection';
 
 export class ConferenceMapper {
   static documentToDTO(projection: ConferenceDocument) {
-    const { name, url, place, logoSource, isLandingPageOpen, isCallForPapersOpen, isTicketSalesOpen } = projection;
+    const { name, slug, place, logoSource, isLandingPageOpen, isCallForPapersOpen, isTicketSalesOpen } = projection;
     const id = projection.id as string;
     const startDate = projection.startDate;
     const endDate = projection.endDate;
     return {
       id,
       name,
-      url,
+      slug,
       place,
       startDate,
       endDate,

@@ -31,7 +31,7 @@ export const ViewConferenceComponent: React.FunctionComponent<Props> = ({
       <>
         <div>{conference.name}</div>
         <div>{conference.place}</div>
-        <div>{conference.url}</div>
+        <div>{conference.slug}</div>
         <div>{conference.startDate}</div>
         <div>{conference.endDate}</div>
       </>

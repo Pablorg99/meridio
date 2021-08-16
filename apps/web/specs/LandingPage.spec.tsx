@@ -3,21 +3,22 @@ import '@testing-library/jest-dom';
 import { ConferenceDTO } from '@meridio/contracts';
 import { render, screen } from '@testing-library/react';
 import faker from 'faker';
+import React from 'react';
 
-import { ViewConferenceComponent } from '../../components/Conference/ViewConference';
+import { LandingPage } from '../components/LandingPage';
 
-describe('ViewConference', () => {
+describe('LandingPage', function () {
   const conference = aConference();
   const defaultProps = {
-    fetchConference: () => {},
     conference,
-    isFetching: false,
+    fetchLandingPage: () => {},
     isError: false,
+    isFetching: false,
   };
 
-  describe('Layout', () => {
-    it('should show the data of the passed conference', () => {
-      render(<ViewConferenceComponent {...defaultProps} />);
+  describe('layout', function () {
+    it('should show the conference info', function () {
+      render(<LandingPage {...defaultProps} />);
 
       expect(screen.getByText(conference.name)).toBeInTheDocument();
       expect(screen.getByText(conference.place)).toBeInTheDocument();
@@ -27,40 +28,38 @@ describe('ViewConference', () => {
     });
   });
 
-  describe('behaviour', () => {
-    it('should fetch the conference data', () => {
+  describe('behaviour', function () {
+    it('should fetch the landing page info', function () {
       const props = {
         ...defaultProps,
-        fetchConference: jest.fn(),
+        fetchLandingPage: jest.fn(),
       };
 
-      render(<ViewConferenceComponent {...props} />);
+      render(<LandingPage {...props} />);
 
-      expect(props.fetchConference).toBeCalledTimes(1);
+      expect(props.fetchLandingPage).toHaveBeenCalledTimes(1);
     });
 
-    it('should show a loading when the data is fetching', () => {
+    it('should show an error when the landing page info is not found', function () {
       const props = {
         ...defaultProps,
         isFetching: true,
       };
 
-      render(<ViewConferenceComponent {...props} />);
+      render(<LandingPage {...props} />);
 
-      expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
-      expect(() => screen.getByText(conference.name)).toThrow();
+      expect(screen.getByText('Loading')).toBeInTheDocument();
     });
 
-    it('should show an error message when an error occurs', () => {
+    it('should show a loading when the landing page info is being fetched', function () {
       const props = {
         ...defaultProps,
         isError: true,
       };
 
-      render(<ViewConferenceComponent {...props} />);
+      render(<LandingPage {...props} />);
 
       expect(screen.getByText('Error')).toBeInTheDocument();
-      expect(() => screen.getByText(conference.name)).toThrow();
     });
   });
 });
@@ -73,8 +72,8 @@ function aConference(): ConferenceDTO {
     place: faker.random.word(),
     startDate: faker.date.soon().toISOString().split('T')[0],
     endDate: faker.date.future().toISOString().split('T')[0],
-    isLandingPageOpen: faker.datatype.boolean(),
-    isCallForPapersOpen: faker.datatype.boolean(),
-    isTicketSalesOpen: faker.datatype.boolean(),
+    isLandingPageOpen: false,
+    isCallForPapersOpen: false,
+    isTicketSalesOpen: false,
   };
 }

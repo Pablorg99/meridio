@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import { CreateConferenceCommand, EditConferenceCommand } from '../../application';
-import { FindConferenceByIdQuery } from '../query';
+import { FindConferenceByIdQuery, FindConferenceBySlugQuery } from '../query';
 
 @Controller('conferences')
 export class ConferenceController {
@@ -14,7 +14,7 @@ export class ConferenceController {
     const command = new CreateConferenceCommand({
       id: createConferenceDto.id,
       name: createConferenceDto.name,
-      url: createConferenceDto.url,
+      slug: createConferenceDto.slug,
       place: createConferenceDto.place,
       startDate: new Date(createConferenceDto.startDate),
       endDate: new Date(createConferenceDto.endDate),
@@ -32,7 +32,7 @@ export class ConferenceController {
     const command = new EditConferenceCommand({
       id,
       name: editConferenceDto.name,
-      url: editConferenceDto.url,
+      slug: editConferenceDto.slug,
       place: editConferenceDto.place,
       startDate: new Date(editConferenceDto.startDate),
       endDate: new Date(editConferenceDto.endDate),
@@ -50,5 +50,12 @@ export class ConferenceController {
     const query = new FindConferenceByIdQuery(id);
 
     return this.queryBus.execute<FindConferenceByIdQuery, ConferenceDTO>(query);
+  }
+
+  @Get('/landings/:slug')
+  async findOneBySlug(@Param('slug') slug: string) {
+    const query = new FindConferenceBySlugQuery(slug);
+
+    return this.queryBus.execute<FindConferenceBySlugQuery, ConferenceDTO>(query);
   }
 }

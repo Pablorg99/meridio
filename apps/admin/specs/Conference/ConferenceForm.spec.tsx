@@ -40,13 +40,13 @@ describe('Conference form', function () {
 
         render(<ConferenceForm {...props} />);
         const nameInput = screen.getByRole('textbox', { name: 'Nombre de la conferencia' });
-        const urlInput = screen.getByRole('textbox', { name: 'Enlace para la página principal' });
+        const slugInput = screen.getByRole('textbox', { name: 'Enlace para la página principal' });
         const placeInput = screen.getByRole('textbox', { name: 'Lugar de celebración' });
         const startDateInput = screen.getByLabelText('Fecha de inicio');
         const endDateInput = screen.getByLabelText('Fecha de fin');
         const submitButton = screen.getByRole('button', { name: 'Crear conferencia' });
         userEvent.type(nameInput, faker.random.word());
-        userEvent.type(urlInput, faker.internet.url());
+        userEvent.type(slugInput, faker.random.word());
         userEvent.type(placeInput, faker.random.word());
         userEvent.type(startDateInput, faker.date.soon().toISOString());
         userEvent.type(endDateInput, faker.date.future().toISOString());
@@ -80,7 +80,7 @@ describe('Conference form', function () {
       render(<ConferenceForm {...props} />);
 
       screen.getByDisplayValue(conference.name);
-      screen.getByDisplayValue(conference.url);
+      screen.getByDisplayValue(conference.slug);
       screen.getByDisplayValue(conference.place);
       screen.getByDisplayValue(conference.startDate);
       screen.getByDisplayValue(conference.endDate);
@@ -92,7 +92,7 @@ function aConference(): ConferenceDTO {
   return {
     id: faker.datatype.uuid(),
     name: faker.random.word(),
-    url: faker.internet.url(),
+    slug: faker.random.word(),
     place: faker.random.word(),
     startDate: faker.date.soon().toISOString().split('T')[0],
     endDate: faker.date.future().toISOString().split('T')[0],
