@@ -5,7 +5,7 @@ import {
   ConferenceName,
   ConferencePlace,
   ConferenceSettings,
-  ConferenceUrl,
+  ConferenceSlug,
 } from '../../../src/conference/domain';
 import { ConferenceMother } from '../domain/mother/conference.mother';
 import { ConferenceMockRepository } from '../mock/conference-repository.mock';
@@ -23,7 +23,7 @@ describe('Edit conference command handler', function () {
     const expectedConference = Conference.create({
       id: existingConference.id,
       name: ConferenceName.fromString(command.name),
-      url: ConferenceUrl.fromString(command.url),
+      slug: ConferenceSlug.fromString(command.slug),
       place: ConferencePlace.fromString(command.place),
       dateRange: ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate),
       settings: ConferenceSettings.fromValues(
@@ -33,7 +33,7 @@ describe('Edit conference command handler', function () {
       ),
     });
     expect(existingConference.name).toStrictEqual(expectedConference.name);
-    expect(existingConference.url).toStrictEqual(expectedConference.url);
+    expect(existingConference.slug).toStrictEqual(expectedConference.slug);
     expect(existingConference.place).toStrictEqual(expectedConference.place);
     expect(existingConference.startDate).toStrictEqual(expectedConference.startDate);
     expect(existingConference.endDate).toStrictEqual(expectedConference.endDate);

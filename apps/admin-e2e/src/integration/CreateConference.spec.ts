@@ -11,7 +11,7 @@ describe('CreateConference', () => {
     cy.intercept('POST', '/conferences').as('createConference');
 
     cy.findByRole('textbox', { name: 'Nombre de la conferencia' }).type(conference.name);
-    cy.findByRole('textbox', { name: 'Enlace para la página principal' }).type(conference.url);
+    cy.findByRole('textbox', { name: 'Enlace para la página principal' }).type(conference.slug);
     cy.findByRole('textbox', { name: 'Lugar de celebración' }).type(conference.place);
     cy.findByLabelText('Fecha de inicio').type(conference.startDate);
     cy.findByLabelText('Fecha de fin').type(conference.endDate);

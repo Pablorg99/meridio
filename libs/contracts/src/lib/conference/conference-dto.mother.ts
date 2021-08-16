@@ -7,7 +7,7 @@ export class ConferenceDTOMother {
     return {
       id: faker.datatype.uuid(),
       name: faker.random.word(),
-      url: `${faker.internet.url()}/${faker.datatype.number()}`,
+      slug: faker.random.word(),
       place: faker.random.word(),
       startDate: faker.date.soon().toISOString().split('T')[0],
       endDate: faker.date.future().toISOString().split('T')[0],
@@ -24,18 +24,18 @@ export class ConferenceDTOMother {
     };
   }
 
-  static withLandingOpenAndUrl(url: string): ConferenceDTO {
+  static withLandingOpenAndSlug(slug: string): ConferenceDTO {
     return {
       ...ConferenceDTOMother.random(),
-      url,
+      slug,
       isLandingPageOpen: true,
     };
   }
 
-  static withLandingClosedAndUrl(url: string): ConferenceDTO {
+  static withLandingClosedAndSlug(slug: string): ConferenceDTO {
     return {
       ...ConferenceDTOMother.random(),
-      url,
+      slug,
       isLandingPageOpen: false,
     };
   }

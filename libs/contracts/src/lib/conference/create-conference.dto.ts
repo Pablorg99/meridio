@@ -1,7 +1,7 @@
 export class CreateConferenceDTO {
   id: string;
   name: string;
-  url: string;
+  slug: string;
   place: string;
   startDate: string;
   endDate: string;

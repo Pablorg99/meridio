@@ -20,7 +20,7 @@ describe('EditConference', function () {
     cy.visit(`conference/${conference.id}`);
 
     cy.findByText(conference.name);
-    cy.findByText(conference.url);
+    cy.findByText(conference.slug);
     cy.findByText(updatedPlace);
     cy.findByText(conference.startDate);
     cy.findByText(updatedEndDate);

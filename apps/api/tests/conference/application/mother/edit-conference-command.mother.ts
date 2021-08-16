@@ -7,7 +7,7 @@ export class EditConferenceCommandMother {
     return new EditConferenceCommand({
       id,
       name: faker.random.word(),
-      url: `${faker.internet.url()}/${faker.datatype.number()}`,
+      slug: faker.random.word(),
       place: faker.random.word(),
       startDate: new Date(faker.date.soon()),
       endDate: new Date(faker.date.future()),

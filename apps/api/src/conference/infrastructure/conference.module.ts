@@ -7,10 +7,10 @@ import { CreateConferenceHandler, EditConferenceHandler } from '../application';
 import { conferenceProviders } from './conference.providers';
 import { ConferenceController } from './controller';
 import { ConferenceWasCreatedProjection, ConferenceWasEditedProjection } from './projection';
-import { FindConferenceByIdHandler } from './query';
+import { FindConferenceByIdHandler, FindConferenceBySlugHandler } from './query';
 
 const commandHandlers = [CreateConferenceHandler, EditConferenceHandler];
-const queryHandlers = [FindConferenceByIdHandler];
+const queryHandlers = [FindConferenceByIdHandler, FindConferenceBySlugHandler];
 const viewUpdaters = [ConferenceWasCreatedProjection, ConferenceWasEditedProjection];
 
 @Module({

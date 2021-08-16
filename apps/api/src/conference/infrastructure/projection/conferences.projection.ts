@@ -10,7 +10,7 @@ export interface ConferencesProjection {
 
   find(id: string): Promise<Nullable<ConferenceDTO>>;
 
-  findByUrl(url: string): Promise<Nullable<ConferenceDTO>>;
+  findBySlug(slug: string): Promise<Nullable<ConferenceDTO>>;
 }
 
 export const conferencesProjection = 'conferencesProjection';

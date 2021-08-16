@@ -25,7 +25,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({ conference, fetchL
     <>
       <div>{conference?.name}</div>
       <div>{conference?.place}</div>
-      <div>{conference?.url}</div>
+      <div>{conference?.slug}</div>
       <div>{conference?.startDate}</div>
       <div>{conference?.endDate}</div>
     </>

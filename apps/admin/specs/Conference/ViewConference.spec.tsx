@@ -21,7 +21,7 @@ describe('ViewConference', () => {
 
       expect(screen.getByText(conference.name)).toBeInTheDocument();
       expect(screen.getByText(conference.place)).toBeInTheDocument();
-      expect(screen.getByText(conference.url)).toBeInTheDocument();
+      expect(screen.getByText(conference.slug)).toBeInTheDocument();
       expect(screen.getByText(conference.startDate)).toBeInTheDocument();
       expect(screen.getByText(conference.endDate)).toBeInTheDocument();
     });
@@ -69,7 +69,7 @@ function aConference(): ConferenceDTO {
   return {
     id: faker.datatype.uuid(),
     name: faker.random.word(),
-    url: faker.internet.url(),
+    slug: faker.random.word(),
     place: faker.random.word(),
     startDate: faker.date.soon().toISOString().split('T')[0],
     endDate: faker.date.future().toISOString().split('T')[0],

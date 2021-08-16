@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 export type ConferenceFormData = {
   name: string;
-  url: string;
+  slug: string;
   place: string;
   startDate: string;
   endDate: string;
@@ -30,7 +30,7 @@ export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, confe
       </label>
       <label>
         Enlace para la página principal{' '}
-        <input {...register('url', { required: true })} type="text" defaultValue={conference?.url} />
+        <input {...register('slug', { required: true })} type="text" defaultValue={conference?.slug} />
       </label>
       <label>
         Lugar de celebración{' '}

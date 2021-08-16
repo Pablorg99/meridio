@@ -4,13 +4,13 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   ConferenceDateRange,
   ConferenceId,
+  ConferenceIdNotFound,
   ConferenceName,
-  ConferenceNotFound,
   ConferencePlace,
   ConferenceRepository,
   conferenceRepository,
   ConferenceSettings,
-  ConferenceUrl,
+  ConferenceSlug,
 } from '../../../domain';
 import { EditConferenceCommand } from '../edit-conference.command';
 
@@ -23,11 +23,11 @@ export class EditConferenceHandler implements ICommandHandler<EditConferenceComm
     const conference = await this.repository.find(conferenceId);
 
     if (!conference) {
-      throw new ConferenceNotFound(command.id);
+      throw new ConferenceIdNotFound(command.id);
     }
 
     const name = ConferenceName.fromString(command.name);
-    const url = ConferenceUrl.fromString(command.url);
+    const slug = ConferenceSlug.fromString(command.slug);
     const place = ConferencePlace.fromString(command.place);
     const dateRange = ConferenceDateRange.fromStartAndEndDate(command.startDate, command.endDate);
     const settings = ConferenceSettings.fromValues(
@@ -35,7 +35,7 @@ export class EditConferenceHandler implements ICommandHandler<EditConferenceComm
       command.isCallForPapersOpen,
       command.isTicketSalesOpen
     );
-    conference.update({ name, url, place, dateRange, settings });
+    conference.update({ name, slug, place, dateRange, settings });
 
     await this.repository.save(conference);
   }

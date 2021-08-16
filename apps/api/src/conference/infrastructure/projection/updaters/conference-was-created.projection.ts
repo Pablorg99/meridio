@@ -12,7 +12,7 @@ export class ConferenceWasCreatedProjection implements IViewUpdater<ConferenceWa
     await this.conferences.save({
       id: event.id,
       name: event.name,
-      url: event.url,
+      slug: event.slug,
       place: event.place,
       startDate: new Date(event.startDate).toISOString().split('T')[0],
       endDate: new Date(event.endDate).toISOString().split('T')[0],
