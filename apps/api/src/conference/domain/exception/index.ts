@@ -1,3 +1,4 @@
+export * from './already-existing-conference-slug.error';
 export * from './conference-id-not-found.error';
 export * from './conference-slug-not-found.error';
 export * from './landing-page-closed.error';

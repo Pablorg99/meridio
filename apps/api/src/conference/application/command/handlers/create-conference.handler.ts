@@ -2,22 +2,33 @@ import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import {
+  AlreadyExistingConferenceSlugError,
   Conference,
   ConferenceDateRange,
   ConferenceId,
   ConferenceName,
   ConferencePlace,
+  ConferenceRepository,
+  conferenceRepository,
   ConferenceSettings,
   ConferenceSlug,
-} from '../../../domain/model';
-import { ConferenceRepository, conferenceRepository } from '../../../domain/repository';
+  ConferencesProjection,
+  conferencesProjection,
+} from '../../../domain';
 import { CreateConferenceCommand } from '../create-conference.command';
 
 @CommandHandler(CreateConferenceCommand)
 export class CreateConferenceHandler implements ICommandHandler<CreateConferenceCommand> {
-  constructor(@Inject(conferenceRepository) private repository: ConferenceRepository) {}
+  constructor(
+    @Inject(conferenceRepository) private repository: ConferenceRepository,
+    @Inject(conferencesProjection) private projection: ConferencesProjection
+  ) {}
 
   async execute(command: CreateConferenceCommand) {
+    if (await this.projection.findBySlug(command.slug)) {
+      throw new AlreadyExistingConferenceSlugError(command.slug);
+    }
+
     const conference = Conference.create({
       id: ConferenceId.fromString(command.id),
       name: ConferenceName.fromString(command.name),

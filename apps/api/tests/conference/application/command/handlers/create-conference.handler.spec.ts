@@ -1,12 +1,14 @@
-import { CreateConferenceHandler } from '../../../../../src/conference/application';
-import { ConferenceMother } from '../../../domain/mother/conference.mother';
-import { ConferenceMockRepository } from '../../../mock/conference-repository.mock';
-import { CreateConferenceCommandMother } from '../mother/create-conference-command.mother';
-import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
 import { ConferenceDTOMother } from '@meridio/contracts';
 
-describe('Create conference command handler', async () => {
-  it('should create a conference with the command passed and save it', () => {
+import { CreateConferenceHandler } from '../../../../../src/conference/application';
+import { AlreadyExistingConferenceSlugError } from '../../../../../src/conference/domain';
+import { ConferenceMother } from '../../../domain/mother/conference.mother';
+import { ConferenceMockRepository } from '../../../mock/conference-repository.mock';
+import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
+import { CreateConferenceCommandMother } from '../mother/create-conference-command.mother';
+
+describe('Create conference command handler', () => {
+  it('should create a conference with the command passed and save it', async () => {
     const repository = new ConferenceMockRepository();
     const projection = new ConferencesMockProjection({ onFind: null });
     const handler = new CreateConferenceHandler(repository, projection);
@@ -25,13 +27,6 @@ describe('Create conference command handler', async () => {
     const command = CreateConferenceCommandMother.random();
 
     await expect(handler.execute(command)).rejects.toThrowError(AlreadyExistingConferenceSlugError);
-
     expect(repository.mockSave).not.toHaveBeenCalled();
   });
 });
-
-class AlreadyExistingConferenceSlugError extends Error {
-  constructor(slug: string) {
-    super(`Already exists a conference with the slug: ${slug}`);
-  }
-}
