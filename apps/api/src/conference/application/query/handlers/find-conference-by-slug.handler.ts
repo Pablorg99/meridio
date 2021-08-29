@@ -3,10 +3,10 @@ import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import {
-  ConferenceSlugNotFound,
+  ConferenceSlugNotFoundError,
   ConferencesProjection,
   conferencesProjection,
-  LandingPageClosed,
+  LandingPageClosedError,
 } from '../../../domain';
 import { FindConferenceBySlugQuery } from '../find-conference-by-slug.query';
 
@@ -18,11 +18,11 @@ export class FindConferenceBySlugHandler implements IQueryHandler<FindConference
     const conference = await this.conferences.findBySlug(query.slug);
 
     if (!conference) {
-      throw new ConferenceSlugNotFound(query.slug);
+      throw new ConferenceSlugNotFoundError(query.slug);
     }
 
     if (!conference.isLandingPageOpen) {
-      throw new LandingPageClosed(conference.id);
+      throw new LandingPageClosedError(conference.id);
     }
 
     return conference;

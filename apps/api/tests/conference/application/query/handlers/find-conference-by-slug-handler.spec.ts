@@ -2,7 +2,7 @@ import { ConferenceDTOMother } from '@meridio/contracts';
 import * as faker from 'faker';
 
 import { FindConferenceBySlugHandler, FindConferenceBySlugQuery } from '../../../../../src/conference/application';
-import { ConferenceSlugNotFound, LandingPageClosed } from '../../../../../src/conference/domain';
+import { ConferenceSlugNotFoundError, LandingPageClosedError } from '../../../../../src/conference/domain';
 import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
 
 describe('FindConferenceBySlugHandler', function () {
@@ -23,7 +23,7 @@ describe('FindConferenceBySlugHandler', function () {
     const conferences = new ConferencesMockProjection({ onFind: conferenceDTO });
     const handler = new FindConferenceBySlugHandler(conferences);
 
-    await expect(handler.execute(query)).rejects.toThrowError(LandingPageClosed);
+    await expect(handler.execute(query)).rejects.toThrowError(LandingPageClosedError);
   });
 
   it('should return a ConferenceNotFound error when there is no conference with the slug of the query', async function () {
@@ -31,6 +31,6 @@ describe('FindConferenceBySlugHandler', function () {
     const conferences = new ConferencesMockProjection({ onFind: null });
     const handler = new FindConferenceBySlugHandler(conferences);
 
-    await expect(handler.execute(query)).rejects.toThrowError(ConferenceSlugNotFound);
+    await expect(handler.execute(query)).rejects.toThrowError(ConferenceSlugNotFoundError);
   });
 });

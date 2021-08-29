@@ -4,7 +4,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   ConferenceDateRange,
   ConferenceId,
-  ConferenceIdNotFound,
+  ConferenceIdNotFoundError,
   ConferenceName,
   ConferencePlace,
   ConferenceRepository,
@@ -23,7 +23,7 @@ export class EditConferenceHandler implements ICommandHandler<EditConferenceComm
     const conference = await this.repository.find(conferenceId);
 
     if (!conference) {
-      throw new ConferenceIdNotFound(command.id);
+      throw new ConferenceIdNotFoundError(command.id);
     }
 
     const name = ConferenceName.fromString(command.name);

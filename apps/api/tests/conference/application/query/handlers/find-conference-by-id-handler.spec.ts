@@ -2,7 +2,7 @@ import { ConferenceDTOMother } from '@meridio/contracts';
 import * as faker from 'faker';
 
 import { FindConferenceByIdHandler, FindConferenceByIdQuery } from '../../../../../src/conference/application';
-import { ConferenceIdNotFound } from '../../../../../src/conference/domain';
+import { ConferenceIdNotFoundError } from '../../../../../src/conference/domain';
 import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
 
 describe('FindConferenceByIdHandler', function () {
@@ -22,6 +22,6 @@ describe('FindConferenceByIdHandler', function () {
     const conferences = new ConferencesMockProjection({ onFind: null });
     const handler = new FindConferenceByIdHandler(conferences);
 
-    await expect(handler.execute(query)).rejects.toThrowError(ConferenceIdNotFound);
+    await expect(handler.execute(query)).rejects.toThrowError(ConferenceIdNotFoundError);
   });
 });

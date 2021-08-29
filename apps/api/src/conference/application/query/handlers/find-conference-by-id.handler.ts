@@ -2,7 +2,7 @@ import { ConferenceDTO } from '@meridio/contracts';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { ConferenceIdNotFound, ConferencesProjection, conferencesProjection } from '../../../domain';
+import { ConferenceIdNotFoundError, ConferencesProjection, conferencesProjection } from '../../../domain';
 import { FindConferenceByIdQuery } from '../find-conference-by-id.query';
 
 @QueryHandler(FindConferenceByIdQuery)
@@ -13,7 +13,7 @@ export class FindConferenceByIdHandler implements IQueryHandler<FindConferenceBy
     const conference = await this.conferences.find(query.id);
 
     if (!conference) {
-      throw new ConferenceIdNotFound(query.id);
+      throw new ConferenceIdNotFoundError(query.id);
     }
 
     return conference;

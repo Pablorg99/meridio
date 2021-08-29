@@ -1,6 +1,6 @@
 import { ConferenceDTO } from '@meridio/contracts';
 
-import { ConferenceIdNotFound } from '../../../../src/conference/domain';
+import { ConferenceIdNotFoundError } from '../../../../src/conference/domain';
 import { UpdateConferencesProjectionOnConferenceWasEdited } from '../../../../src/conference/infrastructure';
 import { ConferenceWasEditedMother } from '../../domain/mother/conference-was-edited.mother';
 import { ConferencesMockProjection } from '../../mock/conferences-projection.mock';
@@ -33,6 +33,6 @@ describe('UpdateConferencesProjectionOnConferenceWasEdited', function () {
     const conferences = new ConferencesMockProjection({ onExists: false });
     const viewUpdater = new UpdateConferencesProjectionOnConferenceWasEdited(conferences);
 
-    await expect(viewUpdater.handle(event)).rejects.toThrowError(ConferenceIdNotFound);
+    await expect(viewUpdater.handle(event)).rejects.toThrowError(ConferenceIdNotFoundError);
   });
 });
