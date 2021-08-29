@@ -1,6 +1,6 @@
 import * as faker from 'faker';
 
-import { EditConferenceCommand } from '../../../../src/conference/application';
+import { EditConferenceCommand } from '../../../../../src/conference/application';
 
 export class EditConferenceCommandMother {
   static forId(id: string) {

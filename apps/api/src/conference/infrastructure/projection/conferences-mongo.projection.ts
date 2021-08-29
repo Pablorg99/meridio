@@ -3,9 +3,9 @@ import { Nullable } from '@meridio/domain';
 import { Inject } from '@nestjs/common';
 import { Connection, Model } from 'mongoose';
 
-import { mongoConnection } from '../../../../database/database.provider';
-import { ConferenceMapper } from '../../mapper';
-import { ConferencesProjection } from '../conferences.projection';
+import { mongoConnection } from '../../../database/database.provider';
+import { ConferencesProjection } from '../../domain';
+import { ConferenceMapper } from '../mapper';
 import { ConferenceDocument } from './conference.document';
 import { ConferenceSchema } from './conference.schema';
 

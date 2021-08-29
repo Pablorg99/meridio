@@ -1,15 +1,15 @@
 import { ConferenceDTO } from '@meridio/contracts';
 
-import { ConferenceIdNotFound } from '../../../../../src/conference/domain';
-import { ConferenceWasEditedProjection } from '../../../../../src/conference/infrastructure';
-import { ConferenceWasEditedMother } from '../../../domain/mother/conference-was-edited.mother';
-import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
+import { ConferenceIdNotFound } from '../../../../src/conference/domain';
+import { UpdateConferencesProjectionOnConferenceWasEdited } from '../../../../src/conference/infrastructure';
+import { ConferenceWasEditedMother } from '../../domain/mother/conference-was-edited.mother';
+import { ConferencesMockProjection } from '../../mock/conferences-projection.mock';
 
-describe('ConferenceWasEditedProjection', function () {
+describe('UpdateConferencesProjectionOnConferenceWasEdited', function () {
   it('should update the right conference with the event data', async function () {
     const event = ConferenceWasEditedMother.random();
     const conferences = new ConferencesMockProjection({ onExists: true });
-    const viewUpdater = new ConferenceWasEditedProjection(conferences);
+    const viewUpdater = new UpdateConferencesProjectionOnConferenceWasEdited(conferences);
 
     await viewUpdater.handle(event);
 
@@ -31,7 +31,7 @@ describe('ConferenceWasEditedProjection', function () {
   it('should throw an error if the conference to update does not exist', async function () {
     const event = ConferenceWasEditedMother.random();
     const conferences = new ConferencesMockProjection({ onExists: false });
-    const viewUpdater = new ConferenceWasEditedProjection(conferences);
+    const viewUpdater = new UpdateConferencesProjectionOnConferenceWasEdited(conferences);
 
     await expect(viewUpdater.handle(event)).rejects.toThrowError(ConferenceIdNotFound);
   });

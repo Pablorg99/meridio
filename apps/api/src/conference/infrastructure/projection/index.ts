@@ -1,2 +1,3 @@
-export * from './mongo';
-export * from './updaters';
+export * from './conference.document';
+export * from './conference.schema';
+export * from './conferences-mongo.projection';

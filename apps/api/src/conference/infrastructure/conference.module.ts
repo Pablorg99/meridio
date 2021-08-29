@@ -3,15 +3,25 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { EventSourcingModule } from 'event-sourcing-nestjs';
 
 import { DatabaseModule } from '../../database/database.module';
-import { CreateConferenceHandler, EditConferenceHandler } from '../application';
+import {
+  CreateConferenceHandler,
+  EditConferenceHandler,
+  FindConferenceByIdHandler,
+  FindConferenceBySlugHandler,
+} from '../application';
 import { conferenceProviders } from './conference.providers';
 import { ConferenceController } from './controller';
-import { ConferenceWasCreatedProjection, ConferenceWasEditedProjection } from './projection';
-import { FindConferenceByIdHandler, FindConferenceBySlugHandler } from './query';
+import {
+  UpdateConferencesProjectionOnConferenceWasCreated,
+  UpdateConferencesProjectionOnConferenceWasEdited,
+} from './subscriber';
 
 const commandHandlers = [CreateConferenceHandler, EditConferenceHandler];
 const queryHandlers = [FindConferenceByIdHandler, FindConferenceBySlugHandler];
-const viewUpdaters = [ConferenceWasCreatedProjection, ConferenceWasEditedProjection];
+const viewUpdaters = [
+  UpdateConferencesProjectionOnConferenceWasCreated,
+  UpdateConferencesProjectionOnConferenceWasEdited,
+];
 
 @Module({
   controllers: [ConferenceController],

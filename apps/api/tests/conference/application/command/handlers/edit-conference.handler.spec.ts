@@ -1,4 +1,4 @@
-import { EditConferenceHandler } from '../../../src/conference/application';
+import { EditConferenceHandler } from '../../../../../src/conference/application';
 import {
   Conference,
   ConferenceDateRange,
@@ -6,10 +6,10 @@ import {
   ConferencePlace,
   ConferenceSettings,
   ConferenceSlug,
-} from '../../../src/conference/domain';
-import { ConferenceMother } from '../domain/mother/conference.mother';
-import { ConferenceMockRepository } from '../mock/conference-repository.mock';
-import { EditConferenceCommandMother } from './mother/edit-conference-command.mother';
+} from '../../../../../src/conference/domain';
+import { ConferenceMother } from '../../../domain/mother/conference.mother';
+import { ConferenceMockRepository } from '../../../mock/conference-repository.mock';
+import { EditConferenceCommandMother } from '../mother/edit-conference-command.mother';
 
 describe('Edit conference command handler', function () {
   it('should update the existing conference with the command data and persist it', async function () {

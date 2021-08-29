@@ -1,11 +1,10 @@
 import { Inject } from '@nestjs/common';
 import { IViewUpdater, ViewUpdaterHandler } from 'event-sourcing-nestjs';
 
-import { ConferenceWasCreated } from '../../../domain';
-import { ConferencesProjection, conferencesProjection } from '../conferences.projection';
+import { ConferencesProjection, conferencesProjection, ConferenceWasCreated } from '../../domain';
 
 @ViewUpdaterHandler(ConferenceWasCreated)
-export class ConferenceWasCreatedProjection implements IViewUpdater<ConferenceWasCreated> {
+export class UpdateConferencesProjectionOnConferenceWasCreated implements IViewUpdater<ConferenceWasCreated> {
   constructor(@Inject(conferencesProjection) private conferences: ConferencesProjection) {}
 
   async handle(event: ConferenceWasCreated) {

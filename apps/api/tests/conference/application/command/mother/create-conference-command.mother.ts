@@ -1,6 +1,6 @@
 import * as faker from 'faker';
 
-import { CreateConferenceCommand } from '../../../../src/conference/application/command';
+import { CreateConferenceCommand } from '../../../../../src/conference/application';
 
 export class CreateConferenceCommandMother {
   static random() {

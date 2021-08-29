@@ -1,14 +1,14 @@
 import { ConferenceDTO } from '@meridio/contracts';
 
-import { ConferenceWasCreatedProjection } from '../../../../../src/conference/infrastructure/projection';
-import { ConferenceWasCreatedMother } from '../../../domain/mother/conference-was-created.mother';
-import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
+import { UpdateConferencesProjectionOnConferenceWasCreated } from '../../../../src/conference/infrastructure';
+import { ConferenceWasCreatedMother } from '../../domain/mother/conference-was-created.mother';
+import { ConferencesMockProjection } from '../../mock/conferences-projection.mock';
 
-describe('ConferenceWasCreatedProjection', function () {
+describe('UpdateConferencesProjectionOnConferenceWasCreated', function () {
   it('should store a conference dto in the projection from event data', function () {
     const event = ConferenceWasCreatedMother.random();
     const conferences = new ConferencesMockProjection();
-    const viewUpdater = new ConferenceWasCreatedProjection(conferences);
+    const viewUpdater = new UpdateConferencesProjectionOnConferenceWasCreated(conferences);
 
     viewUpdater.handle(event);
 

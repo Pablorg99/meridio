@@ -1,7 +1,7 @@
-import { CreateConferenceHandler } from '../../../src/conference/application';
-import { ConferenceMother } from '../domain/mother/conference.mother';
-import { ConferenceMockRepository } from '../mock/conference-repository.mock';
-import { CreateConferenceCommandMother } from './mother/create-conference-command.mother';
+import { CreateConferenceHandler } from '../../../../../src/conference/application';
+import { ConferenceMother } from '../../../domain/mother/conference.mother';
+import { ConferenceMockRepository } from '../../../mock/conference-repository.mock';
+import { CreateConferenceCommandMother } from '../mother/create-conference-command.mother';
 
 describe('Create conference command handler', () => {
   let repository: ConferenceMockRepository;

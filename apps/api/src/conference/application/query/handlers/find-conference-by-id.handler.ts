@@ -2,8 +2,7 @@ import { ConferenceDTO } from '@meridio/contracts';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { ConferenceIdNotFound } from '../../../domain';
-import { ConferencesProjection, conferencesProjection } from '../../projection/conferences.projection';
+import { ConferenceIdNotFound, ConferencesProjection, conferencesProjection } from '../../../domain';
 import { FindConferenceByIdQuery } from '../find-conference-by-id.query';
 
 @QueryHandler(FindConferenceByIdQuery)

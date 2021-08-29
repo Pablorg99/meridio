@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import { CreateConferenceCommand, EditConferenceCommand } from '../../application';
-import { FindConferenceByIdQuery, FindConferenceBySlugQuery } from '../query';
+import { FindConferenceByIdQuery, FindConferenceBySlugQuery } from '../../application/query';
 
 @Controller('conferences')
 export class ConferenceController {

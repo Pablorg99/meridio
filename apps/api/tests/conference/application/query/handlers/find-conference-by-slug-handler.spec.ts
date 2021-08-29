@@ -1,8 +1,8 @@
 import { ConferenceDTOMother } from '@meridio/contracts';
 import * as faker from 'faker';
 
+import { FindConferenceBySlugHandler, FindConferenceBySlugQuery } from '../../../../../src/conference/application';
 import { ConferenceSlugNotFound, LandingPageClosed } from '../../../../../src/conference/domain';
-import { FindConferenceBySlugHandler, FindConferenceBySlugQuery } from '../../../../../src/conference/infrastructure';
 import { ConferencesMockProjection } from '../../../mock/conferences-projection.mock';
 
 describe('FindConferenceBySlugHandler', function () {

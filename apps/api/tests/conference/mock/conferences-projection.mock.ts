@@ -2,7 +2,7 @@
 import { ConferenceDTO } from '@meridio/contracts';
 import { Nullable } from '@meridio/domain';
 
-import { ConferencesProjection } from '../../../src/conference/infrastructure/projection/conferences.projection';
+import { ConferencesProjection } from '../../../src/conference/domain/projection/conferences.projection';
 
 export class ConferencesMockProjection implements ConferencesProjection {
   readonly saveSpy = jest.fn();
