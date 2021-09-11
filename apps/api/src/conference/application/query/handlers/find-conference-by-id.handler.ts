@@ -2,7 +2,13 @@ import { ConferenceDTO } from '@meridio/contracts';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { ConferenceIdNotFoundError, ConferencesProjection, conferencesProjection } from '../../../domain';
+import {
+  ConferenceId,
+  ConferenceIdNotFoundError,
+  ConferencesProjection,
+  conferencesProjection,
+  Criteria,
+} from '../../../domain';
 import { FindConferenceByIdQuery } from '../find-conference-by-id.query';
 
 @QueryHandler(FindConferenceByIdQuery)
@@ -10,7 +16,8 @@ export class FindConferenceByIdHandler implements IQueryHandler<FindConferenceBy
   constructor(@Inject(conferencesProjection) private conferences: ConferencesProjection) {}
 
   async execute(query: FindConferenceByIdQuery) {
-    const conference = await this.conferences.find(query.id);
+    const id = ConferenceId.fromString(query.id);
+    const conference = await this.conferences.find(new Criteria({ id }));
 
     if (!conference) {
       throw new ConferenceIdNotFoundError(query.id);

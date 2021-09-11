@@ -1,16 +1,16 @@
 import { ConferenceDTO } from '@meridio/contracts';
 import { Nullable } from '@meridio/domain';
 
+import { Criteria } from './conferences.criteria';
+
 export interface ConferencesProjection {
   save(conference: ConferenceDTO): Promise<void>;
 
   update(conference: ConferenceDTO): Promise<void>;
 
-  exists(id: string): Promise<boolean>;
+  exists(criteria: Criteria): Promise<boolean>;
 
-  find(id: string): Promise<Nullable<ConferenceDTO>>;
-
-  findBySlug(slug: string): Promise<Nullable<ConferenceDTO>>;
+  find(criteria: Criteria): Promise<Nullable<ConferenceDTO>>;
 }
 
 export const conferencesProjection = 'conferencesProjection';

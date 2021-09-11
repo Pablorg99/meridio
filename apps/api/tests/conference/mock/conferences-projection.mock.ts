@@ -2,7 +2,7 @@
 import { ConferenceDTO } from '@meridio/contracts';
 import { Nullable } from '@meridio/domain';
 
-import { ConferencesProjection } from '../../../src/conference/domain/projection/conferences.projection';
+import { ConferencesProjection, Criteria } from '../../../src/conference/domain';
 
 export class ConferencesMockProjection implements ConferencesProjection {
   readonly saveSpy = jest.fn();
@@ -23,15 +23,11 @@ export class ConferencesMockProjection implements ConferencesProjection {
     this.updateSpy(conference);
   }
 
-  async exists(id: string): Promise<boolean> {
+  async exists(criteria: Criteria): Promise<boolean> {
     return this.onExists;
   }
 
-  async find(id: string): Promise<Nullable<ConferenceDTO>> {
-    return this.onFind;
-  }
-
-  async findBySlug(slug: string): Promise<Nullable<ConferenceDTO>> {
+  async find(criteria: Criteria): Promise<Nullable<ConferenceDTO>> {
     return this.onFind;
   }
 }

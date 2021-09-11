@@ -1,14 +1,22 @@
 import { Inject } from '@nestjs/common';
 import { IViewUpdater, ViewUpdaterHandler } from 'event-sourcing-nestjs';
 
-import { ConferenceIdNotFoundError, ConferencesProjection, conferencesProjection, ConferenceWasEdited } from '../../domain';
+import {
+  ConferenceId,
+  ConferenceIdNotFoundError,
+  ConferencesProjection,
+  conferencesProjection,
+  ConferenceWasEdited,
+  Criteria,
+} from '../../domain';
 
 @ViewUpdaterHandler(ConferenceWasEdited)
 export class UpdateConferencesProjectionOnConferenceWasEdited implements IViewUpdater<ConferenceWasEdited> {
   constructor(@Inject(conferencesProjection) private conferences: ConferencesProjection) {}
 
   async handle(event: ConferenceWasEdited) {
-    const conferenceDoesNotExist = !(await this.conferences.exists(event.id));
+    const id = ConferenceId.fromString(event.id);
+    const conferenceDoesNotExist = !(await this.conferences.exists(new Criteria({ id })));
     if (conferenceDoesNotExist) {
       throw new ConferenceIdNotFoundError(event.id);
     }

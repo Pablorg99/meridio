@@ -1,5 +1,3 @@
-import { ConferenceDTOMother } from '@meridio/contracts';
-
 import { CreateConferenceHandler } from '../../../../../src/conference/application';
 import { AlreadyExistingConferenceSlugError } from '../../../../../src/conference/domain';
 import { ConferenceMother } from '../../../domain/mother/conference.mother';
@@ -20,9 +18,9 @@ describe('Create conference command handler', () => {
     expect(repository.mockSave).toHaveBeenCalledWith(conference);
   });
 
-  it('should throw an error when there is already a conference with the slug of the command', async () => {
+  it('should throw an error when already exists a conference with the slug of the command', async () => {
     const repository = new ConferenceMockRepository();
-    const projection = new ConferencesMockProjection({ onFind: ConferenceDTOMother.random() });
+    const projection = new ConferencesMockProjection({ onExists: true });
     const handler = new CreateConferenceHandler(repository, projection);
     const command = CreateConferenceCommandMother.random();
 

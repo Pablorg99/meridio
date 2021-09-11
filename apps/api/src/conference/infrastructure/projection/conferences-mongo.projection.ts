@@ -4,7 +4,7 @@ import { Inject } from '@nestjs/common';
 import { Connection, Model } from 'mongoose';
 
 import { mongoConnection } from '../../../database/database.provider';
-import { ConferencesProjection } from '../../domain';
+import { ConferencesProjection, Criteria } from '../../domain';
 import { ConferenceMapper } from '../mapper';
 import { ConferenceDocument } from './conference.document';
 import { ConferenceSchema } from './conference.schema';
@@ -29,12 +29,15 @@ export class ConferencesMongoProjection implements ConferencesProjection {
     await this.model.updateOne({ _id: id }, document);
   }
 
-  async exists(id: string): Promise<boolean> {
-    return await this.model.exists({ _id: id });
+  async exists(criteria: Criteria): Promise<boolean> {
+    const query = ConferencesMongoProjection.queryFromCriteria(criteria);
+    return await this.model.exists(query);
   }
 
-  async find(id: string): Promise<Nullable<ConferenceDTO>> {
-    const document = await this.model.findOne({ _id: id });
+  async find(criteria: Criteria): Promise<Nullable<ConferenceDTO>> {
+    const query = ConferencesMongoProjection.queryFromCriteria(criteria);
+
+    const document = await this.model.findOne(query);
 
     if (!document) {
       return null;
@@ -43,13 +46,17 @@ export class ConferencesMongoProjection implements ConferencesProjection {
     return ConferenceMapper.documentToDTO(document);
   }
 
-  async findBySlug(slug: string): Promise<Nullable<ConferenceDTO>> {
-    const document = await this.model.findOne({ slug });
+  private static queryFromCriteria(criteria: Criteria) {
+    let query = {};
 
-    if (!document) {
-      return null;
+    if (criteria.id) {
+      query = { ...query, _id: criteria.id.value };
     }
 
-    return ConferenceMapper.documentToDTO(document);
+    if (criteria.slug) {
+      query = { ...query, slug: criteria.slug.value };
+    }
+
+    return query;
   }
 }

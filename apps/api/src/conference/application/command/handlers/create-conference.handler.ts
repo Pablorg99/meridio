@@ -14,6 +14,7 @@ import {
   ConferenceSlug,
   ConferencesProjection,
   conferencesProjection,
+  Criteria,
 } from '../../../domain';
 import { CreateConferenceCommand } from '../create-conference.command';
 
@@ -25,7 +26,8 @@ export class CreateConferenceHandler implements ICommandHandler<CreateConference
   ) {}
 
   async execute(command: CreateConferenceCommand) {
-    if (await this.projection.findBySlug(command.slug)) {
+    const slug = ConferenceSlug.fromString(command.slug);
+    if (await this.projection.exists(new Criteria({ slug }))) {
       throw new AlreadyExistingConferenceSlugError(command.slug);
     }
 
