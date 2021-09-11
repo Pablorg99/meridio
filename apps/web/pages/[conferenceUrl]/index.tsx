@@ -12,6 +12,7 @@ export default function ViewConference() {
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [conference, setConference] = useState<ConferenceDTO>();
+  const navigateToBuyTicketPage = () => router.push(`/${conferenceUrl}/ticket`);
 
   const fetchLandingPage = useCallback(() => {
     if (conferenceUrl) {
@@ -34,6 +35,7 @@ export default function ViewConference() {
       fetchLandingPage={fetchLandingPage}
       isFetching={isFetching}
       isError={isError}
+      navigateToBuyTicketPage={navigateToBuyTicketPage}
     />
   );
 }

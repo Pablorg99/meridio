@@ -6,9 +6,16 @@ type Props = {
   fetchLandingPage(): void;
   isError: boolean;
   isFetching: boolean;
+  navigateToBuyTicketPage(): void;
 };
 
-export const LandingPage: React.FunctionComponent<Props> = ({ conference, fetchLandingPage, isError, isFetching }) => {
+export const LandingPage: React.FunctionComponent<Props> = ({
+  conference,
+  fetchLandingPage,
+  isError,
+  isFetching,
+  navigateToBuyTicketPage,
+}) => {
   useEffect(() => {
     fetchLandingPage();
   }, [fetchLandingPage]);
@@ -28,6 +35,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({ conference, fetchL
       <div>{conference?.slug}</div>
       <div>{conference?.startDate}</div>
       <div>{conference?.endDate}</div>
+      <button onClick={navigateToBuyTicketPage}>Adquirir entrada</button>
     </>
   );
 };
