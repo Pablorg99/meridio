@@ -1,9 +1,9 @@
 import { Nullable } from '@meridio/domain';
 import { AggregateRoot } from '@nestjs/cqrs';
 
+import { ConferenceId } from '../../../shared/domain';
 import { ConferenceWasCreated, ConferenceWasEdited } from '../event';
 import { ConferenceDateRange } from './conference-date-range';
-import { ConferenceId } from './conference-id';
 import { ConferenceLogoSource } from './conference-logo-source';
 import { ConferenceName } from './conference-name';
 import { ConferencePlace } from './conference-place';

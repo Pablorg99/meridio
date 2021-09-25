@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { Password, Role, User, UserId, UserIdNotFoundError, USERS, Users } from '../../domain';
+import { UserId } from '../../../shared/domain';
+import { Password, Role, User, UserIdNotFoundError, USERS, Users } from '../../domain';
 import { UserMapper } from '../../infrastructure/repository/user.mapper';
 import { UpdateUserCommand } from './update-user.command';
 

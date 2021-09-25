@@ -1,10 +1,10 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
+import { UserId } from '../../../shared/domain';
 import { UserPasswordWasUpdated, UserRoleWasAdded, UserRoleWasRemoved, UserWasCreated } from '../event';
 import { UserWasDeleted } from '../event/user-was-deleted.event';
 import { Password } from './password';
 import { Role } from './role';
-import { UserId } from './user-id';
 import { Username } from './username';
 
 export class User extends AggregateRoot {

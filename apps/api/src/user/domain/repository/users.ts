@@ -1,7 +1,7 @@
 import { Nullable } from '@meridio/domain';
 
+import { UserId } from '../../../shared/domain';
 import { User } from '../model/user';
-import { UserId } from '../model/user-id';
 import { Username } from '../model/username';
 
 export interface Users {

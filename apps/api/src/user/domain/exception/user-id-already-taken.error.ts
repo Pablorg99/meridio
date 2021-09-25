@@ -1,4 +1,4 @@
-import { UserId } from '../model';
+import { UserId } from '../../../shared/domain';
 
 export class UserIdAlreadyTakenError extends Error {
   public static with(userId: UserId): UserIdAlreadyTakenError {

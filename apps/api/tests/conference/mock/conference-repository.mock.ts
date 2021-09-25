@@ -1,6 +1,7 @@
 import { Nullable } from '@meridio/domain';
 
-import { Conference, ConferenceId, ConferenceRepository } from '../../../src/conference/domain';
+import { Conference, ConferenceRepository } from '../../../src/conference/domain';
+import { ConferenceId } from '../../../src/shared/domain';
 import { ConferenceMother } from '../domain/mother/conference.mother';
 
 export class ConferenceMockRepository implements ConferenceRepository {

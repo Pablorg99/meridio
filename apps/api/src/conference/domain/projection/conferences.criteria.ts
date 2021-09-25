@@ -1,4 +1,5 @@
-import { ConferenceId, ConferenceSlug } from '../model';
+import { ConferenceId } from '../../../shared/domain';
+import { ConferenceSlug } from '../model';
 
 export class Criteria {
   readonly id?: ConferenceId;

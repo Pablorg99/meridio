@@ -4,12 +4,12 @@ import { CreateConferenceCommand } from '../../../../src/conference/application'
 import {
   Conference,
   ConferenceDateRange,
-  ConferenceId,
   ConferenceName,
   ConferencePlace,
   ConferenceSettings,
   ConferenceSlug,
 } from '../../../../src/conference/domain';
+import { ConferenceId } from '../../../../src/shared/domain';
 
 export class ConferenceMother {
   static fromCommand(command: CreateConferenceCommand) {

@@ -3,7 +3,7 @@ import { Nullable } from '@meridio/domain';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { UserId } from '../../domain';
+import { UserId } from '../../../shared/domain';
 import { USERS, Users } from '../../domain/repository/users';
 import { UserMapper } from '../../infrastructure/repository/user.mapper';
 import { GetUserQuery } from './get-user.query';
