@@ -2,8 +2,7 @@ import { ConferenceDTO, CreateConferenceDTO, EditConferenceDTO } from '@meridio/
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
-import { CreateConferenceCommand, EditConferenceCommand } from '../../application';
-import { FindConferenceByIdQuery, FindConferenceBySlugQuery } from '../../application/query';
+import { CreateConferenceCommand, EditConferenceCommand,FindConferenceByIdQuery, FindConferenceBySlugQuery } from '../../application';
 
 @Controller('conferences')
 export class ConferenceController {
