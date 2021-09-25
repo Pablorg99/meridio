@@ -18,7 +18,6 @@ export default async function BuyTicket() {
     async (data: BuyTicketFormData) => {
       const body: CreateTicketDTO = {
         id: uuid.v4(),
-        buyerId: uuid.v4(),
         conferenceId: conference.id,
         assistantInfo: data,
       };

@@ -1,6 +1,5 @@
 export type CreateTicketDTO = {
   id: string;
-  buyerId: string;
   conferenceId: string;
   assistantInfo: UserInfo;
 };
