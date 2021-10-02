@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import { useCallback, useState } from 'react';
 
-import { ViewConferenceComponent } from '../../components/Conference/ViewConference';
+import { ViewConferenceComponent } from '../../../components/Conference/ViewConference';
 
 export default function ViewConference() {
   const router = useRouter();
