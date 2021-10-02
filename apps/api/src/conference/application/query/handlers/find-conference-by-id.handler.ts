@@ -3,12 +3,7 @@ import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { ConferenceId } from '../../../../shared/domain';
-import {
-  ConferenceIdNotFoundError,
-  ConferencesProjection,
-  conferencesProjection,
-  Criteria,
-} from '../../../domain';
+import { ConferenceIdNotFoundError, ConferencesProjection, conferencesProjection, Criteria } from '../../../domain';
 import { FindConferenceByIdQuery } from '../find-conference-by-id.query';
 
 @QueryHandler(FindConferenceByIdQuery)
