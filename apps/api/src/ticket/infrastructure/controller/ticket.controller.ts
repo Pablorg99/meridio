@@ -3,7 +3,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as uuid from 'uuid';
 
-import { CreateTicketCommand } from '../../application/command/create-ticket.command';
+import { CreateTicketCommand } from '../../application';
 
 @Controller('tickets')
 export class TicketController {
