@@ -1,10 +1,9 @@
 import { ConferenceDTO, CreateTicketDTO } from '@meridio/contracts';
+import { BuyTicketComponent, BuyTicketFormData } from '@meridio/ui';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import React, { useCallback } from 'react';
 import * as uuid from 'uuid';
-
-import { BuyTicketComponent, BuyTicketFormData } from '../../components/BuyTicket';
 
 export default async function BuyTicket() {
   const router = useRouter();

@@ -1,11 +1,10 @@
 import '@testing-library/jest-dom';
 
+import { BuyTicketComponent } from '@meridio/ui';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 import React from 'react';
-
-import { BuyTicketComponent } from '../components/BuyTicket';
 
 describe('BuyTicket', () => {
   const defaultProps = {
