@@ -1,1 +1,1 @@
-export * from './BuyTicket'
+export * from './BuyTicket';

@@ -1,1 +1,1 @@
-export * from './ticket-mongo.repository'
+export * from './ticket-mongo.repository';
