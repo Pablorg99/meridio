@@ -1,9 +1,9 @@
-import { CreateTicketDTO } from '@meridio/contracts';
-import { Body, Controller, Post } from '@nestjs/common';
+import { CreateTicketDTO, TicketDTO } from '@meridio/contracts';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as uuid from 'uuid';
 
-import { CreateTicketCommand } from '../../application';
+import { CreateTicketCommand, FindTicketsByConferenceId } from '../../application';
 
 @Controller('tickets')
 export class TicketController {
@@ -19,5 +19,12 @@ export class TicketController {
     });
 
     await this.commandBus.execute(command);
+  }
+
+  @Get(':id')
+  async findAll(@Param('id') conferenceId: string) {
+    const query = new FindTicketsByConferenceId(conferenceId);
+
+    return this.queryBus.execute<FindTicketsByConferenceId, Array<TicketDTO>>(query);
   }
 }
