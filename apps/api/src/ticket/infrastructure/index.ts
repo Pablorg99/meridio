@@ -1,3 +1,4 @@
 export * from './controller';
 export * from './repository';
-export * from './ticket.module'
+export * from './subscriber';
+export * from './ticket.module';
