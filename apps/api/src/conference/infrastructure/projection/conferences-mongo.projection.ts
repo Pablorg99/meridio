@@ -25,7 +25,6 @@ export class ConferencesMongoProjection implements ConferencesProjection {
 
   async update(conference: ConferenceDTO): Promise<void> {
     const { id, ...document } = conference;
-    console.log(document);
     await this.model.updateOne({ _id: id }, document);
   }
 
