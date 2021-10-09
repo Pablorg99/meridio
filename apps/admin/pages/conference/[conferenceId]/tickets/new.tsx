@@ -5,7 +5,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useCallback } from 'react';
 import * as uuid from 'uuid';
 
-export default async function CreateTicket() {
+export default function CreateTicket() {
   const router = useRouter();
   const { conferenceId } = router.query;
 
@@ -18,7 +18,7 @@ export default async function CreateTicket() {
           assistantInfo: data,
         };
         await axios.post('http://localhost:3333/api/tickets', body);
-        await router.push(`/tickets`);
+        await router.push(`/conference/${conferenceId}/tickets`);
       }
     },
     [conferenceId, router]
