@@ -12,4 +12,11 @@ export class CreateTicketDTOMother {
       },
     };
   }
+
+  static forConference(conferenceId: string): CreateTicketDTO {
+    return {
+      ...CreateTicketDTOMother.random(),
+      conferenceId,
+    };
+  }
 }

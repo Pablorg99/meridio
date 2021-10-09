@@ -75,6 +75,7 @@ function aTicket(): TicketDTO {
   return {
     id: faker.datatype.uuid(),
     conferenceId: faker.datatype.uuid(),
+    buyerId: faker.datatype.uuid(),
     assistantInfo: {
       fullName: faker.name.findName(),
       email: faker.internet.email(),
