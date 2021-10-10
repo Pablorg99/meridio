@@ -1,6 +1,6 @@
 import { CreateConferenceDTOMother, CreateTicketDTOMother } from '@meridio/contracts';
 
-describe('CreateConference', () => {
+describe('Create ticket', () => {
   const conference = CreateConferenceDTOMother.random();
   const ticket = CreateTicketDTOMother.random();
 
@@ -8,7 +8,7 @@ describe('CreateConference', () => {
     cy.request('POST', 'http://localhost:3333/api/conferences', conference);
   });
 
-  it('filling the form creates a conference', () => {
+  it('creates a ticket', () => {
     cy.intercept('POST', '/tickets').as('createTicket');
     cy.visit(`conference/${conference.id}/tickets/new`);
 
@@ -17,5 +17,6 @@ describe('CreateConference', () => {
     cy.findByRole('button', { name: 'Adquirir entrada' }).click();
 
     cy.wait('@createTicket').its('response.statusCode').should('be.equal', 201);
+    cy.url().should('include', `/conference/${conference.id}/tickets`)
   });
 });
