@@ -1,7 +1,7 @@
 import { CreateConferenceDTOMother, CreateTicketDTOMother } from '@meridio/contracts';
 import * as faker from 'faker';
 
-describe('Buy ticket', function() {
+describe('Buy ticket', function () {
   const conference = CreateConferenceDTOMother.withLandingOpenAndUrl(faker.random.word());
   const ticket = CreateTicketDTOMother.random();
 
@@ -9,7 +9,7 @@ describe('Buy ticket', function() {
     cy.request('POST', 'http://localhost:3333/api/conferences', conference);
   });
 
-  it('should buy a ticket', function() {
+  it('should buy a ticket', function () {
     cy.intercept('POST', '/tickets').as('createTicket');
     cy.visit(`${conference.slug}/ticket`);
 
@@ -18,6 +18,6 @@ describe('Buy ticket', function() {
     cy.findByRole('button', { name: 'Adquirir entrada' }).click();
 
     cy.wait('@createTicket').its('response.statusCode').should('be.equal', 201);
-    cy.url().should('include', `/${conference.slug}/ticket`)
+    cy.url().should('include', `/${conference.slug}/ticket`);
   });
 });
