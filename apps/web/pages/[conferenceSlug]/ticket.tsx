@@ -1,37 +1,51 @@
-import { ConferenceDTO, CreateTicketDTO } from '@meridio/contracts';
-import { BuyTicketComponent, BuyTicketFormData } from '@meridio/ui';
+import { ConferenceDTO, CreateTicketDTO, TicketDTO } from '@meridio/contracts';
+import { BuyTicketFormData } from '@meridio/ui';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import * as uuid from 'uuid';
 
+import { TicketPage } from '../../components/TicketPage';
+
 export default function BuyTicket() {
   const router = useRouter();
   const { conferenceSlug } = router.query;
 
-  const [conference, setConference] = useState<ConferenceDTO>();
+  const [isFetching, setIsFetching] = useState(true);
+  const [conferenceId, setConferenceId] = useState('');
+  const [ticket, setTicket] = useState<TicketDTO>();
 
   useEffect(() => {
     if (conferenceSlug) {
       axios.get<ConferenceDTO>(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`).then((response) => {
-        setConference(response.data);
+        setConferenceId(response.data.id);
       });
     }
   }, [conferenceSlug]);
 
+  useEffect(() => {
+    if (conferenceId) {
+      axios.get<Array<TicketDTO>>(`http://localhost:3333/api/tickets/${conferenceId}`).then((response) => {
+        const [ticket] = response.data;
+        setTicket(ticket);
+        setIsFetching(false);
+      });
+    }
+  }, [conferenceId, conferenceSlug]);
+
   const onBuyTicket = useCallback(
     async (data: BuyTicketFormData) => {
-      if (conference?.id) {
+      if (conferenceId) {
         const body: CreateTicketDTO = {
           id: uuid.v4(),
-          conferenceId: conference.id,
+          conferenceId: conferenceId,
           assistantInfo: data,
         };
         await axios.post('http://localhost:3333/api/tickets', body);
       }
     },
-    [conference?.id, conferenceSlug, router]
+    [conferenceId]
   );
 
-  return <BuyTicketComponent onBuyTicket={onBuyTicket} />;
+  return <TicketPage ticket={ticket} isFetching={isFetching} onBuyTicket={onBuyTicket} />;
 }
