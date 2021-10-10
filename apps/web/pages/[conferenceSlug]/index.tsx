@@ -7,17 +7,18 @@ import { LandingPage } from '../../components/LandingPage';
 
 export default function ViewConference() {
   const router = useRouter();
-  const { conferenceUrl } = router.query;
+  const { conferenceSlug } = router.query;
 
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [conference, setConference] = useState<ConferenceDTO>();
+  const navigateToBuyTicketPage = () => router.push(`/${conferenceSlug}/ticket`);
 
   const fetchLandingPage = useCallback(() => {
-    if (conferenceUrl) {
+    if (conferenceSlug) {
       setIsFetching(true);
       axios
-        .get(`http://localhost:3333/api/conferences/landings/${conferenceUrl}`)
+        .get(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`)
         .then((response) => {
           setConference(response.data);
           setIsFetching(false);
@@ -26,7 +27,7 @@ export default function ViewConference() {
           setIsError(true);
         });
     }
-  }, [conferenceUrl]);
+  }, [conferenceSlug]);
 
   return (
     <LandingPage
@@ -34,6 +35,7 @@ export default function ViewConference() {
       fetchLandingPage={fetchLandingPage}
       isFetching={isFetching}
       isError={isError}
+      navigateToBuyTicketPage={navigateToBuyTicketPage}
     />
   );
 }

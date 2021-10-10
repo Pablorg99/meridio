@@ -8,5 +8,5 @@
     "target": "es2015"
   },
   "exclude": ["**/*.spec.ts", "**/*.mock.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../node_modules/@nrwl/tao/src/compat/compat.d.ts"]
 }

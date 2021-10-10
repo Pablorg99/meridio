@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { UserId, UserIdNotFoundError, USERS, Users } from '../../domain';
+import { UserId } from '../../../shared/domain';
+import { UserIdNotFoundError, USERS, Users } from '../../domain';
 import { UserMapper } from '../../infrastructure/repository/user.mapper';
 import { DeleteUserCommand } from './delete-user.command';
 

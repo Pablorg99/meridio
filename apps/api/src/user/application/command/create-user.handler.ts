@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { Password, Role, User, UserId, Username, USERS, Users } from '../../domain';
+import { UserId } from '../../../shared/domain';
+import { Password, Role, User, Username, USERS, Users } from '../../domain';
 import { UserIdAlreadyTakenError, UsernameAlreadyTakenError } from '../../domain/exception/';
 import { UserMapper } from '../../infrastructure/repository/user.mapper';
 import { CreateUserCommand } from './create-user.command';

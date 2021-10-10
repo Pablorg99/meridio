@@ -2,7 +2,8 @@ import { Nullable } from '@meridio/domain';
 import { Injectable } from '@nestjs/common';
 import { EventStore, StoreEventPublisher } from 'event-sourcing-nestjs';
 
-import { Conference, ConferenceId, ConferenceRepository } from '../../domain';
+import { ConferenceId } from '../../../shared/domain';
+import { Conference, ConferenceRepository } from '../../domain';
 
 @Injectable()
 export class ConferenceMongoRepository implements ConferenceRepository {

@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { IViewUpdater, ViewUpdaterHandler } from 'event-sourcing-nestjs';
 
+import { ConferenceId } from '../../../shared/domain';
 import {
-  ConferenceId,
   ConferenceIdNotFoundError,
   ConferencesProjection,
   conferencesProjection,

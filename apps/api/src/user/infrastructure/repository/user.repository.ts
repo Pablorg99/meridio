@@ -4,7 +4,8 @@ import { EventPublisher } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { User, UserId, Username, Users } from '../../domain';
+import { UserId } from '../../../shared/domain';
+import { User, Username, Users } from '../../domain';
 import { UserEntity } from '../entity/user.entity';
 import { UserMapper } from './user.mapper';
 

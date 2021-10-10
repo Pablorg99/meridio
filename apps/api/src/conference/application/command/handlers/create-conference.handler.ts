@@ -1,11 +1,11 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
+import { ConferenceId } from '../../../../shared/domain';
 import {
   AlreadyExistingConferenceSlugError,
   Conference,
   ConferenceDateRange,
-  ConferenceId,
   ConferenceName,
   ConferencePlace,
   ConferenceRepository,

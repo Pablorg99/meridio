@@ -1,7 +1,8 @@
 import { Test } from '@nestjs/testing';
 import * as uuid from 'uuid';
 
-import { Password, Role, User, UserId, Username } from '../../domain';
+import { UserId } from '../../../shared/domain';
+import { Password, Role, User, Username } from '../../domain';
 import { UserEntity } from '../entity/user.entity';
 import { UserMapper } from './user.mapper';
 

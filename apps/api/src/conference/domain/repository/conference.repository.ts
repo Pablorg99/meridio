@@ -1,6 +1,7 @@
 import { Nullable } from '@meridio/domain';
 
-import { Conference, ConferenceId } from '../model';
+import { ConferenceId } from '../../../shared/domain';
+import { Conference } from '../model';
 
 export interface ConferenceRepository {
   save(conference: Conference): Promise<void>;

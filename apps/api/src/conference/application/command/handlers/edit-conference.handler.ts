@@ -1,9 +1,9 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
+import { ConferenceId } from '../../../../shared/domain';
 import {
   ConferenceDateRange,
-  ConferenceId,
   ConferenceIdNotFoundError,
   ConferenceName,
   ConferencePlace,

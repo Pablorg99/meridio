@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 
 import { ConferenceDTO } from '@meridio/contracts';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 import React from 'react';
 
@@ -14,6 +15,7 @@ describe('LandingPage', function () {
     fetchLandingPage: () => {},
     isError: false,
     isFetching: false,
+    navigateToBuyTicketPage: () => {},
   };
 
   describe('layout', function () {
@@ -25,6 +27,19 @@ describe('LandingPage', function () {
       expect(screen.getByText(conference.slug)).toBeInTheDocument();
       expect(screen.getByText(conference.startDate)).toBeInTheDocument();
       expect(screen.getByText(conference.endDate)).toBeInTheDocument();
+    });
+
+    it('should have a button that goes to the ticket buy page', function () {
+      const props = {
+        ...defaultProps,
+        navigateToBuyTicketPage: jest.fn(),
+      };
+      render(<LandingPage {...props} />);
+
+      const buyTicketButton = screen.getByRole('button', { name: 'Adquirir entrada' });
+      userEvent.click(buyTicketButton);
+
+      expect(props.navigateToBuyTicketPage).toHaveBeenCalledTimes(1);
     });
   });
 
