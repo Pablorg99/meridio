@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 export type BuyTicketFormData = {
   fullName: string;
   email: string;
-  age: number;
-  country: string;
-  city: string;
-  gender: string;
+  age?: number;
+  country?: string;
+  city?: string;
+  gender?: string;
 };
 
 type Props = {
