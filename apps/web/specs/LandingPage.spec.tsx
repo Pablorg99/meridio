@@ -22,16 +22,19 @@ describe('LandingPage', function () {
     it('should show the conference info', function () {
       render(<LandingPage {...defaultProps} />);
 
-      expect(screen.getByText(conference.name)).toBeInTheDocument();
-      expect(screen.getByText(conference.place)).toBeInTheDocument();
-      expect(screen.getByText(conference.slug)).toBeInTheDocument();
-      expect(screen.getByText(conference.startDate)).toBeInTheDocument();
-      expect(screen.getByText(conference.endDate)).toBeInTheDocument();
+      expect(screen.queryByText(conference.name)).toBeInTheDocument();
+      expect(screen.queryByText(conference.place)).toBeInTheDocument();
+      expect(screen.queryByText(conference.slug)).toBeInTheDocument();
+      expect(screen.queryByText(conference.startDate)).toBeInTheDocument();
+      expect(screen.queryByText(conference.endDate)).toBeInTheDocument();
+
+      expect(screen.queryByRole('button', { name: 'Adquirir entrada' })).not.toBeInTheDocument();
     });
 
     it('should have a button that goes to the ticket buy page', function () {
       const props = {
         ...defaultProps,
+        conference: aConferenceWithTicketSalesOpen(),
         navigateToBuyTicketPage: jest.fn(),
       };
       render(<LandingPage {...props} />);
@@ -63,7 +66,7 @@ describe('LandingPage', function () {
 
       render(<LandingPage {...props} />);
 
-      expect(screen.getByText('Loading')).toBeInTheDocument();
+      expect(screen.queryByText('Loading')).toBeInTheDocument();
     });
 
     it('should show a loading when the landing page info is being fetched', function () {
@@ -74,7 +77,7 @@ describe('LandingPage', function () {
 
       render(<LandingPage {...props} />);
 
-      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.queryByText('Error')).toBeInTheDocument();
     });
   });
 });
@@ -87,8 +90,15 @@ function aConference(): ConferenceDTO {
     place: faker.random.word(),
     startDate: faker.date.soon().toISOString().split('T')[0],
     endDate: faker.date.future().toISOString().split('T')[0],
-    isLandingPageOpen: false,
+    isLandingPageOpen: true,
     isCallForPapersOpen: false,
     isTicketSalesOpen: false,
+  };
+}
+
+function aConferenceWithTicketSalesOpen(): ConferenceDTO {
+  return {
+    ...aConference(),
+    isTicketSalesOpen: true,
   };
 }

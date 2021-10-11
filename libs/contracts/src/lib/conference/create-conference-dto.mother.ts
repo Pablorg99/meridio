@@ -24,4 +24,12 @@ export class CreateConferenceDTOMother {
       isLandingPageOpen: true,
     };
   }
+
+  static readyForTicketSales(): CreateConferenceDTO {
+    return {
+      ...CreateConferenceDTOMother.random(),
+      isLandingPageOpen: true,
+      isTicketSalesOpen: true,
+    };
+  }
 }

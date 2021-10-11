@@ -35,7 +35,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
       <div>{conference?.slug}</div>
       <div>{conference?.startDate}</div>
       <div>{conference?.endDate}</div>
-      <button onClick={navigateToBuyTicketPage}>Adquirir entrada</button>
+      {conference?.isTicketSalesOpen && <button onClick={navigateToBuyTicketPage}>Adquirir entrada</button>}
     </>
   );
 };
