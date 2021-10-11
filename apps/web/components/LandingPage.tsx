@@ -7,6 +7,7 @@ type Props = {
   isError: boolean;
   isFetching: boolean;
   navigateToBuyTicketPage(): void;
+  navigateToProposalsPage(): void;
 };
 
 export const LandingPage: React.FunctionComponent<Props> = ({
@@ -15,6 +16,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
   isError,
   isFetching,
   navigateToBuyTicketPage,
+  navigateToProposalsPage,
 }) => {
   useEffect(() => {
     fetchLandingPage();
@@ -36,6 +38,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
       <div>{conference?.startDate}</div>
       <div>{conference?.endDate}</div>
       {conference?.isTicketSalesOpen && <button onClick={navigateToBuyTicketPage}>Adquirir entrada</button>}
+      {conference?.isCallForPapersOpen && <button onClick={navigateToProposalsPage}>Proponer una charla</button>}
     </>
   );
 };
