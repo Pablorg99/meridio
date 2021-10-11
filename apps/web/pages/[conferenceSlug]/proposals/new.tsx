@@ -22,12 +22,13 @@ export default function AddProposal() {
   const onAddProposal = useCallback(
     async (data: AddProposalFormData) => {
       if (conferenceId) {
+        const { title, description, ...speakerInfo } = data;
         const body: CreateProposalDTO = {
           id: uuid.v4(),
           conferenceId: conferenceId,
-          title: data.title,
-          description: data.description,
-          assistantInfo: data,
+          title,
+          description,
+          speakerInfo,
         };
         await axios.post('http://localhost:3333/api/proposals', body);
       }

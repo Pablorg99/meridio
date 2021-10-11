@@ -5,5 +5,5 @@ export type CreateProposalDTO = {
   conferenceId: string;
   title: string;
   description: string;
-  assistantInfo: UserInfoDTO;
+  speakerInfo: UserInfoDTO;
 };
