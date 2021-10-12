@@ -16,6 +16,7 @@ describe('LandingPage', function () {
     isError: false,
     isFetching: false,
     navigateToBuyTicketPage: () => {},
+    navigateToProposalsPage: () => {},
   };
 
   describe('layout', function () {
@@ -43,6 +44,20 @@ describe('LandingPage', function () {
       userEvent.click(buyTicketButton);
 
       expect(props.navigateToBuyTicketPage).toHaveBeenCalledTimes(1);
+    });
+
+    it('should have a button that goes to the proposals page', function () {
+      const props = {
+        ...defaultProps,
+        conference: aConferenceWithCFPOpen(),
+        navigateToProposalsPage: jest.fn(),
+      };
+      render(<LandingPage {...props} />);
+
+      const proposalButton = screen.getByRole('button', { name: 'Proponer una charla' });
+      userEvent.click(proposalButton);
+
+      expect(props.navigateToProposalsPage).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -100,5 +115,12 @@ function aConferenceWithTicketSalesOpen(): ConferenceDTO {
   return {
     ...aConference(),
     isTicketSalesOpen: true,
+  };
+}
+
+function aConferenceWithCFPOpen(): ConferenceDTO {
+  return {
+    ...aConference(),
+    isCallForPapersOpen: true,
   };
 }

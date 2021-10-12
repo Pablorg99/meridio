@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-export type BuyTicketFormData = {
+export type AddProposalFormData = {
+  title: string;
+  description: string;
   fullName: string;
   email: string;
   age?: number;
@@ -11,14 +13,20 @@ export type BuyTicketFormData = {
 };
 
 type Props = {
-  onBuyTicket(data: BuyTicketFormData): void;
+  onAddProposal(data: AddProposalFormData): void;
 };
 
-export const BuyTicketComponent: React.FunctionComponent<Props> = ({ onBuyTicket }) => {
-  const { handleSubmit, register } = useForm<BuyTicketFormData>();
+export const AddProposal: React.FunctionComponent<Props> = ({ onAddProposal }) => {
+  const { register, handleSubmit } = useForm<AddProposalFormData>();
 
   return (
-    <form aria-label="buy-ticket-form" onSubmit={handleSubmit((data) => onBuyTicket(data))}>
+    <form aria-label="add-proposal-form" onSubmit={handleSubmit((data) => onAddProposal(data))}>
+      <label>
+        Título <input {...register('title', { required: true })} type="text" />
+      </label>
+      <label>
+        Descripción <textarea {...register('description', { required: true })} />
+      </label>
       <label>
         Nombre completo <input {...register('fullName', { required: true })} type="text" />
       </label>
@@ -37,7 +45,7 @@ export const BuyTicketComponent: React.FunctionComponent<Props> = ({ onBuyTicket
       <label>
         Género <input {...register('gender')} type="text" />
       </label>
-      <input type="submit" value="Adquirir entrada" />
+      <input type="submit" value="Proponer charla" />
     </form>
   );
 };
