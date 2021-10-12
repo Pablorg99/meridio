@@ -32,4 +32,12 @@ export class CreateConferenceDTOMother {
       isTicketSalesOpen: true,
     };
   }
+
+  static readyForCallForPapers(): CreateConferenceDTO {
+    return {
+      ...CreateConferenceDTOMother.random(),
+      isLandingPageOpen: true,
+      isCallForPapersOpen: true,
+    };
+  }
 }

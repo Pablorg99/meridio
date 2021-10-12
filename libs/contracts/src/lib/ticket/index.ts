@@ -1,4 +1,5 @@
 export * from './create-proposal.dto';
+export * from './create-proposal-dto.mother';
 export * from './create-ticket.dto';
 export * from './create-ticket-dto.mother';
 export * from './ticket.dto';

@@ -31,9 +31,10 @@ export default function AddProposal() {
           speakerInfo,
         };
         await axios.post('http://localhost:3333/api/proposals', body);
+        await router.replace(`/${conferenceSlug}/proposals`);
       }
     },
-    [conferenceId]
+    [conferenceId, conferenceSlug, router]
   );
 
   return <AddProposalComponent onAddProposal={onAddProposal} />;
