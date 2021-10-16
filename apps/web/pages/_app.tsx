@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from '@meridio/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -11,7 +11,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+      jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
 
@@ -22,13 +22,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           <title>NX Boilerplate</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Head>
-        <ThemeProvider theme={theme}>
-          <div style={{ display: 'flex' }}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Component {...pageProps} />
-          </div>
-        </ThemeProvider>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
       </React.Fragment>
     </NextAuthProvider>
   );

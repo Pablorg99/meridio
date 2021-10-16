@@ -1,5 +1,6 @@
-import { ProposalsList } from '@meridio/ui';
 import { useRouter } from 'next/dist/client/router';
+
+import { ProposalsList } from '../../../../components/Proposal/ProposalsList';
 
 export default function Proposals() {
   const router = useRouter();
