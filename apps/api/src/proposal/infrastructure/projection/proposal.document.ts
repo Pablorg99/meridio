@@ -4,7 +4,7 @@ export interface ProposalDocument extends Document {
   readonly ownerId: string;
   readonly conferenceId: string;
   readonly title: string;
-  readonly description: string
+  readonly description: string;
   readonly speakerInfo: {
     fullName: string;
     email: string;

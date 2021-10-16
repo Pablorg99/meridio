@@ -1,1 +1,1 @@
-export * from './proposal.mapper'
+export * from './proposal.mapper';
