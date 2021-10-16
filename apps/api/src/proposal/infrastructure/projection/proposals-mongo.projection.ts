@@ -4,6 +4,7 @@ import { Connection, Model } from 'mongoose';
 
 import { mongoConnection } from '../../../database/database.provider';
 import { ProposalsProjection } from '../../domain';
+import { ProposalMapper } from '../mapper';
 import { ProposalDocument } from './proposal.document';
 import { ProposalSchema } from './proposal.schema';
 
@@ -19,5 +20,11 @@ export class ProposalsMongoProjection implements ProposalsProjection {
       _id: proposal.id,
       ...proposal,
     });
+  }
+
+  async find(conferenceId: string): Promise<Array<ProposalDTO>> {
+    const proposalDocuments = await this.model.find({ conferenceId });
+
+    return ProposalMapper.documentToDTO(proposalDocuments);
   }
 }
