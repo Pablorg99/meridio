@@ -11,49 +11,89 @@ import { ProposalsPage } from '../components/ProposalsPage';
 describe('Proposals page', function () {
   const defaultProps = {
     proposals: [aProposal(), aProposal()],
+    fetchProposals: () => {},
+    isFetching: false,
+    isError: false,
     navigateToAddProposalPage: () => {},
   };
 
-  it('should have a button that navigates to the add proposal page when clicked', function () {
-    const props = {
-      ...defaultProps,
-      navigateToAddProposalPage: jest.fn(),
-    };
+  describe('layout', function () {
+    it('should have a button that navigates to the add proposal page when clicked', function () {
+      const props = {
+        ...defaultProps,
+        navigateToAddProposalPage: jest.fn(),
+      };
 
-    render(<ProposalsPage {...props} />);
-    const addProposalButton = screen.getByRole('button', { name: 'Añadir propuesta' });
-    userEvent.click(addProposalButton);
+      render(<ProposalsPage {...props} />);
+      const addProposalButton = screen.getByRole('button', { name: 'Añadir propuesta' });
+      userEvent.click(addProposalButton);
 
-    expect(props.navigateToAddProposalPage).toHaveBeenCalledTimes(1);
+      expect(props.navigateToAddProposalPage).toHaveBeenCalledTimes(1);
+    });
+
+    it('should list the proposals passed with some information', function () {
+      const [firstProposal, secondProposal] = [aProposal(), aProposal()];
+      const props = {
+        ...defaultProps,
+        proposals: [firstProposal, secondProposal],
+      };
+
+      render(<ProposalsPage {...props} />);
+
+      const [firstRenderedProposal, secondRenderedProposal] = screen.getAllByRole('listitem');
+      expect(firstRenderedProposal).toHaveTextContent(firstProposal.title);
+      expect(secondRenderedProposal).toHaveTextContent(secondProposal.title);
+    });
+
+    it('should show the proposal description when clicking in one of them', function () {
+      const proposal = aProposal();
+      const props = {
+        ...defaultProps,
+        proposals: [proposal],
+      };
+
+      render(<ProposalsPage {...props} />);
+      expect(screen.queryByText(proposal.description)).not.toBeInTheDocument();
+      const renderedProposal = screen.getByRole('listitem');
+      userEvent.click(renderedProposal);
+
+      expect(screen.queryByText(proposal.description)).toBeInTheDocument();
+    });
   });
 
-  it('should list the proposals passed with some information', function () {
-    const [firstProposal, secondProposal] = [aProposal(), aProposal()];
-    const props = {
-      ...defaultProps,
-      proposals: [firstProposal, secondProposal],
-    };
+  describe('behaviour', function () {
+    it('should fetch the proposals', function () {
+      const props = {
+        ...defaultProps,
+        fetchProposals: jest.fn(),
+      };
 
-    render(<ProposalsPage {...props} />);
+      render(<ProposalsPage {...props} />);
 
-    const [firstRenderedProposal, secondRenderedProposal] = screen.getAllByRole('listitem');
-    expect(firstRenderedProposal).toHaveTextContent(firstProposal.title);
-    expect(secondRenderedProposal).toHaveTextContent(secondProposal.title);
-  });
+      expect(props.fetchProposals).toHaveBeenCalledTimes(1);
+    });
 
-  it('should show the proposal description when clicking in one of them', function () {
-    const proposal = aProposal();
-    const props = {
-      ...defaultProps,
-      proposals: [proposal],
-    };
+    it('should show a loading when the data is fetching', () => {
+      const props = {
+        ...defaultProps,
+        isFetching: true,
+      };
 
-    render(<ProposalsPage {...props} />);
-    expect(screen.queryByText(proposal.description)).not.toBeInTheDocument();
-    const renderedProposal = screen.getByRole('listitem');
-    userEvent.click(renderedProposal);
+      render(<ProposalsPage {...props} />);
 
-    expect(screen.queryByText(proposal.description)).toBeInTheDocument();
+      expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
+    });
+
+    it('should show an error message when an error occurs', () => {
+      const props = {
+        ...defaultProps,
+        isError: true,
+      };
+
+      render(<ProposalsPage {...props} />);
+
+      expect(screen.getByText('Error')).toBeInTheDocument();
+    });
   });
 });
 
