@@ -14,4 +14,11 @@ export class CreateProposalDTOMother {
       },
     };
   }
+
+  static forConference(conferenceId: string) {
+    return {
+      ...this.random(),
+      conferenceId,
+    };
+  }
 }
