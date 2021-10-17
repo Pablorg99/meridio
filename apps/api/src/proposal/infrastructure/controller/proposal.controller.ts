@@ -1,13 +1,13 @@
-import { CreateProposalDTO } from '@meridio/contracts';
-import { Body, Controller, Post } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CreateProposalDTO, ProposalDTO } from '@meridio/contracts';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as uuid from 'uuid';
 
-import { CreateProposalCommand } from '../../application';
+import { CreateProposalCommand, FindProposalsByConferenceIdQuery } from '../../application';
 
 @Controller('proposals')
 export class ProposalController {
-  constructor(private commandBus: CommandBus) {}
+  constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   @Post()
   async create(@Body() createProposalDto: CreateProposalDTO) {
@@ -21,5 +21,12 @@ export class ProposalController {
     });
 
     await this.commandBus.execute(command);
+  }
+
+  @Get(':id')
+  async findAll(@Param('id') conferenceId: string) {
+    const query = new FindProposalsByConferenceIdQuery(conferenceId);
+
+    return this.queryBus.execute<FindProposalsByConferenceIdQuery, Array<ProposalDTO>>(query);
   }
 }
