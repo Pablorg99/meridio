@@ -1,14 +1,16 @@
 import { CreateTicketDTO, TicketDTO } from '@meridio/contracts';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import * as uuid from 'uuid';
 
+import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
 import { CreateTicketCommand, FindTicketsByConferenceId } from '../../application';
 
 @Controller('tickets')
 export class TicketController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createTicketDto: CreateTicketDTO) {
     const command = new CreateTicketCommand({
@@ -21,6 +23,7 @@ export class TicketController {
     await this.commandBus.execute(command);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findAll(@Param('id') conferenceId: string) {
     const query = new FindTicketsByConferenceId(conferenceId);

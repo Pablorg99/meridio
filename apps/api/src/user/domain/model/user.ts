@@ -1,41 +1,47 @@
+import { Nullable } from '@meridio/domain';
 import { AggregateRoot } from '@nestjs/cqrs';
 
 import { UserId } from '../../../shared/domain';
-import { UserPasswordWasUpdated, UserRoleWasAdded, UserRoleWasRemoved, UserWasCreated } from '../event';
+import { UserRoleWasAdded, UserRoleWasRemoved, UserWasCreated } from '../event';
 import { UserWasDeleted } from '../event/user-was-deleted.event';
-import { Password } from './password';
 import { Role } from './role';
-import { Username } from './username';
+import { UserAvatarUrl } from './user-avatar-url';
+import { UserFullName } from './user-full-name';
 
 export class User extends AggregateRoot {
-  private _userId: UserId;
-  private _username: Username;
-  private _password: Password;
+  private _id: UserId;
+  private _fullName: UserFullName;
+  private _avatarUrl: UserAvatarUrl;
   private _roles: Role[];
-  private _deleted?: Date;
+  private _deleted: Nullable<Date>;
 
   private constructor() {
     super();
   }
 
-  public static add(userId: UserId, username: Username, password: Password): User {
+  public static add(params: { id: UserId; fullName: UserFullName; avatarUrl: UserAvatarUrl }): User {
     const user = new User();
+    const event = new UserWasCreated({
+      id: params.id.value,
+      fullName: params.fullName.value,
+      avatarUrl: params.avatarUrl.value,
+    });
 
-    user.apply(new UserWasCreated(userId.value, username.value, password.value));
+    user.apply(event);
 
     return user;
   }
 
   get id(): UserId {
-    return this._userId;
+    return this._id;
   }
 
-  get username(): Username {
-    return this._username;
+  get fullName(): UserFullName {
+    return this._fullName;
   }
 
-  get password(): Password {
-    return this._password;
+  get avatarUrl(): UserAvatarUrl {
+    return this._avatarUrl;
   }
 
   get roles(): Role[] {
@@ -62,14 +68,6 @@ export class User extends AggregateRoot {
     this.apply(new UserRoleWasRemoved(this.id.value, role.value));
   }
 
-  updatePassword(password: Password): void {
-    if (this._password.equals(password)) {
-      return;
-    }
-
-    this.apply(new UserPasswordWasUpdated(this.id.value, password.value));
-  }
-
   delete(): void {
     if (this._deleted) {
       return;
@@ -79,11 +77,11 @@ export class User extends AggregateRoot {
   }
 
   private onUserWasCreated(event: UserWasCreated) {
-    this._userId = UserId.fromString(event.id);
-    this._username = Username.fromString(event.username);
-    this._password = Password.fromString(event.password);
+    this._id = UserId.fromString(event.id);
+    this._fullName = UserFullName.fromString(event.fullName);
+    this._avatarUrl = UserAvatarUrl.fromUrl(event.avatarUrl);
     this._roles = [];
-    this._deleted = undefined;
+    this._deleted = null;
   }
 
   private onUserRoleWasAdded(event: UserRoleWasAdded) {
@@ -92,10 +90,6 @@ export class User extends AggregateRoot {
 
   private onUserRoleWasRemoved(event: UserRoleWasRemoved) {
     this._roles = this._roles.filter((item: Role) => !item.equals(Role.fromString(event.role)));
-  }
-
-  private onUserPasswordWasUpdated(event: UserPasswordWasUpdated) {
-    this._password = Password.fromString(event.password);
   }
 
   private onUserWasDeleted(event: UserWasDeleted) {

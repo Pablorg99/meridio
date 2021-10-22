@@ -1,12 +1,11 @@
-import { Id } from '@meridio/domain';
-import * as uuid from 'uuid';
+import { ValueObject } from '@meridio/domain';
 
-export class UserId extends Id {
-  static generate(): UserId {
-    return new UserId(uuid.v4());
+export class UserId extends ValueObject<{ value: string }> {
+  public static fromString(id: string): UserId {
+    return new UserId({ value: id });
   }
 
-  public static fromString(id: string): UserId {
-    return new UserId(id);
+  get value() {
+    return this.props.value;
   }
 }

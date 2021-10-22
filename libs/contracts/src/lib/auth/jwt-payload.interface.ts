@@ -1,6 +1,10 @@
+import { Nullable } from '@meridio/domain';
+
 export interface JwtPayloadInterface {
-  username: string;
-  roles: string[];
+  name: string;
+  email: Nullable<string>;
+  picture: string;
+  sub: string
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

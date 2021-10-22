@@ -1,10 +1,13 @@
 import { ICommand } from '@nestjs/cqrs';
 
 export class CreateUserCommand implements ICommand {
-  constructor(
-    public readonly userId: string,
-    public readonly username: string,
-    public readonly password: string,
-    public readonly roles: string[]
-  ) {}
+  readonly id: string;
+  readonly fullName: string;
+  readonly avatarUrl: string;
+
+  constructor(params: { id: string; fullName: string; avatarUrl: string }) {
+    this.id = params.id;
+    this.fullName = params.fullName;
+    this.avatarUrl = params.avatarUrl;
+  }
 }

@@ -1,6 +1,6 @@
 export class UserDTO {
   id: string;
-  username: string;
-  password: string;
-  roles: string[];
+  fullName: string;
+  avatarUrl: string;
+  roles: Array<string>;
 }
