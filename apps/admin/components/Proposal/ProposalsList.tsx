@@ -1,14 +1,7 @@
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
 import { ProposalDTO } from '@meridio/contracts';
 import React, { useEffect } from 'react';
+
+import { ProposalRow } from './ProposalRow';
 
 type Props = {
   proposals?: Array<ProposalDTO>;
@@ -28,7 +21,6 @@ export const ProposalsList: React.FunctionComponent<Props> = ({
   useEffect(() => {
     fetchProposals();
   }, [fetchProposals]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (isFetching) {
     return <div data-testid="loading-icon">Loading...</div>;
@@ -48,20 +40,7 @@ export const ProposalsList: React.FunctionComponent<Props> = ({
               <th>Nombre del ponente</th>
             </tr>
             {proposals.map((proposal) => (
-              <tr key={proposal.id}>
-                <td onClick={onOpen}>
-                  {proposal.title}
-                  <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                      <ModalHeader>{proposal.title}</ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody>{proposal.description}</ModalBody>
-                    </ModalContent>
-                  </Modal>
-                </td>
-                <td>{proposal.speakerInfo.fullName}</td>
-              </tr>
+              <ProposalRow proposal={proposal} key={proposal.id} />
             ))}
           </tbody>
         </table>

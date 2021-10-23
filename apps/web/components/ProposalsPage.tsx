@@ -1,14 +1,7 @@
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
 import { ProposalDTO } from '@meridio/contracts';
 import React, { useEffect } from 'react';
+
+import { ProposalItem } from './ProposalItem';
 
 type Props = {
   proposals?: Array<ProposalDTO>;
@@ -28,7 +21,6 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
   useEffect(() => {
     fetchProposals();
   }, [fetchProposals]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (isFetching) {
     return <div data-testid="loading-icon">Loading...</div>;
@@ -43,20 +35,9 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
       <div>
         <ul>
           {proposals.map((proposal) => (
-            <li key={proposal.id} onClick={onOpen}>
-              {proposal.title}
-              <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>{proposal.title}</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>{proposal.description}</ModalBody>
-                </ModalContent>
-              </Modal>
-            </li>
+            <ProposalItem key={proposal.id} proposal={proposal} />
           ))}
         </ul>
-
         <button onClick={navigateToAddProposalPage}>Añadir propuesta</button>
       </div>
     );

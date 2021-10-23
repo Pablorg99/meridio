@@ -49,19 +49,23 @@ describe('Proposals list', function () {
       expect(secondProposalRow).toHaveTextContent(secondProposal.speakerInfo.fullName);
     });
 
-    it('should show the proposal description when clicking in one the proposal title', function () {
-      const proposal = aProposal();
+    it('should show the proposal description of the proposal clicked', function () {
+      const [firstProposal, secondProposal] = [aProposal(), aProposal()];
       const props = {
         ...defaultProps,
-        proposals: [proposal],
+        proposals: [firstProposal, secondProposal],
       };
 
       render(<ProposalsList {...props} />);
-      expect(screen.queryByText(proposal.description)).not.toBeInTheDocument();
-      const proposalTitle = screen.getByText(proposal.title);
-      userEvent.click(proposalTitle);
 
-      expect(screen.queryByText(proposal.description)).toBeInTheDocument();
+      expect(screen.queryByText(firstProposal.description)).not.toBeInTheDocument();
+      expect(screen.queryByText(secondProposal.description)).not.toBeInTheDocument();
+
+      const firstRenderedProposal = screen.getByText(firstProposal.title);
+      userEvent.click(firstRenderedProposal);
+
+      expect(screen.queryByText(firstProposal.description)).toBeInTheDocument();
+      expect(screen.queryByText(secondProposal.description)).not.toBeInTheDocument();
     });
   });
 
