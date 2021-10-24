@@ -35,7 +35,7 @@ export function Navbar({ open, onOpenSidebar: onOpenDrawer, session }: NavbarPro
         </Typography>
         {session && (
           <Link href="/api/auth/signout">
-            <Button color="inherit">Logout</Button>
+            <Button data-test="logout" color="inherit">Logout</Button>
           </Link>
         )}
         {!session && (

@@ -1,33 +1,61 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
+/* eslint-disable @typescript-eslint/no-namespace,@typescript-eslint/no-non-null-assertion */
 import '@testing-library/cypress/add-commands';
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace Cypress {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Chainable<Subject> {
-    login(email: string, password: string): void;
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(): Promise<string>;
+
+      loginCutre(): void;
+
+      dbClean(): void;
+    }
   }
 }
-//
-// -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+
+Cypress.Commands.add('login', () => {
+  cy.visit(`/`);
+  const cookieName = Cypress.env('COOKIE_NAME');
+
+  cy.task('GitHubSocialLogin', {
+    username: Cypress.env('GITHUB_USERNAME'),
+    password: Cypress.env('GITHUB_PASSWORD'),
+    loginUrl: `${Cypress.env('BASE_URL')}/api/auth/signin`,
+    headless: true,
+    logs: true,
+    isPopup: true,
+    loginSelector: 'button[type="submit"]',
+    postLoginSelector: 'button[data-test="logout"]',
+  }).then(({ cookies }) => {
+    cy.clearCookies().then(() => {
+      const cookie = cookies.filter((cookie) => cookie.name === cookieName).pop();
+      if (cookie) {
+        cy.setCookie(cookie.name, cookie.value, {
+          domain: cookie.domain,
+          expiry: cookie.expires,
+          httpOnly: cookie.httpOnly,
+          path: cookie.path,
+          secure: cookie.secure,
+        }).then(() => {
+          Cypress.Cookies.defaults({
+            preserve: cookieName,
+          });
+
+          return cookie.value;
+        });
+      }
+    });
+  });
 });
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('loginCutre', () => {
+  cy.visit(`${Cypress.env('BASE_URL')}/api/auth/signin`);
+  cy.findByText('Sign in with GitHub').click();
+  cy.findAllByRole('textbox', { name: 'Username or email address' }).type(Cypress.env('GITHUB_USERNAME'));
+  cy.findByLabelText('Password').type(Cypress.env('GITHUB_PASSWORD'));
+  cy.findByRole('button', { name: 'Authorize Pablorg99' }).click();
+});
+
+Cypress.Commands.add('dbClean', () => {
+  cy.task('dropDatabases');
+});

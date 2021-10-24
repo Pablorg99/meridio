@@ -33,7 +33,7 @@ export default function ViewConference() {
           setIsError(true);
         });
     }
-  }, [conferenceSlug, loading, session]);
+  }, [conferenceSlug, loading, session?.accessToken]);
 
   return (
     <LandingPage
