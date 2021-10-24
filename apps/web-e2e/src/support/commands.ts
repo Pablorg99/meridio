@@ -6,9 +6,7 @@ declare global {
     interface Chainable {
       login(): Promise<string>;
 
-      loginCutre(): void;
-
-      dbClean(): void;
+      dbClean(): Promise<void>;
     }
   }
 }
@@ -46,14 +44,6 @@ Cypress.Commands.add('login', () => {
       }
     });
   });
-});
-
-Cypress.Commands.add('loginCutre', () => {
-  cy.visit(`${Cypress.env('BASE_URL')}/api/auth/signin`);
-  cy.findByText('Sign in with GitHub').click();
-  cy.findAllByRole('textbox', { name: 'Username or email address' }).type(Cypress.env('GITHUB_USERNAME'));
-  cy.findByLabelText('Password').type(Cypress.env('GITHUB_PASSWORD'));
-  cy.findByRole('button', { name: 'Authorize Pablorg99' }).click();
 });
 
 Cypress.Commands.add('dbClean', () => {
