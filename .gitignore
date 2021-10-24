@@ -41,4 +41,5 @@ Thumbs.db
 # Project Files
 ormconfig.json
 .env.local
+cypress.env.json
 cyreport
