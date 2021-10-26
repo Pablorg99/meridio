@@ -321,6 +321,7 @@
         "serve": {
           "executor": "@nrwl/next:server",
           "options": {
+            "port": 4300,
             "buildTarget": "admin:build",
             "dev": true
           },

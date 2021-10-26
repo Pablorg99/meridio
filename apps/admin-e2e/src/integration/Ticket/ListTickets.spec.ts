@@ -7,10 +7,37 @@ describe('List tickets', function () {
   const anotherTicket = CreateTicketDTOMother.random();
 
   before(() => {
-    cy.request('POST', 'http://localhost:3333/api/conferences', conference);
-    cy.request('POST', 'http://localhost:3333/api/tickets', firstTicketFromConference);
-    cy.request('POST', 'http://localhost:3333/api/tickets', secondTicketFromConference);
-    cy.request('POST', 'http://localhost:3333/api/tickets', anotherTicket);
+    cy.dbClean();
+    cy.login().then((token) => {
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/conferences',
+        body: conference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/tickets',
+        body: firstTicketFromConference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/tickets',
+        body: secondTicketFromConference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/tickets',
+        body: anotherTicket,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    });
+  });
+
+  after(() => {
+    cy.dbClean();
   });
 
   it('should list all the tickets of a conference', function () {

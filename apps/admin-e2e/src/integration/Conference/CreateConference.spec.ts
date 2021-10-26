@@ -2,12 +2,18 @@ import { CreateConferenceDTOMother } from '@meridio/contracts';
 
 describe('CreateConference', () => {
   before(() => {
-    cy.visit('/conference/new');
+    cy.dbClean();
+    cy.login();
+  });
+
+  after(() => {
+    cy.dbClean();
   });
 
   const conference = CreateConferenceDTOMother.random();
 
   it('filling the form creates a conference', () => {
+    cy.visit('/conference/new');
     cy.intercept('POST', '/conferences').as('createConference');
 
     cy.findByRole('textbox', { name: 'Nombre de la conferencia' }).type(conference.name);

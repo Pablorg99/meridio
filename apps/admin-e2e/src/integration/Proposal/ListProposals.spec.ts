@@ -7,10 +7,37 @@ describe('List proposals', function () {
   const anotherProposal = CreateProposalDTOMother.random();
 
   before(() => {
-    cy.request('POST', 'http://localhost:3333/api/conferences', conference);
-    cy.request('POST', 'http://localhost:3333/api/proposals', firstProposalFromConference);
-    cy.request('POST', 'http://localhost:3333/api/proposals', secondProposalFromConference);
-    cy.request('POST', 'http://localhost:3333/api/proposals', anotherProposal);
+    cy.dbClean();
+    cy.login().then((token) => {
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/conferences',
+        body: conference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/proposals',
+        body: firstProposalFromConference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/proposals',
+        body: secondProposalFromConference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/proposals',
+        body: anotherProposal,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    });
+  });
+
+  after(() => {
+    cy.dbClean();
   });
 
   it('should list all the proposals of a conference', function () {

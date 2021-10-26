@@ -1,22 +1,23 @@
-// ***********************************************************
-// This example plugins/index.js can be used to load plugins
-//
-// You can change the location of this file or turn off loading
-// the plugins file with the 'pluginsFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/plugins-guide
-// ***********************************************************
-
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
-
 const { preprocessTypescript } = require('@nrwl/cypress/plugins/preprocessor');
 
-module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+const { GitHubSocialLogin } = require('cypress-social-logins').plugins;
 
-  // Preprocess Typescript file using Nx helper
+const mongoose = require('mongoose');
+
+const customTasks = {
+  async dropDatabases() {
+    await mongoose.connect(process.env.MONGO_DB_URI);
+    await mongoose.connection.db.dropDatabase();
+    await mongoose.connection.close();
+    await mongoose.connect(process.env.MONGO_EVENT_STORE_URI);
+    await mongoose.connection.db.dropDatabase();
+    await mongoose.connection.close();
+    return null;
+  },
+};
+
+module.exports = (on, config) => {
   on('file:preprocessor', preprocessTypescript(config));
+  on('task', { GitHubSocialLogin: GitHubSocialLogin });
+  on('task', customTasks);
 };
