@@ -1,14 +1,19 @@
 import { TicketDTO } from '@meridio/contracts';
 import { BuyTicketComponent, BuyTicketFormData } from '@meridio/ui';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type Props = {
+  fetchTicket(): void;
   ticket?: TicketDTO;
   onBuyTicket(data: BuyTicketFormData): void;
   isFetching: boolean;
 };
 
-export const TicketPage: React.FunctionComponent<Props> = ({ ticket, onBuyTicket, isFetching }) => {
+export const TicketPage: React.FunctionComponent<Props> = ({ fetchTicket, ticket, onBuyTicket, isFetching }) => {
+  useEffect(() => {
+    fetchTicket();
+  }, [fetchTicket]);
+
   if (isFetching) {
     return <span data-testid="loader">Loading...</span>;
   }

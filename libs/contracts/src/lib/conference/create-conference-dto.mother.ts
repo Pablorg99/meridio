@@ -17,10 +17,9 @@ export class CreateConferenceDTOMother {
     };
   }
 
-  static withLandingOpenAndUrl(url: string): CreateConferenceDTO {
+  static withLandingPageOpen(): CreateConferenceDTO {
     return {
       ...CreateConferenceDTOMother.random(),
-      slug: url,
       isLandingPageOpen: true,
     };
   }

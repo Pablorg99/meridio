@@ -1,14 +1,11 @@
 import { ConferenceDTO } from '@meridio/contracts';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
-import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
 import { LandingPage } from '../../components/LandingPage';
 
 export default function ViewConference() {
-  const [session, loading] = useSession();
-
   const router = useRouter();
   const { conferenceSlug } = router.query;
 
@@ -19,12 +16,10 @@ export default function ViewConference() {
   const navigateToProposalsPage = () => router.push(`/${conferenceSlug}/proposals`);
 
   const fetchLandingPage = useCallback(() => {
-    if (conferenceSlug && !loading) {
+    if (conferenceSlug) {
       setIsFetching(true);
       axios
-        .get(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`, {
-          headers: { Authorization: `Bearer ${session?.accessToken}` },
-        })
+        .get(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`)
         .then((response) => {
           setConference(response.data);
           setIsFetching(false);
@@ -33,7 +28,7 @@ export default function ViewConference() {
           setIsError(true);
         });
     }
-  }, [conferenceSlug, loading, session]);
+  }, [conferenceSlug]);
 
   return (
     <LandingPage

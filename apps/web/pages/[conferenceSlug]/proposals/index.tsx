@@ -1,11 +1,14 @@
 import { ConferenceDTO, ProposalDTO } from '@meridio/contracts';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
+import { useSession } from 'next-auth/client';
 import { useCallback, useEffect, useState } from 'react';
 
 import { ProposalsPage } from '../../../components/ProposalsPage';
 
 export default function Proposals() {
+  const [session, loading] = useSession();
+
   const router = useRouter();
   const { conferenceSlug } = router.query;
 
@@ -25,10 +28,12 @@ export default function Proposals() {
   }, [conferenceSlug]);
 
   const fetchProposals = useCallback(() => {
-    if (conferenceId) {
+    if (conferenceId && !loading) {
       setIsFetching(true);
       axios
-        .get<Array<ProposalDTO>>(`http://localhost:3333/api/proposals/${conferenceId}`)
+        .get<Array<ProposalDTO>>(`http://localhost:3333/api/proposals/${conferenceId}`, {
+          headers: { Authorization: `Bearer ${session?.accessToken}` },
+        })
         .then((response) => {
           setProposals(response.data);
           setIsFetching(false);
@@ -38,7 +43,7 @@ export default function Proposals() {
           setIsFetching(false);
         });
     }
-  }, [conferenceId]);
+  }, [conferenceId, loading, session?.accessToken]);
 
   return (
     <ProposalsPage

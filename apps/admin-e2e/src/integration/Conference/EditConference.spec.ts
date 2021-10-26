@@ -6,9 +6,23 @@ describe('EditConference', function () {
   const updatedPlace = faker.random.word();
   const updatedEndDate = faker.date.future().toISOString().split('T')[0];
 
-  it('should update some fields of the existing conference', function () {
-    cy.request('POST', 'http://localhost:3333/api/conferences', conference);
+  before(() => {
+    cy.dbClean();
+    cy.login().then((token) => {
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/conferences',
+        body: conference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    });
+  });
 
+  after(() => {
+    cy.dbClean();
+  });
+
+  it('should update some fields of the existing conference', function () {
     cy.visit(`conference/edit/${conference.id}`);
 
     cy.findByRole('textbox', { name: 'Lugar de celebración' }).clear();

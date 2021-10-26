@@ -5,7 +5,7 @@ import React from 'react';
 export default function Index() {
   const [session, loading] = useSession();
   return session ? (
-    <Button onClick={() => signOut()} color="primary">
+    <Button onClick={() => signOut()} color="primary" data-testid="logout">
       LOGOUT
     </Button>
   ) : (
