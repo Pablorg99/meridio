@@ -20,7 +20,7 @@ Cypress.Commands.add('login', () => {
     password: Cypress.env('GITHUB_PASSWORD'),
     loginUrl: `${Cypress.env('BASE_URL')}/api/auth/signin`,
     headless: true,
-    logs: true,
+    logs: false,
     isPopup: true,
     loginSelector: 'button[type="submit"]',
     postLoginSelector: 'button[data-test="logout"]',
