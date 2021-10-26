@@ -19,17 +19,13 @@ export default function Proposals() {
   const navigateToAddProposalPage = () => router.push(`/${conferenceSlug}/proposals/new`);
 
   useEffect(() => {
-    if (conferenceSlug && !loading) {
+    if (conferenceSlug) {
       setIsFetching(true);
-      axios
-        .get<ConferenceDTO>(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`, {
-          headers: { Authorization: `Bearer ${session?.accessToken}` },
-        })
-        .then((response) => {
-          setConferenceId(response.data.id);
-        });
+      axios.get<ConferenceDTO>(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`).then((response) => {
+        setConferenceId(response.data.id);
+      });
     }
-  }, [conferenceSlug, loading, session?.accessToken]);
+  }, [conferenceSlug]);
 
   const fetchProposals = useCallback(() => {
     if (conferenceId && !loading) {

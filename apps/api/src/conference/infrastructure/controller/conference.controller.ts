@@ -60,7 +60,6 @@ export class ConferenceController {
     return this.queryBus.execute<FindConferenceByIdQuery, ConferenceDTO>(query);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/landings/:slug')
   async findOneBySlug(@Param('slug') slug: string) {
     const query = new FindConferenceBySlugQuery(slug);

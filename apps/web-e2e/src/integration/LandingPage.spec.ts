@@ -1,19 +1,26 @@
-import { CreateConferenceDTO, CreateConferenceDTOMother } from '@meridio/contracts';
-import * as faker from 'faker';
+import { CreateConferenceDTOMother } from '@meridio/contracts';
 
 describe('LandingPage', function () {
-  let conferenceSlug: string;
-  let conference: CreateConferenceDTO;
+  const conference = CreateConferenceDTOMother.withLandingPageOpen();
 
   before(() => {
-    conferenceSlug = faker.random.word();
-    conference = CreateConferenceDTOMother.withLandingOpenAndUrl(conferenceSlug);
+    cy.dbClean();
+    cy.login().then((token) => {
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/api/conferences',
+        body: conference,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    });
+  });
+
+  after(() => {
+    cy.dbClean();
   });
 
   it('should show the conference info when visiting the landing page', function () {
-    cy.request('POST', 'http://localhost:3333/api/conferences', conference);
-
-    cy.visit(`/${conferenceSlug}`);
+    cy.visit(conference.slug);
 
     cy.findByText(conference.name);
     cy.findByText(conference.slug);

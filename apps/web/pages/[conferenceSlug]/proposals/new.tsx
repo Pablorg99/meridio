@@ -15,16 +15,12 @@ export default function AddProposal() {
   const [conferenceId, setConferenceId] = useState('');
 
   useEffect(() => {
-    if (conferenceSlug && !loading) {
-      axios
-        .get<ConferenceDTO>(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`, {
-          headers: { Authorization: `Bearer ${session?.accessToken}` },
-        })
-        .then((response) => {
-          setConferenceId(response.data.id);
-        });
+    if (conferenceSlug) {
+      axios.get<ConferenceDTO>(`http://localhost:3333/api/conferences/landings/${conferenceSlug}`).then((response) => {
+        setConferenceId(response.data.id);
+      });
     }
-  }, [conferenceSlug, loading, session?.accessToken]);
+  }, [conferenceSlug]);
 
   const onAddProposal = useCallback(
     async (data: AddProposalFormData) => {

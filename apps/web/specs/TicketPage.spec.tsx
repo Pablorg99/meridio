@@ -9,10 +9,22 @@ import { TicketPage } from '../components/TicketPage';
 
 describe('Ticket page', function () {
   const defaultProps = {
+    fetchTicket: () => {},
     ticket: aTicket(),
     onBuyTicket: () => {},
     isFetching: false,
   };
+
+  it('should fetch the ticket', function () {
+    const props = {
+      ...defaultProps,
+      fetchTicket: jest.fn(),
+    };
+
+    render(<TicketPage {...props} />);
+
+    expect(props.fetchTicket).toHaveBeenCalled();
+  });
 
   it('should show the buy ticket form when there is no ticket', function () {
     const props = {

@@ -2,12 +2,15 @@ import { ConferenceDTO, CreateTicketDTO, TicketDTO } from '@meridio/contracts';
 import { BuyTicketFormData } from '@meridio/ui';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
+import { useSession } from 'next-auth/client';
 import React, { useCallback, useEffect, useState } from 'react';
 import * as uuid from 'uuid';
 
 import { TicketPage } from '../../components/TicketPage';
 
 export default function BuyTicket() {
+  const [session, loading] = useSession();
+
   const router = useRouter();
   const { conferenceSlug } = router.query;
 
@@ -23,29 +26,35 @@ export default function BuyTicket() {
     }
   }, [conferenceSlug]);
 
-  useEffect(() => {
-    if (conferenceId) {
-      axios.get<Array<TicketDTO>>(`http://localhost:3333/api/tickets/${conferenceId}`).then((response) => {
-        const [ticket] = response.data;
-        setTicket(ticket);
-        setIsFetching(false);
-      });
+  const fetchTicket = useCallback(() => {
+    if (conferenceId && !loading) {
+      axios
+        .get<Array<TicketDTO>>(`http://localhost:3333/api/tickets/${conferenceId}`, {
+          headers: { Authorization: `Bearer ${session?.accessToken}` },
+        })
+        .then((response) => {
+          const [ticket] = response.data;
+          setTicket(ticket);
+          setIsFetching(false);
+        });
     }
-  }, [conferenceId, conferenceSlug]);
+  }, [conferenceId, loading, session?.accessToken]);
 
   const onBuyTicket = useCallback(
     async (data: BuyTicketFormData) => {
-      if (conferenceId) {
+      if (conferenceId && !loading) {
         const body: CreateTicketDTO = {
           id: uuid.v4(),
           conferenceId: conferenceId,
           assistantInfo: data,
         };
-        await axios.post('http://localhost:3333/api/tickets', body);
+        await axios.post('http://localhost:3333/api/tickets', body, {
+          headers: { Authorization: `Bearer ${session?.accessToken}` },
+        });
       }
     },
-    [conferenceId]
+    [conferenceId, loading, session?.accessToken]
   );
 
-  return <TicketPage ticket={ticket} isFetching={isFetching} onBuyTicket={onBuyTicket} />;
+  return <TicketPage fetchTicket={fetchTicket} ticket={ticket} isFetching={isFetching} onBuyTicket={onBuyTicket} />;
 }
