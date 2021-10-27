@@ -41,7 +41,7 @@ describe('List proposals', function () {
   });
 
   it('should list all the proposals of a conference', function () {
-    cy.visit(`conference/${conference.id}/proposals`);
+    cy.visit(`conferences/${conference.id}/proposals`);
 
     cy.findByText(firstProposalFromConference.title);
     cy.findByText(firstProposalFromConference.speakerInfo.fullName);

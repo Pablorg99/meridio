@@ -22,7 +22,7 @@ describe('Create proposal', function () {
 
   it('should add a proposal from the admin', function () {
     cy.intercept('POST', '/proposals').as('createProposal');
-    cy.visit(`conference/${conference.id}/proposals/new`);
+    cy.visit(`conferences/${conference.id}/proposals/new`);
 
     cy.findByRole('textbox', { name: 'Título' }).type(proposal.speakerInfo.fullName);
     cy.findByRole('textbox', { name: 'Descripción' }).type(proposal.speakerInfo.fullName);
@@ -31,6 +31,6 @@ describe('Create proposal', function () {
     cy.findByRole('button', { name: 'Proponer charla' }).click();
 
     cy.wait('@createProposal').its('response.statusCode').should('be.equal', 201);
-    cy.url().should('include', `/conference/${conference.id}/proposals`);
+    cy.url().should('include', `/conferences/${conference.id}/proposals`);
   });
 });

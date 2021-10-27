@@ -26,7 +26,7 @@ export default function AddProposal() {
         await axios.post('http://localhost:3333/api/proposals', body, {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         });
-        await router.replace(`/conference/${conferenceId}/proposals`);
+        await router.replace(`/conferences/${conferenceId}/proposals`);
       }
     },
     [conferenceId, loading, router, session?.accessToken]

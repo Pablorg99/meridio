@@ -19,7 +19,7 @@ export default function CreateConference() {
         await axios.post('http://localhost:3333/api/conferences', body, {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         });
-        await router.push(`/conference/${body.id}`);
+        await router.push(`/conferences/${body.id}`);
       }
     },
     [loading, router, session?.accessToken]

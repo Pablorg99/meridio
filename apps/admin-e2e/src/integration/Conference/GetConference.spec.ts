@@ -20,7 +20,7 @@ describe('GetConference', function () {
   });
 
   it('should show the information about the created conference', function () {
-    cy.visit(`conference/${conference.id}`);
+    cy.visit(`conferences/${conference.id}`);
 
     cy.findByText(conference.name);
     cy.findByText(conference.slug);

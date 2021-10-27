@@ -13,7 +13,7 @@ describe('CreateConference', () => {
   const conference = CreateConferenceDTOMother.random();
 
   it('filling the form creates a conference', () => {
-    cy.visit('/conference/new');
+    cy.visit('/conferences/new');
     cy.intercept('POST', '/conferences').as('createConference');
 
     cy.findByRole('textbox', { name: 'Nombre de la conferencia' }).type(conference.name);

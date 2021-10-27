@@ -23,7 +23,7 @@ describe('EditConference', function () {
   });
 
   it('should update some fields of the existing conference', function () {
-    cy.visit(`conference/edit/${conference.id}`);
+    cy.visit(`conferences/${conference.id}/edit`);
 
     cy.findByRole('textbox', { name: 'Lugar de celebración' }).clear();
     cy.findByRole('textbox', { name: 'Lugar de celebración' }).type(updatedPlace);
@@ -31,7 +31,7 @@ describe('EditConference', function () {
     cy.findByLabelText('Fecha de fin').type(updatedEndDate);
     cy.findByRole('button', { name: 'Crear conferencia' }).click();
 
-    cy.visit(`conference/${conference.id}`);
+    cy.visit(`conferences/${conference.id}`);
 
     cy.findByText(conference.name);
     cy.findByText(conference.slug);

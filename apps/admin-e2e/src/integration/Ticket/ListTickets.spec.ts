@@ -41,7 +41,7 @@ describe('List tickets', function () {
   });
 
   it('should list all the tickets of a conference', function () {
-    cy.visit(`conference/${conference.id}/tickets`);
+    cy.visit(`conferences/${conference.id}/tickets`);
 
     cy.findByText(firstTicketFromConference.assistantInfo.fullName);
     cy.findByText(firstTicketFromConference.assistantInfo.email);

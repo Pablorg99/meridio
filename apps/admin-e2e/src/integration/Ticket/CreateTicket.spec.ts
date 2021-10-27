@@ -22,13 +22,13 @@ describe('Create ticket', () => {
 
   it('creates a ticket', () => {
     cy.intercept('POST', '/tickets').as('createTicket');
-    cy.visit(`conference/${conference.id}/tickets/new`);
+    cy.visit(`conferences/${conference.id}/tickets/new`);
 
     cy.findByRole('textbox', { name: 'Nombre completo' }).type(ticket.assistantInfo.fullName);
     cy.findByRole('textbox', { name: 'Email' }).type(ticket.assistantInfo.email);
     cy.findByRole('button', { name: 'Adquirir entrada' }).click();
 
     cy.wait('@createTicket').its('response.statusCode').should('be.equal', 201);
-    cy.url().should('include', `/conference/${conference.id}/tickets`);
+    cy.url().should('include', `/conferences/${conference.id}/tickets`);
   });
 });

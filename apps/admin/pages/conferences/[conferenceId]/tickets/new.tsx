@@ -23,7 +23,7 @@ export default function CreateTicket() {
         await axios.post('http://localhost:3333/api/tickets', body, {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         });
-        await router.push(`/conference/${conferenceId}/tickets`);
+        await router.push(`/conferences/${conferenceId}/tickets`);
       }
     },
     [conferenceId, loading, router, session?.accessToken]
