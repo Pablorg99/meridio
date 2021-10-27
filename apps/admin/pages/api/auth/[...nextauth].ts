@@ -47,7 +47,6 @@ const options = ({
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
-  debug: process.env.NODE_ENV === 'development',
 } as unknown) as NextAuthOptions;
 
 export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options);

@@ -3,13 +3,17 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { EventSourcingModule } from 'event-sourcing-nestjs';
 
 import { DatabaseModule } from '../../database/database.module';
-import { CreateTicketHandler, FindTicketsByConferenceIdHandler } from '../application';
+import {
+  CreateTicketHandler,
+  FindTicketsByConferenceAndBuyerIdQueryHandler,
+  FindTicketsByConferenceIdHandler,
+} from '../application';
 import { TicketController } from './controller';
 import { UpdateTicketsProjectionOnTicketWasCreated } from './subscriber';
 import { ticketProviders } from './ticket.providers';
 
 const commandHandlers = [CreateTicketHandler];
-const queryHandlers = [FindTicketsByConferenceIdHandler];
+const queryHandlers = [FindTicketsByConferenceIdHandler, FindTicketsByConferenceAndBuyerIdQueryHandler];
 const subscribers = [UpdateTicketsProjectionOnTicketWasCreated];
 
 @Module({

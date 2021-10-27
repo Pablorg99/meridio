@@ -22,8 +22,10 @@ export class TicketsMongoProjection implements TicketsProjection {
     });
   }
 
-  async find(conferenceId: string): Promise<Array<TicketDTO>> {
-    const ticketDocuments = await this.model.find({ conferenceId });
+  async find(conferenceId: string, buyerId?: string): Promise<Array<TicketDTO>> {
+    const query = buyerId ? { conferenceId, buyerId } : { conferenceId };
+
+    const ticketDocuments = await this.model.find(query);
 
     return TicketMapper.documentToDTO(ticketDocuments);
   }

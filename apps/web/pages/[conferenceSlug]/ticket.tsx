@@ -51,9 +51,10 @@ export default function BuyTicket() {
         await axios.post('http://localhost:3333/api/tickets', body, {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         });
+        await router.push(`/${conferenceSlug}`);
       }
     },
-    [conferenceId, loading, session?.accessToken]
+    [conferenceId, conferenceSlug, loading, router, session?.accessToken]
   );
 
   return <TicketPage fetchTicket={fetchTicket} ticket={ticket} isFetching={isFetching} onBuyTicket={onBuyTicket} />;

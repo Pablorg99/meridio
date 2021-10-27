@@ -31,6 +31,6 @@ describe('Buy ticket', function () {
     cy.findByRole('button', { name: 'Adquirir entrada' }).click();
 
     cy.wait('@createTicket').its('response.statusCode').should('be.equal', 201);
-    cy.url().should('include', `/${conference.slug}/ticket`);
+    cy.url().should('include', `/${conference.slug}`);
   });
 });

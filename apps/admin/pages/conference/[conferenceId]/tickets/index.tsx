@@ -20,7 +20,7 @@ export default function ViewTickets() {
     if (conferenceId && !loading) {
       setIsFetching(true);
       axios
-        .get<Array<TicketDTO>>(`http://localhost:3333/api/tickets/${conferenceId}`, {
+        .get<Array<TicketDTO>>(`http://localhost:3333/api/tickets/${conferenceId}/all`, {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         })
         .then((response) => {
