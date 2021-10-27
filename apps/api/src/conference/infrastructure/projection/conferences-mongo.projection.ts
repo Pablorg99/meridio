@@ -1,5 +1,4 @@
 import { ConferenceDTO } from '@meridio/contracts';
-import { Nullable } from '@meridio/domain';
 import { Inject } from '@nestjs/common';
 import { Connection, Model } from 'mongoose';
 
@@ -33,16 +32,12 @@ export class ConferencesMongoProjection implements ConferencesProjection {
     return await this.model.exists(query);
   }
 
-  async find(criteria: Criteria): Promise<Nullable<ConferenceDTO>> {
+  async find(criteria: Criteria): Promise<Array<ConferenceDTO>> {
     const query = ConferencesMongoProjection.queryFromCriteria(criteria);
 
-    const document = await this.model.findOne(query);
+    const conferenceDocuments = await this.model.find(query);
 
-    if (!document) {
-      return null;
-    }
-
-    return ConferenceMapper.documentToDTO(document);
+    return ConferenceMapper.documentsToDTO(conferenceDocuments);
   }
 
   private static queryFromCriteria(criteria: Criteria) {
@@ -54,6 +49,10 @@ export class ConferencesMongoProjection implements ConferencesProjection {
 
     if (criteria.slug) {
       query = { ...query, slug: criteria.slug.value };
+    }
+
+    if (criteria.ownerId) {
+      query = { ...query, ownerId: criteria.ownerId.value };
     }
 
     return query;

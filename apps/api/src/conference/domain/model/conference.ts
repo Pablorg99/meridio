@@ -1,7 +1,7 @@
 import { Nullable } from '@meridio/domain';
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import { ConferenceId } from '../../../shared/domain';
+import { ConferenceId, UserId } from '../../../shared/domain';
 import { ConferenceWasCreated, ConferenceWasEdited } from '../event';
 import { ConferenceDateRange } from './conference-date-range';
 import { ConferenceLogoSource } from './conference-logo-source';
@@ -12,6 +12,7 @@ import { ConferenceSlug } from './conference-slug';
 
 export class Conference extends AggregateRoot {
   private _id: ConferenceId;
+  private _ownerId: UserId;
   private _name: ConferenceName;
   private _slug: ConferenceSlug;
   private _place: ConferencePlace;
@@ -25,6 +26,7 @@ export class Conference extends AggregateRoot {
 
   public static create(params: {
     id: ConferenceId;
+    ownerId: UserId;
     name: ConferenceName;
     slug: ConferenceSlug;
     place: ConferencePlace;
@@ -40,6 +42,7 @@ export class Conference extends AggregateRoot {
 
   private static buildConferenceWasCreatedEvent(params: {
     id: ConferenceId;
+    ownerId: UserId;
     name: ConferenceName;
     slug: ConferenceSlug;
     place: ConferencePlace;
@@ -49,6 +52,7 @@ export class Conference extends AggregateRoot {
   }) {
     return new ConferenceWasCreated({
       id: params.id.value,
+      ownerId: params.ownerId.value,
       name: params.name.value,
       slug: params.slug.value,
       place: params.place.value,
@@ -82,6 +86,7 @@ export class Conference extends AggregateRoot {
   }) {
     return new ConferenceWasEdited({
       id: this._id.value,
+      ownerId: this._ownerId.value,
       name: params.name.value,
       slug: params.slug.value,
       place: params.place.value,
@@ -96,6 +101,10 @@ export class Conference extends AggregateRoot {
 
   get id() {
     return this._id;
+  }
+
+  get ownerId() {
+    return this._ownerId;
   }
 
   get name() {
@@ -136,6 +145,7 @@ export class Conference extends AggregateRoot {
 
   private onConferenceWasCreated(event: ConferenceWasCreated) {
     this._id = ConferenceId.fromString(event.id);
+    this._ownerId = UserId.fromString(event.ownerId);
     this._name = ConferenceName.fromString(event.name);
     this._slug = ConferenceSlug.fromString(event.slug);
     this._place = ConferencePlace.fromString(event.place);

@@ -10,7 +10,7 @@ export interface ConferencesProjection {
 
   exists(criteria: Criteria): Promise<boolean>;
 
-  find(criteria: Criteria): Promise<Nullable<ConferenceDTO>>;
+  find(criteria: Criteria): Promise<Array<ConferenceDTO>>;
 }
 
 export const conferencesProjection = 'conferencesProjection';

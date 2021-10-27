@@ -9,7 +9,7 @@ describe('FindConferenceByIdHandler', function () {
   it('should return a conference with the id of the query', async function () {
     const query = new FindConferenceByIdQuery(faker.datatype.uuid());
     const conferenceDTO = ConferenceDTOMother.withId(query.id);
-    const conferences = new ConferencesMockProjection({ onFind: conferenceDTO });
+    const conferences = new ConferencesMockProjection({ onFind: [conferenceDTO] });
     const handler = new FindConferenceByIdHandler(conferences);
 
     const foundConference = await handler.execute(query);
@@ -19,7 +19,7 @@ describe('FindConferenceByIdHandler', function () {
 
   it('should throw an error when the conference with the id of the query is not found', async function () {
     const query = new FindConferenceByIdQuery(faker.datatype.uuid());
-    const conferences = new ConferencesMockProjection({ onFind: null });
+    const conferences = new ConferencesMockProjection({ onFind: [] });
     const handler = new FindConferenceByIdHandler(conferences);
 
     await expect(handler.execute(query)).rejects.toThrowError(ConferenceIdNotFoundError);

@@ -8,7 +8,7 @@ import { CreateConferenceCommandMother } from '../mother/create-conference-comma
 describe('Create conference command handler', () => {
   it('should create a conference with the command passed and save it', async () => {
     const repository = new ConferenceMockRepository();
-    const projection = new ConferencesMockProjection({ onFind: null });
+    const projection = new ConferencesMockProjection({ onExists: false });
     const handler = new CreateConferenceHandler(repository, projection);
     const command = CreateConferenceCommandMother.random();
     const conference = ConferenceMother.fromCommand(command);

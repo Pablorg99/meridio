@@ -5,6 +5,7 @@ export class ConferenceWasEdited extends StorableEvent {
   eventVersion = 1;
 
   readonly id: string;
+  readonly ownerId: string;
   readonly name: string;
   readonly slug: string;
   readonly place: string;
@@ -17,6 +18,7 @@ export class ConferenceWasEdited extends StorableEvent {
 
   constructor(params: {
     id: string;
+    ownerId: string;
     name: string;
     slug: string;
     place: string;
@@ -29,6 +31,7 @@ export class ConferenceWasEdited extends StorableEvent {
   }) {
     super();
     this.id = params.id;
+    this.ownerId = params.ownerId;
     this.name = params.name;
     this.slug = params.slug;
     this.place = params.place;

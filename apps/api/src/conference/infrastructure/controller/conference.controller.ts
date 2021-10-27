@@ -1,13 +1,15 @@
-import { ConferenceDTO, CreateConferenceDTO, EditConferenceDTO } from '@meridio/contracts';
+import { ConferenceDTO, CreateConferenceDTO, EditConferenceDTO, UserDTO } from '@meridio/contracts';
 import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
+import { User } from '../../../shared/decorators/user.decorator';
 import {
   CreateConferenceCommand,
   EditConferenceCommand,
   FindConferenceByIdQuery,
   FindConferenceBySlugQuery,
+  FindConferencesByOwnerIdQuery,
 } from '../../application';
 
 @Controller('conferences')
@@ -16,9 +18,10 @@ export class ConferenceController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() createConferenceDto: CreateConferenceDTO) {
+  async create(@Body() createConferenceDto: CreateConferenceDTO, @User() user: UserDTO) {
     const command = new CreateConferenceCommand({
       id: createConferenceDto.id,
+      ownerId: user.id,
       name: createConferenceDto.name,
       slug: createConferenceDto.slug,
       place: createConferenceDto.place,
@@ -50,6 +53,14 @@ export class ConferenceController {
     });
 
     await this.commandBus.execute(command);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async findAll(@User() user: UserDTO) {
+    const query = new FindConferencesByOwnerIdQuery(user.id);
+
+    return this.queryBus.execute<FindConferencesByOwnerIdQuery, Array<ConferenceDTO>>(query);
   }
 
   @UseGuards(JwtAuthGuard)

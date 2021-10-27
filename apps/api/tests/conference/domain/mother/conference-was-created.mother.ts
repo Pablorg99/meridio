@@ -6,6 +6,7 @@ export class ConferenceWasCreatedMother {
   static random() {
     return new ConferenceWasCreated({
       id: faker.datatype.uuid(),
+      ownerId: faker.datatype.uuid(),
       name: faker.random.word(),
       slug: faker.random.word(),
       place: faker.random.word(),

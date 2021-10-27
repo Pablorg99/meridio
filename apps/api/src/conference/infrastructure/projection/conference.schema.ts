@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 
 export const ConferenceSchema = new Schema({
   _id: String,
+  ownerId: String,
   name: String,
   slug: String,
   place: String,

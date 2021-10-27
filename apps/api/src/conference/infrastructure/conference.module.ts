@@ -8,6 +8,7 @@ import {
   EditConferenceHandler,
   FindConferenceByIdHandler,
   FindConferenceBySlugHandler,
+  FindConferencesByOwnerIdHandler,
 } from '../application';
 import { conferenceProviders } from './conference.providers';
 import { ConferenceController } from './controller';
@@ -17,7 +18,7 @@ import {
 } from './subscriber';
 
 const commandHandlers = [CreateConferenceHandler, EditConferenceHandler];
-const queryHandlers = [FindConferenceByIdHandler, FindConferenceBySlugHandler];
+const queryHandlers = [FindConferenceByIdHandler, FindConferenceBySlugHandler, FindConferencesByOwnerIdHandler];
 const viewUpdaters = [
   UpdateConferencesProjectionOnConferenceWasCreated,
   UpdateConferencesProjectionOnConferenceWasEdited,

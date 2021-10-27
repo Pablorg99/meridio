@@ -12,7 +12,7 @@ export class FindConferenceByIdHandler implements IQueryHandler<FindConferenceBy
 
   async execute(query: FindConferenceByIdQuery) {
     const id = ConferenceId.fromString(query.id);
-    const conference = await this.conferences.find(new Criteria({ id }));
+    const [conference] = await this.conferences.find(new Criteria({ id }));
 
     if (!conference) {
       throw new ConferenceIdNotFoundError(query.id);

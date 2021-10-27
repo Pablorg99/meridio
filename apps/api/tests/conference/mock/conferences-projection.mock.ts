@@ -8,10 +8,10 @@ export class ConferencesMockProjection implements ConferencesProjection {
   readonly saveSpy = jest.fn();
   readonly updateSpy = jest.fn();
   private readonly onExists: boolean;
-  private readonly onFind: Nullable<ConferenceDTO>;
+  private readonly onFind: Array<ConferenceDTO>;
 
-  constructor(params?: { onFind?: Nullable<ConferenceDTO>; onExists?: boolean }) {
-    this.onFind = params?.onFind || null;
+  constructor(params?: { onFind?: Array<ConferenceDTO>; onExists?: boolean }) {
+    this.onFind = params?.onFind || [];
     this.onExists = params?.onExists || false;
   }
 
@@ -27,7 +27,7 @@ export class ConferencesMockProjection implements ConferencesProjection {
     return this.onExists;
   }
 
-  async find(criteria: Criteria): Promise<Nullable<ConferenceDTO>> {
+  async find(criteria: Criteria): Promise<Array<ConferenceDTO>> {
     return this.onFind;
   }
 }

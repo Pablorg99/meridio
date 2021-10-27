@@ -68,6 +68,7 @@ describe('ViewConference', () => {
 function aConference(): ConferenceDTO {
   return {
     id: faker.datatype.uuid(),
+    ownerId: faker.datatype.uuid(),
     name: faker.random.word(),
     slug: faker.random.word(),
     place: faker.random.word(),

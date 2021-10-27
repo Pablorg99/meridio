@@ -14,6 +14,7 @@ describe('UpdateConferencesProjectionOnConferenceWasCreated', function () {
 
     const expectedDto: ConferenceDTO = {
       id: event.id,
+      ownerId: event.ownerId,
       name: event.name,
       slug: event.slug,
       place: event.place,

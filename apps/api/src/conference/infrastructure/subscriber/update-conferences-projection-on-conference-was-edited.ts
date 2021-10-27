@@ -23,6 +23,7 @@ export class UpdateConferencesProjectionOnConferenceWasEdited implements IViewUp
 
     await this.conferences.update({
       id: event.id,
+      ownerId: event.ownerId,
       name: event.name,
       slug: event.slug,
       place: event.place,

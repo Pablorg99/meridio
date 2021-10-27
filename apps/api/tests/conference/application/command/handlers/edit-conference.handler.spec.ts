@@ -22,6 +22,7 @@ describe('Edit conference command handler', function () {
 
     const expectedConference = Conference.create({
       id: existingConference.id,
+      ownerId: existingConference.ownerId,
       name: ConferenceName.fromString(command.name),
       slug: ConferenceSlug.fromString(command.slug),
       place: ConferencePlace.fromString(command.place),

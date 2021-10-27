@@ -10,6 +10,7 @@ export class UpdateConferencesProjectionOnConferenceWasCreated implements IViewU
   async handle(event: ConferenceWasCreated) {
     await this.conferences.save({
       id: event.id,
+      ownerId: event.ownerId,
       name: event.name,
       slug: event.slug,
       place: event.place,

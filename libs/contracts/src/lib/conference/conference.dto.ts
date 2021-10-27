@@ -1,5 +1,6 @@
 export class ConferenceDTO {
   id: string;
+  ownerId: string;
   name: string;
   slug: string;
   place: string;

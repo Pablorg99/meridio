@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface ConferenceDocument extends Document {
+  readonly ownerId: string;
   readonly name: string;
   readonly slug: string;
   readonly place: string;

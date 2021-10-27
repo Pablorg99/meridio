@@ -1,22 +1,21 @@
+import { ConferenceDTO } from '@meridio/contracts';
+
 import { ConferenceDocument } from '../projection';
 
 export class ConferenceMapper {
-  static documentToDTO(projection: ConferenceDocument) {
-    const { name, slug, place, logoSource, isLandingPageOpen, isCallForPapersOpen, isTicketSalesOpen } = projection;
-    const id = projection.id as string;
-    const startDate = projection.startDate;
-    const endDate = projection.endDate;
-    return {
-      id,
-      name,
-      slug,
-      place,
-      startDate,
-      endDate,
-      logoSource,
-      isLandingPageOpen,
-      isCallForPapersOpen,
-      isTicketSalesOpen,
-    };
+  static documentsToDTO(documents: Array<ConferenceDocument>): Array<ConferenceDTO> {
+    return documents.map((document) => ({
+      id: document._id,
+      ownerId: document.ownerId,
+      name: document.name,
+      slug: document.slug,
+      place: document.place,
+      startDate: document.startDate,
+      endDate: document.endDate,
+      logoSource: document.logoSource,
+      isLandingPageOpen: document.isLandingPageOpen,
+      isCallForPapersOpen: document.isCallForPapersOpen,
+      isTicketSalesOpen: document.isTicketSalesOpen,
+    }));
   }
 }

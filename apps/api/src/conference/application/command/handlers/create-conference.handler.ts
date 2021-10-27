@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ConferenceId } from '../../../../shared/domain';
+import { ConferenceId, UserId } from '../../../../shared/domain';
 import {
   AlreadyExistingConferenceSlugError,
   Conference,
@@ -33,6 +33,7 @@ export class CreateConferenceHandler implements ICommandHandler<CreateConference
 
     const conference = Conference.create({
       id: ConferenceId.fromString(command.id),
+      ownerId: UserId.fromString(command.ownerId),
       name: ConferenceName.fromString(command.name),
       slug: ConferenceSlug.fromString(command.slug),
       place: ConferencePlace.fromString(command.place),

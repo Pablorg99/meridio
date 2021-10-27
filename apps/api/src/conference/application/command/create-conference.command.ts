@@ -2,6 +2,7 @@ import { ICommand } from '@nestjs/cqrs';
 
 export class CreateConferenceCommand implements ICommand {
   readonly id: string;
+  readonly ownerId: string;
   readonly name: string;
   readonly slug: string;
   readonly place: string;
@@ -14,6 +15,7 @@ export class CreateConferenceCommand implements ICommand {
 
   constructor(params: {
     id: string;
+    ownerId: string;
     name: string;
     slug: string;
     place: string;
@@ -25,6 +27,7 @@ export class CreateConferenceCommand implements ICommand {
     isTicketSalesOpen: boolean;
   }) {
     this.id = params.id;
+    this.ownerId = params.ownerId;
     this.name = params.name;
     this.slug = params.slug;
     this.place = params.place;

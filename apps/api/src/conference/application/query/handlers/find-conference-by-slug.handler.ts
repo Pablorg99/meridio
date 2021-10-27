@@ -18,7 +18,7 @@ export class FindConferenceBySlugHandler implements IQueryHandler<FindConference
 
   async execute(query: FindConferenceBySlugQuery) {
     const slug = ConferenceSlug.fromString(query.slug);
-    const conference = await this.conferences.find(new Criteria({ slug }));
+    const [conference] = await this.conferences.find(new Criteria({ slug }));
 
     if (!conference) {
       throw new ConferenceSlugNotFoundError(query.slug);
