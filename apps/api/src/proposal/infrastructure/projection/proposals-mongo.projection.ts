@@ -22,8 +22,9 @@ export class ProposalsMongoProjection implements ProposalsProjection {
     });
   }
 
-  async find(conferenceId: string): Promise<Array<ProposalDTO>> {
-    const proposalDocuments = await this.model.find({ conferenceId });
+  async find(conferenceId: string, ownerId?: string): Promise<Array<ProposalDTO>> {
+    const query = ownerId ? { conferenceId, ownerId } : { conferenceId };
+    const proposalDocuments = await this.model.find(query);
 
     return ProposalMapper.documentToDTO(proposalDocuments);
   }

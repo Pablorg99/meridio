@@ -21,7 +21,7 @@ export default function Proposals() {
     if (conferenceId && !loading) {
       setIsFetching(true);
       axios
-        .get<Array<ProposalDTO>>(`http://localhost:3333/api/proposals/${conferenceId}`, {
+        .get<Array<ProposalDTO>>(`http://localhost:3333/api/proposals/${conferenceId}/all`, {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         })
         .then((response) => {

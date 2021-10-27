@@ -1,10 +1,14 @@
-import { CreateProposalDTO, ProposalDTO } from '@meridio/contracts';
+import { CreateProposalDTO, ProposalDTO, UserDTO } from '@meridio/contracts';
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import * as uuid from 'uuid';
 
 import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
-import { CreateProposalCommand, FindProposalsByConferenceIdQuery } from '../../application';
+import { User } from '../../../shared/decorators/user.decorator';
+import {
+  CreateProposalCommand,
+  FindProposalsByConferenceAndOwnerIdQuery,
+  FindProposalsByConferenceIdQuery,
+} from '../../application';
 
 @Controller('proposals')
 export class ProposalController {
@@ -12,10 +16,10 @@ export class ProposalController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() createProposalDto: CreateProposalDTO) {
+  async create(@Body() createProposalDto: CreateProposalDTO, @User() user: UserDTO) {
     const command = new CreateProposalCommand({
       id: createProposalDto.id,
-      ownerId: uuid.v4(),
+      ownerId: user.id,
       conferenceId: createProposalDto.conferenceId,
       title: createProposalDto.title,
       description: createProposalDto.description,
@@ -27,6 +31,14 @@ export class ProposalController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
+  async find(@Param('id') conferenceId: string, @User() user: UserDTO) {
+    const query = new FindProposalsByConferenceAndOwnerIdQuery(conferenceId, user.id);
+
+    return this.queryBus.execute<FindProposalsByConferenceAndOwnerIdQuery, Array<ProposalDTO>>(query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/all')
   async findAll(@Param('id') conferenceId: string) {
     const query = new FindProposalsByConferenceIdQuery(conferenceId);
 
