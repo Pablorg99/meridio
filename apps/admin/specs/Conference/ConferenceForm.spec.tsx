@@ -18,11 +18,10 @@ describe('Conference form', function () {
       render(<ConferenceForm {...defaultProps} />);
 
       expect(screen.getByRole('textbox', { name: 'Nombre de la conferencia' })).toBeInTheDocument();
-      expect(screen.getByRole('textbox', { name: 'Enlace para la página principal' })).toBeInTheDocument();
+      expect(screen.getByRole('textbox', { name: 'Enlance a la página de conferencia' })).toBeInTheDocument();
       expect(screen.getByRole('textbox', { name: 'Lugar de celebración' })).toBeInTheDocument();
       expect(screen.getByLabelText('Fecha de inicio')).toBeInTheDocument();
       expect(screen.getByLabelText('Fecha de fin')).toBeInTheDocument();
-      expect(screen.getByLabelText('Logo de conferencia')).toBeInTheDocument();
       expect(screen.getByRole('checkbox', { name: 'Abrir página de conferencia' })).toBeInTheDocument();
       expect(screen.getByRole('checkbox', { name: 'Abrir call for papers' })).toBeInTheDocument();
       expect(screen.getByRole('checkbox', { name: 'Abrir venta de tickets' })).toBeInTheDocument();
@@ -40,7 +39,7 @@ describe('Conference form', function () {
 
         render(<ConferenceForm {...props} />);
         const nameInput = screen.getByRole('textbox', { name: 'Nombre de la conferencia' });
-        const slugInput = screen.getByRole('textbox', { name: 'Enlace para la página principal' });
+        const slugInput = screen.getByRole('textbox', { name: 'Enlance a la página de conferencia' });
         const placeInput = screen.getByRole('textbox', { name: 'Lugar de celebración' });
         const startDateInput = screen.getByLabelText('Fecha de inicio');
         const endDateInput = screen.getByLabelText('Fecha de fin');
