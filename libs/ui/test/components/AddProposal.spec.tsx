@@ -16,14 +16,10 @@ describe('Add proposal', function () {
       render(<AddProposal {...defaultProps} />);
 
       expect(screen.queryByRole('form')).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Título' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Descripción' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Nombre completo' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Email' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Edad' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'País' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Ciudad' })).toBeInTheDocument();
-      expect(screen.queryByRole('textbox', { name: 'Género' })).toBeInTheDocument();
+      expect(screen.getByRole('textbox', { name: 'Título de la charla' })).toBeInTheDocument();
+      expect(screen.queryByRole('textbox', { name: 'Descripción de la charla' })).toBeInTheDocument();
+      expect(screen.queryByRole('textbox', { name: 'Tu nombre completo' })).toBeInTheDocument();
+      expect(screen.queryByRole('textbox', { name: 'Tu email de contacto' })).toBeInTheDocument();
       expect(screen.queryByRole('button', { name: 'Proponer charla' })).toBeInTheDocument();
     });
   });
@@ -36,10 +32,10 @@ describe('Add proposal', function () {
       };
       render(<AddProposal {...props} />);
 
-      const titleInput = screen.getByRole('textbox', { name: 'Título' });
-      const descriptionInput = screen.getByRole('textbox', { name: 'Descripción' });
-      const fullNameInput = screen.getByRole('textbox', { name: 'Nombre completo' });
-      const emailInput = screen.getByRole('textbox', { name: 'Email' });
+      const titleInput = screen.getByRole('textbox', { name: 'Título de la charla' });
+      const descriptionInput = screen.getByRole('textbox', { name: 'Descripción de la charla' });
+      const fullNameInput = screen.getByRole('textbox', { name: 'Tu nombre completo' });
+      const emailInput = screen.getByRole('textbox', { name: 'Tu email de contacto' });
       const submitButton = screen.getByRole('button', { name: 'Proponer charla' });
       userEvent.type(titleInput, faker.random.word());
       userEvent.type(descriptionInput, faker.random.words());

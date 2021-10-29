@@ -28,9 +28,9 @@ describe('Add proposal', function () {
 
     cy.findByRole('button', { name: 'Añadir propuesta' }).click();
 
-    cy.findByRole('textbox', { name: 'Título' }).type(proposal.speakerInfo.fullName);
-    cy.findByRole('textbox', { name: 'Descripción' }).type(proposal.speakerInfo.fullName);
-    cy.findByRole('textbox', { name: 'Nombre completo' }).type(proposal.speakerInfo.fullName);
+    cy.findByRole('textbox', { name: 'Título de la charla' }).type(proposal.speakerInfo.fullName);
+    cy.findByRole('textbox', { name: 'Descripción de la charla' }).type(proposal.speakerInfo.fullName);
+    cy.findByRole('textbox', { name: 'Tu nombre completo' }).type(proposal.speakerInfo.fullName);
     cy.findByRole('textbox', { name: 'Email' }).type(proposal.speakerInfo.email);
     cy.findByRole('button', { name: 'Proponer charla' }).click();
 

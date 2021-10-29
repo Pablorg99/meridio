@@ -1,3 +1,4 @@
+import { Button, Container, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -21,31 +22,29 @@ export const AddProposal: React.FunctionComponent<Props> = ({ onAddProposal }) =
 
   return (
     <form aria-label="add-proposal-form" onSubmit={handleSubmit((data) => onAddProposal(data))}>
-      <label>
-        Título <input {...register('title', { required: true })} type="text" />
-      </label>
-      <label>
-        Descripción <textarea {...register('description', { required: true })} />
-      </label>
-      <label>
-        Nombre completo <input {...register('fullName', { required: true })} type="text" />
-      </label>
-      <label>
-        Email <input {...register('email', { required: true })} type="text" />
-      </label>
-      <label>
-        Edad <input {...register('age')} type="text" />
-      </label>
-      <label>
-        País <input {...register('country')} type="text" />
-      </label>
-      <label>
-        Ciudad <input {...register('city')} type="text" />
-      </label>
-      <label>
-        Género <input {...register('gender')} type="text" />
-      </label>
-      <input type="submit" value="Proponer charla" />
+      <Container maxWidth="75%" marginTop="5%">
+        <FormControl paddingTop="25px" isRequired>
+          <FormLabel>Título de la charla</FormLabel>
+          <Input {...register('title', { required: true })} type="text" />
+        </FormControl>
+        <FormControl paddingTop="25px" isRequired>
+          <FormLabel>Descripción de la charla</FormLabel>
+          <Textarea {...register('description', { required: true })} />
+        </FormControl>
+        <FormControl paddingTop="25px" display={'flex'} justifyContent={'space-between'}>
+          <FormControl width="48%" isRequired>
+            <FormLabel>Tu nombre completo</FormLabel>
+            <Input {...register('fullName', { required: true })} type="text" />
+          </FormControl>
+          <FormControl width="48%" isRequired>
+            <FormLabel>Tu email de contacto</FormLabel>
+            <Input {...register('email', { required: true })} type="text" />
+          </FormControl>
+        </FormControl>
+        <Button type="submit" width="20%" marginTop="45px" colorScheme="orange" variant="solid">
+          Proponer charla
+        </Button>
+      </Container>
     </form>
   );
 };
