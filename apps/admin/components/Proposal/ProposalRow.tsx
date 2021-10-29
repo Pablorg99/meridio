@@ -1,10 +1,13 @@
 import {
+  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Td,
+  Tr,
   useDisclosure,
 } from '@chakra-ui/react';
 import { ProposalDTO } from '@meridio/contracts';
@@ -18,9 +21,12 @@ export const ProposalRow: React.FunctionComponent<Props> = ({ proposal }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <tr>
-      <td onClick={onOpen}>
-        {proposal.title}
+    <Tr>
+      <Td>{proposal.title}</Td>
+      <Td>{proposal.speakerInfo.fullName}</Td>
+      <Td>{proposal.speakerInfo.email}</Td>
+      <Td>
+        <Button onClick={onOpen}>Ver descripción</Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -29,8 +35,7 @@ export const ProposalRow: React.FunctionComponent<Props> = ({ proposal }) => {
             <ModalBody>{proposal.description}</ModalBody>
           </ModalContent>
         </Modal>
-      </td>
-      <td>{proposal.speakerInfo.fullName}</td>
-    </tr>
+      </Td>
+    </Tr>
   );
 };

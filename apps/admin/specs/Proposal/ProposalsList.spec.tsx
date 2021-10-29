@@ -49,7 +49,7 @@ describe('Proposals list', function () {
       expect(secondProposalRow).toHaveTextContent(secondProposal.speakerInfo.fullName);
     });
 
-    it('should show the proposal description of the proposal clicked', function () {
+    it('should show the proposal description when the button is clicked', function () {
       const [firstProposal, secondProposal] = [aProposal(), aProposal()];
       const props = {
         ...defaultProps,
@@ -61,8 +61,8 @@ describe('Proposals list', function () {
       expect(screen.queryByText(firstProposal.description)).not.toBeInTheDocument();
       expect(screen.queryByText(secondProposal.description)).not.toBeInTheDocument();
 
-      const firstRenderedProposal = screen.getByText(firstProposal.title);
-      userEvent.click(firstRenderedProposal);
+      const [firstProposalDescriptionButton] = screen.getAllByRole('button');
+      userEvent.click(firstProposalDescriptionButton);
 
       expect(screen.queryByText(firstProposal.description)).toBeInTheDocument();
       expect(screen.queryByText(secondProposal.description)).not.toBeInTheDocument();
@@ -100,7 +100,7 @@ describe('Proposals list', function () {
 
       render(<ProposalsList {...props} />);
 
-      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.getByText('There was an unexpected error, try reloading the page.')).toBeInTheDocument();
     });
   });
 });

@@ -19,7 +19,7 @@ type Props = {
   conference?: ConferenceDTO;
 };
 
-export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conference }) => {
+export const  ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conference }) => {
   const { handleSubmit, register } = useForm<ConferenceFormData>();
 
   return (

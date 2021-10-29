@@ -15,7 +15,7 @@ export default function Proposals() {
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [proposals, setProposals] = useState<Array<ProposalDTO>>();
-  const navigateToAddProposalPage = () => router.push(`/${conferenceId}/proposals/new`);
+  const navigateToAddProposalPage = () => router.push(`/conferences/${conferenceId}/proposals/new`);
 
   const fetchProposals = useCallback(() => {
     if (conferenceId && !loading) {
