@@ -57,23 +57,41 @@ export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, confe
             <FormLabel htmlFor="landing-page" marginBottom="3px">
               Abrir página de conferencia{' '}
             </FormLabel>
-            <Switch id="landing-page" colorScheme="orange" {...register('isLandingPageOpen')} type="checkbox" />
+            <Switch
+              id="landing-page"
+              colorScheme="orange"
+              {...register('isLandingPageOpen')}
+              type="checkbox"
+              defaultChecked={conference?.isLandingPageOpen}
+            />
           </FormControl>
           <FormControl display="flex" alignItems="center" width="auto">
             <FormLabel htmlFor="cfp" marginBottom="3px">
               Abrir call for papers{' '}
             </FormLabel>
-            <Switch id="cfp" colorScheme="orange" {...register('isCallForPapersOpen')} type="checkbox" />
+            <Switch
+              id="cfp"
+              colorScheme="orange"
+              {...register('isCallForPapersOpen')}
+              type="checkbox"
+              defaultChecked={conference?.isCallForPapersOpen}
+            />
           </FormControl>
           <FormControl display="flex" alignItems="center" width="auto">
             <FormLabel htmlFor="ticket-sales" marginBottom="3px">
               Abrir venta de tickets{' '}
             </FormLabel>
-            <Switch id="ticket-sales" colorScheme="orange" {...register('isTicketSalesOpen')} type="checkbox" />
+            <Switch
+              id="ticket-sales"
+              colorScheme="orange"
+              {...register('isTicketSalesOpen')}
+              type="checkbox"
+              defaultChecked={conference?.isTicketSalesOpen}
+            />
           </FormControl>
         </FormControl>
         <Button type="submit" width="20%" marginTop="25px" colorScheme="orange" variant="solid">
-          Crear conferencia
+          {conference ? 'Guardar cambios' : 'Crear conferencia'}
         </Button>
       </FormControl>
     </form>

@@ -78,11 +78,15 @@ describe('Conference form', function () {
 
       render(<ConferenceForm {...props} />);
 
-      screen.getByDisplayValue(conference.name);
-      screen.getByDisplayValue(conference.slug);
-      screen.getByDisplayValue(conference.place);
-      screen.getByDisplayValue(conference.startDate);
-      screen.getByDisplayValue(conference.endDate);
+      expect(screen.getByDisplayValue(conference.name)).toBeInTheDocument();
+      expect(screen.getByDisplayValue(conference.slug)).toBeInTheDocument();
+      expect(screen.getByDisplayValue(conference.place)).toBeInTheDocument();
+      expect(screen.getByDisplayValue(conference.startDate)).toBeInTheDocument();
+      expect(screen.getByDisplayValue(conference.endDate)).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: 'Abrir página de conferencia' })).toBeChecked();
+      expect(screen.getByRole('checkbox', { name: 'Abrir call for papers' })).not.toBeChecked();
+      expect(screen.getByRole('checkbox', { name: 'Abrir venta de tickets' })).toBeChecked();
+      expect(screen.getByRole('button', { name: 'Guardar cambios' })).toBeInTheDocument();
     });
   });
 });
@@ -96,8 +100,8 @@ function aConference(): ConferenceDTO {
     place: faker.random.word(),
     startDate: faker.date.soon().toISOString().split('T')[0],
     endDate: faker.date.future().toISOString().split('T')[0],
-    isLandingPageOpen: faker.datatype.boolean(),
-    isCallForPapersOpen: faker.datatype.boolean(),
-    isTicketSalesOpen: faker.datatype.boolean(),
+    isLandingPageOpen: true,
+    isCallForPapersOpen: false,
+    isTicketSalesOpen: true,
   };
 }

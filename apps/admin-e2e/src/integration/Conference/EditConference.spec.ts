@@ -23,20 +23,20 @@ describe('EditConference', function () {
   });
 
   it('should update some fields of the existing conference', function () {
-    cy.visit(`conferences/${conference.id}/edit`);
+    cy.visit(`conferences/${conference.id}`);
 
     cy.findByRole('textbox', { name: 'Lugar de celebración' }).clear();
     cy.findByRole('textbox', { name: 'Lugar de celebración' }).type(updatedPlace);
     cy.findByLabelText('Fecha de fin').clear();
     cy.findByLabelText('Fecha de fin').type(updatedEndDate);
-    cy.findByRole('button', { name: 'Crear conferencia' }).click();
+    cy.findByRole('button', { name: 'Guardar cambios' }).click();
 
     cy.visit(`conferences/${conference.id}`);
 
-    cy.findByText(conference.name);
-    cy.findByText(conference.slug);
-    cy.findByText(updatedPlace);
-    cy.findByText(conference.startDate);
-    cy.findByText(updatedEndDate);
+    cy.findByDisplayValue(conference.name);
+    cy.findByDisplayValue(conference.slug);
+    cy.findByDisplayValue(updatedPlace);
+    cy.findByDisplayValue(conference.startDate);
+    cy.findByDisplayValue(updatedEndDate);
   });
 });

@@ -9,5 +9,7 @@
   "videosFolder": "../../dist/cypress/apps/admin-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/admin-e2e/screenshots",
   "chromeWebSecurity": false,
-  "baseUrl": "http://localhost:4300"
+  "baseUrl": "http://localhost:4300",
+  "viewportHeight": 800,
+  "viewportWidth": 1600
 }

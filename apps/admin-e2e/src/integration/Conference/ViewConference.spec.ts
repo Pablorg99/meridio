@@ -1,6 +1,6 @@
 import { CreateConferenceDTOMother } from '@meridio/contracts';
 
-describe('GetConference', function () {
+describe('ViewConference', function () {
   const conference = CreateConferenceDTOMother.random();
 
   before(() => {
@@ -22,10 +22,10 @@ describe('GetConference', function () {
   it('should show the information about the created conference', function () {
     cy.visit(`conferences/${conference.id}`);
 
-    cy.findByText(conference.name);
-    cy.findByText(conference.slug);
-    cy.findByText(conference.place);
-    cy.findByText(conference.startDate);
-    cy.findByText(conference.endDate);
+    cy.findByDisplayValue(conference.name);
+    cy.findByDisplayValue(conference.slug);
+    cy.findByDisplayValue(conference.place);
+    cy.findByDisplayValue(conference.startDate);
+    cy.findByDisplayValue(conference.endDate);
   });
 });

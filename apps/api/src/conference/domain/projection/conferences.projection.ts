@@ -1,5 +1,4 @@
 import { ConferenceDTO } from '@meridio/contracts';
-import { Nullable } from '@meridio/domain';
 
 import { Criteria } from './conferences.criteria';
 

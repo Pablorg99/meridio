@@ -1,12 +1,13 @@
-import { ConferenceDTO } from '@meridio/contracts';
+import { ConferenceDTO, EditConferenceDTO } from '@meridio/contracts';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
-import { ViewConferenceComponent } from '../../../components/Conference/ViewConference';
+import { ConferenceFormData } from '../../../components/Conference/ConferenceForm';
+import { EditConferenceComponent } from '../../../components/Conference/EditConference';
 
-export default function ViewConference() {
+export default function EditConference() {
   const [session, loading] = useSession();
 
   const router = useRouter();
@@ -33,12 +34,23 @@ export default function ViewConference() {
     }
   }, [conferenceId, loading, session?.accessToken]);
 
+  const updateConference = useCallback(
+    async (data: ConferenceFormData) => {
+      if (conferenceId && !loading) {
+        const body: EditConferenceDTO = { ...data };
+        await axios.put(`http://localhost:3333/api/conferences/${conferenceId}`, body, {
+          headers: { Authorization: `Bearer ${session?.accessToken}` },
+        });
+      }
+    },
+    [conferenceId, loading, session?.accessToken]
+  );
+
   return (
-    <ViewConferenceComponent
+    <EditConferenceComponent
+      onEditConference={updateConference}
       conference={conference}
       fetchConference={fetchConference}
-      isFetching={isFetching}
-      isError={isError}
     />
   );
 }

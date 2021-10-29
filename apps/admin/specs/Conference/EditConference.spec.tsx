@@ -10,9 +10,11 @@ import { EditConferenceComponent } from '../../components/Conference/EditConfere
 describe('Edit existing conference', function () {
   const conference = aConference();
   const defaultProps = {
-    onEditConference: () => {},
-    conference,
     fetchConference: () => {},
+    isFetching: false,
+    isError: false,
+    conference,
+    onEditConference: () => {},
   };
 
   describe('layout', () => {
@@ -39,8 +41,8 @@ describe('Edit existing conference', function () {
     });
   });
 
-  describe('behaviour', function () {
-    it('should fetch the conference when rendered', function () {
+  describe('behaviour', () => {
+    it('should fetch the conference data', () => {
       const props = {
         ...defaultProps,
         fetchConference: jest.fn(),
@@ -48,7 +50,31 @@ describe('Edit existing conference', function () {
 
       render(<EditConferenceComponent {...props} />);
 
-      expect(props.fetchConference).toHaveBeenCalledTimes(1);
+      expect(props.fetchConference).toBeCalledTimes(1);
+    });
+
+    it('should show a loading when the data is fetching', () => {
+      const props = {
+        ...defaultProps,
+        isFetching: true,
+      };
+
+      render(<EditConferenceComponent {...props} />);
+
+      expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
+      expect(() => screen.getByText(conference.name)).toThrow();
+    });
+
+    it('should show an error message when an error occurs', () => {
+      const props = {
+        ...defaultProps,
+        isError: true,
+      };
+
+      render(<EditConferenceComponent {...props} />);
+
+      expect(screen.getByText('There was an unexpected error, try reloading the page.')).toBeInTheDocument();
+      expect(() => screen.getByText(conference.name)).toThrow();
     });
   });
 });
