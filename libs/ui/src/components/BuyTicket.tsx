@@ -1,3 +1,4 @@
+import { Button, Container, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -19,25 +20,41 @@ export const BuyTicketComponent: React.FunctionComponent<Props> = ({ onBuyTicket
 
   return (
     <form aria-label="buy-ticket-form" onSubmit={handleSubmit((data) => onBuyTicket(data))}>
-      <label>
-        Nombre completo <input {...register('fullName', { required: true })} type="text" />
-      </label>
-      <label>
-        Email <input {...register('email', { required: true })} type="text" />
-      </label>
-      <label>
-        Edad <input {...register('age')} type="text" />
-      </label>
-      <label>
-        País <input {...register('country')} type="text" />
-      </label>
-      <label>
-        Ciudad <input {...register('city')} type="text" />
-      </label>
-      <label>
-        Género <input {...register('gender')} type="text" />
-      </label>
-      <input type="submit" value="Adquirir entrada" />
+      <Container maxWidth={'75%'} marginTop={'5%'}>
+        <FormControl display={'flex'} justifyContent={'space-between'}>
+          <FormControl marginTop="25px" width={'48%'} isRequired>
+            <FormLabel>Nombre completo</FormLabel>
+            <Input {...register('fullName', { required: true })} type="text" />
+          </FormControl>
+          <FormControl marginTop="25px" width={'48%'} isRequired>
+            <FormLabel>Email</FormLabel>
+            <Input {...register('email', { required: true })} type="text" />
+          </FormControl>
+        </FormControl>
+        <FormControl display={'flex'} justifyContent={'space-between'}>
+          <FormControl marginTop="25px" width={'48%'}>
+            <FormLabel>Edad</FormLabel>
+            <Input {...register('age')} type="text" />
+          </FormControl>
+          <FormControl marginTop="25px" width={'48%'}>
+            <FormLabel>País</FormLabel>
+            <Input {...register('country')} type="text" />
+          </FormControl>
+        </FormControl>
+        <FormControl display={'flex'} justifyContent={'space-between'}>
+          <FormControl marginTop="25px" width={'48%'}>
+            <FormLabel>Ciudad</FormLabel>
+            <Input {...register('city')} type="text" />
+          </FormControl>
+          <FormControl marginTop="25px" width={'48%'}>
+            <FormLabel>Género</FormLabel>
+            <Input {...register('gender')} type="text" />
+          </FormControl>
+        </FormControl>
+        <Button type="submit" marginTop="45px" colorScheme={'orange'} variant={'solid'}>
+          Adquirir entrada
+        </Button>
+      </Container>
     </form>
   );
 };
