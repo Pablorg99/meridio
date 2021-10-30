@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 
 import { ConferenceDTO } from '@meridio/contracts';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 
 import { ConferencesList } from '../../components/Conference/ConferencesList';
@@ -12,6 +13,10 @@ describe('Conferences list', function () {
     fetchConferences: () => {},
     isFetching: false,
     isError: false,
+    navigateToConferencePage: () => {},
+    navigateToLandingPage: () => {},
+    navigateToProposalsPage: () => {},
+    navigateToTicketsPage: () => {},
   };
 
   describe('layout', function () {
@@ -24,9 +29,15 @@ describe('Conferences list', function () {
 
       render(<ConferencesList {...props} />);
 
-      const [firstRenderedConference, secondRenderedConference] = screen.getAllByRole('listitem');
-      expect(firstRenderedConference).toHaveTextContent(firstConference.name);
-      expect(secondRenderedConference).toHaveTextContent(secondConference.name);
+      const [firstConferenceRow, secondConferenceRow] = screen.getAllByRole('row');
+      expect(firstConferenceRow).toHaveTextContent(firstConference.name);
+      expect(firstConferenceRow).toHaveTextContent(firstConference.slug);
+      expect(firstConferenceRow).toHaveTextContent('Ver charlas');
+      expect(firstConferenceRow).toHaveTextContent('Ver entradas');
+      expect(secondConferenceRow).toHaveTextContent(secondConference.name);
+      expect(secondConferenceRow).toHaveTextContent(secondConference.slug);
+      expect(secondConferenceRow).toHaveTextContent('Ver charlas');
+      expect(secondConferenceRow).toHaveTextContent('Ver entradas');
     });
   });
 
@@ -63,7 +74,67 @@ describe('Conferences list', function () {
 
       render(<ConferencesList {...props} />);
 
-      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.getByText('There was an unexpected error, try reloading the page.')).toBeInTheDocument();
+    });
+
+    it('should go to the conference page when clicking the conference name', function () {
+      const conference = aConference();
+      const props = {
+        ...defaultProps,
+        conferences: [conference],
+        navigateToConferencePage: jest.fn(),
+      };
+
+      render(<ConferencesList {...props} />);
+      const conferenceName = screen.getByText(conference.name);
+      userEvent.click(conferenceName);
+
+      expect(props.navigateToConferencePage).toHaveBeenCalledWith(conference.id);
+    });
+
+    it('should go to the landing page when clicking the conference slug', function () {
+      const conference = aConference();
+      const props = {
+        ...defaultProps,
+        conferences: [conference],
+        navigateToLandingPage: jest.fn(),
+      };
+
+      render(<ConferencesList {...props} />);
+      const conferenceSlug = screen.getByText(conference.slug);
+      userEvent.click(conferenceSlug);
+
+      expect(props.navigateToLandingPage).toHaveBeenCalledWith(conference.slug);
+    });
+
+    it('should go to the conference proposals when clicking the proposals button', function () {
+      const conference = aConference();
+      const props = {
+        ...defaultProps,
+        conferences: [conference],
+        navigateToProposalsPage: jest.fn(),
+      };
+
+      render(<ConferencesList {...props} />);
+      const proposalsButton = screen.getByRole('button', { name: 'Ver charlas' });
+      userEvent.click(proposalsButton);
+
+      expect(props.navigateToProposalsPage).toHaveBeenCalledWith(conference.id);
+    });
+
+    it('should go to the conference tickets when clicking the tickets button', function () {
+      const conference = aConference();
+      const props = {
+        ...defaultProps,
+        conferences: [conference],
+        navigateToTicketsPage: jest.fn(),
+      };
+
+      render(<ConferencesList {...props} />);
+      const ticketsButton = screen.getByRole('button', { name: 'Ver entradas' });
+      userEvent.click(ticketsButton);
+
+      expect(props.navigateToTicketsPage).toHaveBeenCalledWith(conference.id);
     });
   });
 });

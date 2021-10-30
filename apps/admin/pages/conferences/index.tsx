@@ -1,5 +1,6 @@
 import { ConferenceDTO } from '@meridio/contracts';
 import axios from 'axios';
+import { useRouter } from 'next/dist/client/router';
 import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
@@ -11,6 +12,13 @@ export default function Conferences() {
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [conferences, setConferences] = useState<Array<ConferenceDTO>>();
+
+  const router = useRouter();
+  const navigateToConferencePage = (conferenceId: string) => router.push(`/conferences/${conferenceId}`);
+  const navigateToLandingPage = (conferenceSlug: string) =>
+    window.open(`http://localhost:4200/${conferenceSlug}`, '_ blank');
+  const navigateToProposalsPage = (conferenceId: string) => router.push(`/conferences/${conferenceId}/proposals`);
+  const navigateToTicketsPage = (conferenceId: string) => router.push(`/conferences/${conferenceId}/tickets`);
 
   const fetchConferences = useCallback(() => {
     if (!loading) {
@@ -36,6 +44,10 @@ export default function Conferences() {
       fetchConferences={fetchConferences}
       isFetching={isFetching}
       isError={isError}
+      navigateToConferencePage={navigateToConferencePage}
+      navigateToLandingPage={navigateToLandingPage}
+      navigateToProposalsPage={navigateToProposalsPage}
+      navigateToTicketsPage={navigateToTicketsPage}
     />
   );
 }
