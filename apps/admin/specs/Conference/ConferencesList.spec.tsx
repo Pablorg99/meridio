@@ -17,6 +17,7 @@ describe('Conferences list', function () {
     navigateToLandingPage: () => {},
     navigateToProposalsPage: () => {},
     navigateToTicketsPage: () => {},
+    navigateToCreateConferencePage: () => {},
   };
 
   describe('layout', function () {
@@ -135,6 +136,20 @@ describe('Conferences list', function () {
       userEvent.click(ticketsButton);
 
       expect(props.navigateToTicketsPage).toHaveBeenCalledWith(conference.id);
+    });
+
+    it('should go to the create conference page when clicking the add conference button', function () {
+      const conference = aConference();
+      const props = {
+        ...defaultProps,
+        navigateToCreateConferencePage: jest.fn(),
+      };
+
+      render(<ConferencesList {...props} />);
+      const addConferenceButton = screen.getByRole('button', { name: 'Crear conferencia' });
+      userEvent.click(addConferenceButton);
+
+      expect(props.navigateToCreateConferencePage).toHaveBeenCalled();
     });
   });
 });

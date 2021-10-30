@@ -12,6 +12,7 @@ type Props = {
   navigateToLandingPage(conferenceSlug: string): void;
   navigateToProposalsPage(conferenceId: string): void;
   navigateToTicketsPage(conferenceId: string): void;
+  navigateToCreateConferencePage(): void;
 };
 
 export const ConferencesList: React.FunctionComponent<Props> = ({
@@ -23,6 +24,7 @@ export const ConferencesList: React.FunctionComponent<Props> = ({
   navigateToLandingPage,
   navigateToProposalsPage,
   navigateToTicketsPage,
+  navigateToCreateConferencePage,
 }) => {
   useEffect(() => {
     fetchConferences();
@@ -83,6 +85,9 @@ export const ConferencesList: React.FunctionComponent<Props> = ({
             ))}
           </Tbody>
         </Table>
+        <Button marginTop={'45px'} colorScheme={'orange'} variant={'solid'} onClick={navigateToCreateConferencePage}>
+          Crear conferencia
+        </Button>
       </Container>
     );
   }

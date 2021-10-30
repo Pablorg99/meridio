@@ -19,6 +19,7 @@ export default function Conferences() {
     window.open(`http://localhost:4200/${conferenceSlug}`, '_ blank');
   const navigateToProposalsPage = (conferenceId: string) => router.push(`/conferences/${conferenceId}/proposals`);
   const navigateToTicketsPage = (conferenceId: string) => router.push(`/conferences/${conferenceId}/tickets`);
+  const navigateToCreateConferencePage = () => router.push('/conferences/new');
 
   const fetchConferences = useCallback(() => {
     if (!loading) {
@@ -48,6 +49,7 @@ export default function Conferences() {
       navigateToLandingPage={navigateToLandingPage}
       navigateToProposalsPage={navigateToProposalsPage}
       navigateToTicketsPage={navigateToTicketsPage}
+      navigateToCreateConferencePage={navigateToCreateConferencePage}
     />
   );
 }
