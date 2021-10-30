@@ -15,6 +15,7 @@ export default function ViewTickets() {
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [tickets, setTickets] = useState<Array<TicketDTO>>();
+  const navigateToAddTicketPage = () => router.push(`/conferences/${conferenceId}/tickets/new`);
 
   const fetchTickets = useCallback(() => {
     if (conferenceId && !loading) {
@@ -33,5 +34,13 @@ export default function ViewTickets() {
     }
   }, [conferenceId, loading, session?.accessToken]);
 
-  return <TicketsList tickets={tickets} fetchTickets={fetchTickets} isFetching={isFetching} isError={isError} />;
+  return (
+    <TicketsList
+      tickets={tickets}
+      fetchTickets={fetchTickets}
+      isFetching={isFetching}
+      isError={isError}
+      navigateToAddTicketPage={navigateToAddTicketPage}
+    />
+  );
 }

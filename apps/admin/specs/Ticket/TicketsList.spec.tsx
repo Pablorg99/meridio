@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 
 import { TicketDTO } from '@meridio/contracts';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 
 import { TicketsList } from '../../components/Ticket/TicketsList';
@@ -12,6 +13,7 @@ describe('Tickets list', function () {
     fetchTickets: () => {},
     isFetching: false,
     isError: false,
+    navigateToAddTicketPage: () => {},
   };
 
   describe('layout', function () {
@@ -32,6 +34,7 @@ describe('Tickets list', function () {
       expect(firstTicketRow).toHaveTextContent(firstTicket.assistantInfo.email);
       expect(secondTicketRow).toHaveTextContent(secondTicket.assistantInfo.fullName);
       expect(secondTicketRow).toHaveTextContent(secondTicket.assistantInfo.email);
+      expect(screen.queryByRole('button', { name: 'Añadir ticket' })).toBeInTheDocument();
     });
   });
 
@@ -66,7 +69,20 @@ describe('Tickets list', function () {
 
       render(<TicketsList {...props} />);
 
-      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.getByText('There was an unexpected error, try reloading the page.')).toBeInTheDocument();
+    });
+
+    it('should navigate to the add ticket page when clicking the button', function () {
+      const props = {
+        ...defaultProps,
+        navigateToAddTicketPage: jest.fn(),
+      };
+
+      render(<TicketsList {...props} />);
+      const addTicketButton = screen.getByRole('button', { name: 'Añadir ticket' });
+      userEvent.click(addTicketButton);
+
+      expect(props.navigateToAddTicketPage).toHaveBeenCalled();
     });
   });
 });
