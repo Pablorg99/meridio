@@ -24,7 +24,7 @@ export const TicketsList: React.FunctionComponent<Props> = ({
 
   if (isFetching) {
     return (
-      <Container display="flex" justifyContent="center" marginTop="5%">
+      <Container display="flex" justifyContent="center" marginTop="50px">
         <Spinner data-testid="loading-icon" size="xl" thickness="5px" color="orange" emptyColor="orange.100" />;
       </Container>
     );
@@ -32,7 +32,7 @@ export const TicketsList: React.FunctionComponent<Props> = ({
 
   if (isError) {
     return (
-      <Container maxWidth="100%" display="flex" justifyContent="center" alignItems="center" marginTop="5%">
+      <Container maxWidth="100%" display="flex" justifyContent="center" alignItems="center" marginTop="50px">
         <WarningIcon w={8} h={8} color="red" marginRight="10px" />
         <Text fontSize="4xl" color="red">
           There was an unexpected error, try reloading the page.
@@ -43,7 +43,7 @@ export const TicketsList: React.FunctionComponent<Props> = ({
 
   if (tickets) {
     return (
-      <Container maxW="75%" marginTop="5%">
+      <Container maxWidth="75%" marginTop="50px">
         <Table variant="simple">
           <Thead>
             <Tr>

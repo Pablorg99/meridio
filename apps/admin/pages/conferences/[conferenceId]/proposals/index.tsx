@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
+import { AppBar } from '../../../../components/AppBar';
 import { ProposalsList } from '../../../../components/Proposal/ProposalsList';
 
 export default function Proposals() {
@@ -36,12 +37,14 @@ export default function Proposals() {
   }, [conferenceId, loading, session?.accessToken]);
 
   return (
-    <ProposalsList
-      proposals={proposals}
-      fetchProposals={fetchProposals}
-      isFetching={isFetching}
-      isError={isError}
-      navigateToAddProposalPage={navigateToAddProposalPage}
-    />
+    <AppBar session={session}>
+      <ProposalsList
+        proposals={proposals}
+        fetchProposals={fetchProposals}
+        isFetching={isFetching}
+        isError={isError}
+        navigateToAddProposalPage={navigateToAddProposalPage}
+      />
+    </AppBar>
   );
 }

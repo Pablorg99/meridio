@@ -4,6 +4,9 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import Providers from 'next-auth/providers';
 
 const options = ({
+  pages: {
+    signIn: '/login',
+  },
   jwt: {
     secret: process.env.JWT_SECRET,
     encode: async ({ secret, token, maxAge }) => {

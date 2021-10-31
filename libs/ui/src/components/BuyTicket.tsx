@@ -20,7 +20,7 @@ export const BuyTicketComponent: React.FunctionComponent<Props> = ({ onBuyTicket
 
   return (
     <form aria-label="buy-ticket-form" onSubmit={handleSubmit((data) => onBuyTicket(data))}>
-      <Container maxWidth={'75%'} marginTop={'5%'}>
+      <Container maxWidth={'75%'} marginTop={'50px'}>
         <FormControl display={'flex'} justifyContent={'space-between'}>
           <FormControl marginTop="25px" width={'48%'} isRequired>
             <FormLabel>Nombre completo</FormLabel>

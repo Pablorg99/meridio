@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
+import { AppBar } from '../../../components/AppBar';
 import { ConferenceFormData } from '../../../components/Conference/ConferenceForm';
 import { EditConferenceComponent } from '../../../components/Conference/EditConference';
 
@@ -47,10 +48,14 @@ export default function EditConference() {
   );
 
   return (
-    <EditConferenceComponent
-      onEditConference={updateConference}
-      conference={conference}
-      fetchConference={fetchConference}
-    />
+    <AppBar session={session}>
+      <EditConferenceComponent
+        fetchConference={fetchConference}
+        isFetching={isFetching}
+        isError={isError}
+        conference={conference}
+        onEditConference={updateConference}
+      />
+    </AppBar>
   );
 }

@@ -6,6 +6,8 @@ import { useSession } from 'next-auth/client';
 import { useCallback } from 'react';
 import * as uuid from 'uuid';
 
+import { AppBar } from '../../../../components/AppBar';
+
 export default function AddProposal() {
   const [session, loading] = useSession();
 
@@ -32,5 +34,9 @@ export default function AddProposal() {
     [conferenceId, loading, router, session?.accessToken]
   );
 
-  return <AddProposalComponent onAddProposal={onAddProposal} />;
+  return (
+    <AppBar session={session}>
+      <AddProposalComponent onAddProposal={onAddProposal} />;
+    </AppBar>
+  );
 }

@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/client';
 import React, { useCallback } from 'react';
 import * as uuid from 'uuid';
 
+import { AppBar } from '../../components/AppBar';
 import { ConferenceFormData } from '../../components/Conference/ConferenceForm';
 import { CreateConferenceComponent } from '../../components/Conference/CreateConference';
 
@@ -25,5 +26,9 @@ export default function CreateConference() {
     [loading, router, session?.accessToken]
   );
 
-  return <CreateConferenceComponent onCreateConference={onCreateConference} />;
+  return (
+    <AppBar session={session}>
+      <CreateConferenceComponent onCreateConference={onCreateConference} />;
+    </AppBar>
+  );
 }

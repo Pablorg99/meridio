@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
+import { AppBar } from '../../components/AppBar';
 import { ConferencesList } from '../../components/Conference/ConferencesList';
 
 export default function Conferences() {
@@ -40,16 +41,18 @@ export default function Conferences() {
   }, [loading, session?.accessToken]);
 
   return (
-    <ConferencesList
-      conferences={conferences}
-      fetchConferences={fetchConferences}
-      isFetching={isFetching}
-      isError={isError}
-      navigateToConferencePage={navigateToConferencePage}
-      navigateToLandingPage={navigateToLandingPage}
-      navigateToProposalsPage={navigateToProposalsPage}
-      navigateToTicketsPage={navigateToTicketsPage}
-      navigateToCreateConferencePage={navigateToCreateConferencePage}
-    />
+    <AppBar session={session}>
+      <ConferencesList
+        conferences={conferences}
+        fetchConferences={fetchConferences}
+        isFetching={isFetching}
+        isError={isError}
+        navigateToConferencePage={navigateToConferencePage}
+        navigateToLandingPage={navigateToLandingPage}
+        navigateToProposalsPage={navigateToProposalsPage}
+        navigateToTicketsPage={navigateToTicketsPage}
+        navigateToCreateConferencePage={navigateToCreateConferencePage}
+      />
+    </AppBar>
   );
 }

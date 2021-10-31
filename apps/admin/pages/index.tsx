@@ -1,16 +1,20 @@
-import Button from '@material-ui/core/Button';
-import { signIn, signOut, useSession } from 'next-auth/client';
-import React from 'react';
+import { useRouter } from 'next/dist/client/router';
+import { useSession } from 'next-auth/client';
+import React, { useEffect } from 'react';
+
+import { AppBar } from '../components/AppBar';
 
 export default function Index() {
+  const router = useRouter();
   const [session, loading] = useSession();
-  return session ? (
-    <Button onClick={() => signOut()} color="primary" data-testid="logout">
-      LOGOUT
-    </Button>
-  ) : (
-    <Button onClick={() => signIn()} color="primary">
-      LOGIN
-    </Button>
-  );
+
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push('/login');
+    } else {
+      router.push('/conferences');
+    }
+  }, [loading, session, router]);
+
+  return null;
 }

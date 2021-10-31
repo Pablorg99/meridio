@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from 'next-auth/client';
 import { useCallback, useState } from 'react';
 
+import { AppBar } from '../../../../components/AppBar';
 import { TicketsList } from '../../../../components/Ticket/TicketsList';
 
 export default function ViewTickets() {
@@ -35,12 +36,14 @@ export default function ViewTickets() {
   }, [conferenceId, loading, session?.accessToken]);
 
   return (
-    <TicketsList
-      tickets={tickets}
-      fetchTickets={fetchTickets}
-      isFetching={isFetching}
-      isError={isError}
-      navigateToAddTicketPage={navigateToAddTicketPage}
-    />
+    <AppBar session={session}>
+      <TicketsList
+        tickets={tickets}
+        fetchTickets={fetchTickets}
+        isFetching={isFetching}
+        isError={isError}
+        navigateToAddTicketPage={navigateToAddTicketPage}
+      />
+    </AppBar>
   );
 }

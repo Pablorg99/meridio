@@ -6,6 +6,8 @@ import { useSession } from 'next-auth/client';
 import React, { useCallback } from 'react';
 import * as uuid from 'uuid';
 
+import { AppBar } from '../../../../components/AppBar';
+
 export default function CreateTicket() {
   const [session, loading] = useSession();
 
@@ -29,5 +31,9 @@ export default function CreateTicket() {
     [conferenceId, loading, router, session?.accessToken]
   );
 
-  return <BuyTicketComponent onBuyTicket={onBuyTicket} />;
+  return (
+    <AppBar session={session}>
+      <BuyTicketComponent onBuyTicket={onBuyTicket} />;
+    </AppBar>
+  );
 }

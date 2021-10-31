@@ -12,18 +12,18 @@ declare global {
 }
 
 Cypress.Commands.add('login', () => {
-  cy.visit(`/`);
+  cy.visit('/login');
 
   const cookieName = Cypress.env('COOKIE_NAME');
 
   cy.task('GitHubSocialLogin', {
     username: Cypress.env('GITHUB_USERNAME'),
     password: Cypress.env('GITHUB_PASSWORD'),
-    loginUrl: `${Cypress.env('BASE_URL')}/api/auth/signin`,
+    loginUrl: `${Cypress.env('BASE_URL')}/login`,
     headless: true,
-    logs: false,
+    logs: true,
     isPopup: true,
-    loginSelector: 'button[type="submit"]',
+    loginSelector: 'button[data-testid="login"]',
     postLoginSelector: 'button[data-testid="logout"]',
   }).then(({ cookies }) => {
     cy.clearCookies().then(() => {

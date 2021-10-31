@@ -22,7 +22,7 @@ export const AddProposal: React.FunctionComponent<Props> = ({ onAddProposal }) =
 
   return (
     <form aria-label="add-proposal-form" onSubmit={handleSubmit((data) => onAddProposal(data))}>
-      <Container maxWidth="75%" marginTop="5%">
+      <Container maxWidth="75%" marginTop="50px">
         <FormControl paddingTop="25px" isRequired>
           <FormLabel>Título de la charla</FormLabel>
           <Input {...register('title', { required: true })} type="text" />
