@@ -1,5 +1,5 @@
 import { WarningIcon } from '@chakra-ui/icons';
-import { Box, Button, Container, Flex, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Button, Container, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import { ConferenceDTO } from '@meridio/contracts';
 import React, { useEffect } from 'react';
 
@@ -48,7 +48,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
 
   if (conference) {
     return (
-      <Box position={'fixed'} width={'100%'} height={'100%'} backgroundImage="/white-background.jpeg">
+      <>
         <VStack marginTop={'50px'} spacing={'50px'}>
           <Heading size={'4xl'}>{conference.name}</Heading>
           <HStack spacing={'30px'}>
@@ -72,7 +72,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
             )}
           </HStack>
         </VStack>
-      </Box>
+      </>
     );
   }
 
