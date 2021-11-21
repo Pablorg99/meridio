@@ -21,7 +21,7 @@ describe('ConferenceDate', function () {
 
     render(<ConferenceDate {...props} />);
 
-    expect(screen.queryByText('1 MAYO 2022')).toBeInTheDocument();
+    expect(screen.queryByText('1 mayo 2022')).toBeInTheDocument();
   });
 
   it('should show the starting and ending days with the month when start and end dates are in the same month', function () {
@@ -35,7 +35,7 @@ describe('ConferenceDate', function () {
 
     render(<ConferenceDate {...props} />);
 
-    expect(screen.queryByText('1-3 MAYO 2022')).toBeInTheDocument();
+    expect(screen.queryByText('1-3 mayo 2022')).toBeInTheDocument();
   });
 
   it('should show the start and end dates of the conference with the months when start and end dates are in different months', function () {
@@ -49,6 +49,6 @@ describe('ConferenceDate', function () {
 
     render(<ConferenceDate {...props} />);
 
-    expect(screen.queryByText('1 ABRIL - 1 MAYO 2022')).toBeInTheDocument();
+    expect(screen.queryByText('1 abril - 1 mayo 2022')).toBeInTheDocument();
   });
 });

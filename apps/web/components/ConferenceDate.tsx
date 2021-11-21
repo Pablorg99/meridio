@@ -7,18 +7,18 @@ type Props = {
 };
 
 const months = [
-  'ENERO',
-  'FEBRERO',
-  'MARZO',
-  'ABRIL',
-  'MAYO',
-  'JUNIO',
-  'JULIO',
-  'AGOSTO',
-  'SEPTIEMBRE',
-  'OCTUBRE',
-  'NOVIEMBRE',
-  'DICIEMBRE',
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre',
 ];
 
 export const ConferenceDate: React.FunctionComponent<Props> = ({ startDate, endDate }) => {
