@@ -1,6 +1,7 @@
 import { WarningIcon } from '@chakra-ui/icons';
-import { Button, Container, Spinner, Table, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Container, Heading, HStack, Spinner, Table, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { ProposalDTO } from '@meridio/contracts';
+import { Head } from 'next/document';
 import React, { useEffect } from 'react';
 
 import { ProposalItem } from './ProposalItem';
@@ -11,6 +12,7 @@ type Props = {
   isFetching: boolean;
   isError: boolean;
   navigateToAddProposalPage(): void;
+  navigateToLandingPage(): void;
 };
 
 export const ProposalsPage: React.FunctionComponent<Props> = ({
@@ -19,6 +21,7 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
   isError,
   fetchProposals,
   navigateToAddProposalPage,
+  navigateToLandingPage,
 }) => {
   useEffect(() => {
     fetchProposals();
@@ -46,7 +49,8 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
   if (proposals) {
     return (
       <Container maxWidth="75%" marginTop="50px">
-        <Table variant="simple">
+        <Heading>Tus propuestas</Heading>
+        <Table marginTop={'50px'} variant="simple">
           <Thead>
             <Tr>
               <Th>Título de la charla</Th>
@@ -59,9 +63,14 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
             ))}
           </Tbody>
         </Table>
-        <Button marginTop="50px" colorScheme="orange" onClick={navigateToAddProposalPage}>
-          Añadir propuesta
-        </Button>
+        <HStack marginTop={'50px'} spacing={'auto'}>
+          <Button colorScheme="orange" onClick={navigateToAddProposalPage}>
+            Añadir propuesta
+          </Button>
+          <Button colorScheme="orange" onClick={navigateToLandingPage}>
+            Volver a la página de la conferencia
+          </Button>
+        </HStack>
       </Container>
     );
   }

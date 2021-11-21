@@ -15,6 +15,7 @@ describe('Proposals page', function () {
     isFetching: false,
     isError: false,
     navigateToAddProposalPage: () => {},
+    navigateToLandingPage: () => {},
   };
 
   describe('layout', function () {
@@ -49,10 +50,10 @@ describe('Proposals page', function () {
     });
 
     it('should show the proposal description when clicking the button', function () {
-      const [firstProposal, secondProposal] = [aProposal(), aProposal()]
+      const [firstProposal, secondProposal] = [aProposal(), aProposal()];
       const props = {
         ...defaultProps,
-        proposals: [firstProposal, secondProposal]
+        proposals: [firstProposal, secondProposal],
       };
 
       render(<ProposalsPage {...props} />);

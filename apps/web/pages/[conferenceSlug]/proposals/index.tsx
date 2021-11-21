@@ -17,6 +17,7 @@ export default function Proposals() {
   const [conferenceId, setConferenceId] = useState('');
   const [proposals, setProposals] = useState<Array<ProposalDTO>>();
   const navigateToAddProposalPage = () => router.push(`/${conferenceSlug}/proposals/new`);
+  const navigateToLandingPage = () => router.push(`/${conferenceSlug}`);
 
   useEffect(() => {
     if (conferenceSlug) {
@@ -48,6 +49,7 @@ export default function Proposals() {
   return (
     <ProposalsPage
       navigateToAddProposalPage={navigateToAddProposalPage}
+      navigateToLandingPage={navigateToLandingPage}
       fetchProposals={fetchProposals}
       proposals={proposals}
       isFetching={isFetching}
