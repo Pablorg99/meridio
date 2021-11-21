@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
 type Props = {
@@ -37,24 +37,24 @@ export const ConferenceDate: React.FunctionComponent<Props> = ({ startDate, endD
 
   if (datesAreOnSameDay) {
     return (
-      <Heading data-testid="conference-date">
+      <Text fontSize={'4xl'} data-testid="conference-date">
         {startDate.getDate()} {months[startDate.getMonth()]} {startDate.getFullYear()}
-      </Heading>
+      </Text>
     );
   }
 
   if (datesAreOnSameMonth) {
     return (
-      <Heading data-testid="conference-date">
+      <Text fontSize={'4xl'} data-testid="conference-date">
         {startDate.getDate()}-{endDate.getDate()} {months[startDate.getMonth()]} {startDate.getFullYear()}
-      </Heading>
+      </Text>
     );
   }
 
   return (
-    <Heading data-testid="conference-date">
+    <Text fontSize={'4xl'} data-testid="conference-date">
       {startDate.getDate()} {months[startDate.getMonth()]} - {endDate.getDate()} {months[endDate.getMonth()]}{' '}
       {startDate.getFullYear()}
-    </Heading>
+    </Text>
   );
 };

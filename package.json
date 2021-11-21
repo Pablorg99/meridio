@@ -39,6 +39,8 @@
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/lato": "^4.5.0",
+    "@fontsource/montserrat": "^4.5.1",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@nestjs/common": "^7.0.0",

@@ -52,7 +52,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
         <VStack marginTop={'50px'} spacing={'50px'}>
           <Heading size={'4xl'}>{conference.name}</Heading>
           <HStack spacing={'30px'}>
-            <Heading>{conference.place}</Heading>
+            <Text fontSize={'4xl'}>{conference.place}</Text>
             <ConferenceDate startDate={new Date(conference.startDate)} endDate={new Date(conference.endDate)} />
           </HStack>
           {conference.isTicketSalesOpen && (
@@ -64,7 +64,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
         <VStack marginTop={'150px'} spacing={'50px'}>
           <Heading size={'2xl'}>Ponencias</Heading>
           <HStack width={'100%'} justifyContent={'center'} spacing={'10%'}>
-            <Heading>Próximamente...</Heading>
+            <Text fontSize={'4xl'}>Próximamente...</Text>
             {conference.isCallForPapersOpen && (
               <Button colorScheme={'orange'} onClick={navigateToProposalsPage}>
                 Proponer una charla
