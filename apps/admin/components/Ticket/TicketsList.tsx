@@ -66,7 +66,7 @@ export const TicketsList: React.FunctionComponent<Props> = ({
             ))}
           </Tbody>
         </Table>
-        <Button marginTop="50px" colorScheme="orange" onClick={navigateToAddTicketPage}>
+        <Button marginTop="50px" onClick={navigateToAddTicketPage}>
           Añadir ticket
         </Button>
       </Container>

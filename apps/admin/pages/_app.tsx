@@ -2,12 +2,11 @@ import '@fontsource/montserrat/700.css';
 import '@fontsource/lato/400.css';
 
 import { ChakraProvider } from '@chakra-ui/react';
+import { theme } from '@meridio/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider as SessionProvider } from 'next-auth/client';
 import React from 'react';
-
-import { theme } from './theme';
 
 function App({ Component, pageProps }: AppProps) {
   return (

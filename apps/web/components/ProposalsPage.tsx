@@ -64,12 +64,8 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
           </Tbody>
         </Table>
         <HStack marginTop={'50px'} spacing={'auto'}>
-          <Button colorScheme="orange" onClick={navigateToAddProposalPage}>
-            Añadir propuesta
-          </Button>
-          <Button colorScheme="orange" onClick={navigateToLandingPage}>
-            Volver a la página de la conferencia
-          </Button>
+          <Button onClick={navigateToAddProposalPage}>Añadir propuesta</Button>
+          <Button onClick={navigateToLandingPage}>Volver a la página de la conferencia</Button>
         </HStack>
       </Container>
     );

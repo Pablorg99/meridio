@@ -68,16 +68,12 @@ export const ConferencesList: React.FunctionComponent<Props> = ({
                   </Link>
                 </Td>
                 <Td>
-                  <Button
-                    colorScheme={'orange'}
-                    variant={'solid'}
-                    onClick={() => navigateToProposalsPage(conference.id)}
-                  >
+                  <Button variant={'solid'} onClick={() => navigateToProposalsPage(conference.id)}>
                     Ver charlas
                   </Button>
                 </Td>
                 <Td>
-                  <Button colorScheme={'orange'} variant={'solid'} onClick={() => navigateToTicketsPage(conference.id)}>
+                  <Button variant={'solid'} onClick={() => navigateToTicketsPage(conference.id)}>
                     Ver entradas
                   </Button>
                 </Td>
@@ -85,7 +81,7 @@ export const ConferencesList: React.FunctionComponent<Props> = ({
             ))}
           </Tbody>
         </Table>
-        <Button marginTop={'45px'} colorScheme={'orange'} variant={'solid'} onClick={navigateToCreateConferencePage}>
+        <Button marginTop={'45px'} variant={'solid'} onClick={navigateToCreateConferencePage}>
           Crear conferencia
         </Button>
       </Container>

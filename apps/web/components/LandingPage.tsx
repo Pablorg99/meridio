@@ -56,7 +56,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
             <ConferenceDate startDate={new Date(conference.startDate)} endDate={new Date(conference.endDate)} />
           </HStack>
           {conference.isTicketSalesOpen && (
-            <Button colorScheme={'orange'} size={'lg'} onClick={navigateToBuyTicketPage}>
+            <Button size={'lg'} onClick={navigateToBuyTicketPage}>
               Adquirir entrada
             </Button>
           )}
@@ -65,11 +65,7 @@ export const LandingPage: React.FunctionComponent<Props> = ({
           <Heading size={'2xl'}>Ponencias</Heading>
           <HStack width={'100%'} justifyContent={'center'} spacing={'10%'}>
             <Text fontSize={'4xl'}>Próximamente...</Text>
-            {conference.isCallForPapersOpen && (
-              <Button colorScheme={'orange'} onClick={navigateToProposalsPage}>
-                Proponer una charla
-              </Button>
-            )}
+            {conference.isCallForPapersOpen && <Button onClick={navigateToProposalsPage}>Proponer una charla</Button>}
           </HStack>
         </VStack>
       </>

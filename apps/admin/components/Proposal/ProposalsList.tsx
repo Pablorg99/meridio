@@ -61,7 +61,7 @@ export const ProposalsList: React.FunctionComponent<Props> = ({
             ))}
           </Tbody>
         </Table>
-        <Button marginTop="50px" colorScheme="orange" onClick={navigateToAddProposalPage}>
+        <Button marginTop="50px" onClick={navigateToAddProposalPage}>
           Añadir propuesta
         </Button>
       </Container>

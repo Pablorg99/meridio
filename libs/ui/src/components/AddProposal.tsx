@@ -41,7 +41,7 @@ export const AddProposal: React.FunctionComponent<Props> = ({ onAddProposal }) =
             <Input {...register('email', { required: true })} type="text" />
           </FormControl>
         </FormControl>
-        <Button type="submit" width="20%" marginTop="45px" colorScheme="orange" variant="solid">
+        <Button type="submit" width="20%" marginTop="45px" variant="solid">
           Proponer charla
         </Button>
       </Container>

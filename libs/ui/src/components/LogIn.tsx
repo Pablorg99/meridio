@@ -23,11 +23,11 @@ export const LogIn: React.FunctionComponent<Props> = ({ session, logIn, logOut }
       Meridio
     </Heading>
     {session ? (
-      <Button marginTop={'30px'} colorScheme={'orange'} variant={'solid'} onClick={logOut}>
+      <Button marginTop={'30px'} variant={'solid'} onClick={logOut}>
         Cerrar sesión
       </Button>
     ) : (
-      <Button marginTop={'30px'} colorScheme={'orange'} variant={'solid'} onClick={logIn} data-testid={'login'}>
+      <Button marginTop={'30px'} variant={'solid'} onClick={logIn} data-testid={'login'}>
         Iniciar sesión con GitHub
       </Button>
     )}

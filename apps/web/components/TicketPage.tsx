@@ -43,9 +43,9 @@ export const TicketPage: React.FunctionComponent<Props> = ({
             <strong> Correo electrónico:</strong> {ticket.assistantInfo.email}
           </Text>
         </VStack>
-          <Button onClick={navigateToLandingPage} colorScheme={'orange'} marginTop={'50px'}>
-            Volver a la página de la conferencia
-          </Button>
+        <Button onClick={navigateToLandingPage} marginTop={'50px'}>
+          Volver a la página de la conferencia
+        </Button>
       </Container>
     );
   }

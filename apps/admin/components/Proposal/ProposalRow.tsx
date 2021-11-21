@@ -26,7 +26,9 @@ export const ProposalRow: React.FunctionComponent<Props> = ({ proposal }) => {
       <Td>{proposal.speakerInfo.fullName}</Td>
       <Td>{proposal.speakerInfo.email}</Td>
       <Td>
-        <Button onClick={onOpen}>Ver descripción</Button>
+        <Button onClick={onOpen} colorScheme={'gray'}>
+          Ver descripción
+        </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>

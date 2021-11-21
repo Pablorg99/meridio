@@ -19,7 +19,7 @@ type Props = {
   conference?: ConferenceDTO;
 };
 
-export const  ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conference }) => {
+export const ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conference }) => {
   const { handleSubmit, register } = useForm<ConferenceFormData>();
 
   return (
@@ -59,7 +59,6 @@ export const  ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conf
             </FormLabel>
             <Switch
               id="landing-page"
-              colorScheme="orange"
               {...register('isLandingPageOpen')}
               type="checkbox"
               defaultChecked={conference?.isLandingPageOpen}
@@ -71,7 +70,6 @@ export const  ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conf
             </FormLabel>
             <Switch
               id="cfp"
-              colorScheme="orange"
               {...register('isCallForPapersOpen')}
               type="checkbox"
               defaultChecked={conference?.isCallForPapersOpen}
@@ -83,14 +81,13 @@ export const  ConferenceForm: React.FunctionComponent<Props> = ({ onSubmit, conf
             </FormLabel>
             <Switch
               id="ticket-sales"
-              colorScheme="orange"
               {...register('isTicketSalesOpen')}
               type="checkbox"
               defaultChecked={conference?.isTicketSalesOpen}
             />
           </FormControl>
         </FormControl>
-        <Button type="submit" width="20%" marginTop="25px" colorScheme="orange" variant="solid">
+        <Button type="submit" width="20%" marginTop="25px" variant="solid">
           {conference ? 'Guardar cambios' : 'Crear conferencia'}
         </Button>
       </FormControl>

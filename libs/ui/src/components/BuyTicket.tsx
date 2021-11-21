@@ -51,7 +51,7 @@ export const BuyTicketComponent: React.FunctionComponent<Props> = ({ onBuyTicket
             <Input {...register('gender')} type="text" />
           </FormControl>
         </FormControl>
-        <Button type="submit" marginTop="45px" colorScheme={'orange'} variant={'solid'}>
+        <Button type="submit" marginTop="45px" variant={'solid'}>
           Adquirir entrada
         </Button>
       </Container>

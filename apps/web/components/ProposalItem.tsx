@@ -24,7 +24,7 @@ export const ProposalItem: React.FunctionComponent<Props> = ({ proposal }) => {
     <Tr>
       <Td>{proposal.title}</Td>
       <Td>
-        <Button onClick={onOpen} colorScheme={'orange'}>Ver descripción</Button>
+        <Button onClick={onOpen}>Ver descripción</Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
