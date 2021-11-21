@@ -13,6 +13,7 @@ describe('Ticket page', function () {
     ticket: aTicket(),
     onBuyTicket: () => {},
     isFetching: false,
+    navigateToLandingPage: () => {},
   };
 
   it('should fetch the ticket', function () {
@@ -45,7 +46,9 @@ describe('Ticket page', function () {
 
     render(<TicketPage {...props} />);
 
-    expect(screen.getByRole('heading', { name: 'Tu entrada' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Ya tienes una entrada para el evento con los siguientes datos:' })
+    ).toBeInTheDocument();
     expect(screen.getByText(props.ticket.assistantInfo.fullName)).toBeInTheDocument();
     expect(screen.getByText(props.ticket.assistantInfo.email)).toBeInTheDocument();
   });
@@ -58,7 +61,7 @@ describe('Ticket page', function () {
 
     render(<TicketPage {...props} />);
 
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
+    expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
   });
 });
 

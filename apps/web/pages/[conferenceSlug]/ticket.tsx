@@ -17,6 +17,7 @@ export default function BuyTicket() {
   const [isFetching, setIsFetching] = useState(true);
   const [conferenceId, setConferenceId] = useState('');
   const [ticket, setTicket] = useState<TicketDTO>();
+  const navigateToLandingPage = () => router.push(`/${conferenceSlug}`);
 
   useEffect(() => {
     if (conferenceSlug) {
@@ -57,5 +58,13 @@ export default function BuyTicket() {
     [conferenceId, conferenceSlug, loading, router, session?.accessToken]
   );
 
-  return <TicketPage fetchTicket={fetchTicket} ticket={ticket} isFetching={isFetching} onBuyTicket={onBuyTicket} />;
+  return (
+    <TicketPage
+      fetchTicket={fetchTicket}
+      ticket={ticket}
+      isFetching={isFetching}
+      onBuyTicket={onBuyTicket}
+      navigateToLandingPage={navigateToLandingPage}
+    />
+  );
 }
