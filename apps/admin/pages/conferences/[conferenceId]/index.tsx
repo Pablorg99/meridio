@@ -43,8 +43,9 @@ export default function EditConference() {
           headers: { Authorization: `Bearer ${session?.accessToken}` },
         });
       }
+      await router.push('/conferences');
     },
-    [conferenceId, loading, session?.accessToken]
+    [conferenceId, loading, router, session?.accessToken]
   );
 
   return (
