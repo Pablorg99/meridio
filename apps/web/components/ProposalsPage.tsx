@@ -1,3 +1,5 @@
+import { WarningIcon } from '@chakra-ui/icons';
+import { Button, Container, Spinner, Table, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { ProposalDTO } from '@meridio/contracts';
 import React, { useEffect } from 'react';
 
@@ -23,23 +25,44 @@ export const ProposalsPage: React.FunctionComponent<Props> = ({
   }, [fetchProposals]);
 
   if (isFetching) {
-    return <div data-testid="loading-icon">Loading...</div>;
+    return (
+      <Container display="flex" justifyContent="center" marginTop="50px">
+        <Spinner data-testid="loading-icon" size="xl" thickness="5px" color="orange" emptyColor="orange.100" />;
+      </Container>
+    );
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return (
+      <Container maxWidth="100%" display="flex" justifyContent="center" alignItems="center" marginTop="50px">
+        <WarningIcon w={8} h={8} color="red" marginRight="10px" />
+        <Text fontSize="4xl" color="red">
+          There was an unexpected error, try reloading the page.
+        </Text>
+      </Container>
+    );
   }
 
   if (proposals) {
     return (
-      <div>
-        <ul>
-          {proposals.map((proposal) => (
-            <ProposalItem key={proposal.id} proposal={proposal} />
-          ))}
-        </ul>
-        <button onClick={navigateToAddProposalPage}>Añadir propuesta</button>
-      </div>
+      <Container maxWidth="75%" marginTop="50px">
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Título de la charla</Th>
+              <Th>Descripción de la charla</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {proposals.map((proposal) => (
+              <ProposalItem proposal={proposal} key={proposal.id} />
+            ))}
+          </Tbody>
+        </Table>
+        <Button marginTop="50px" colorScheme="orange" variant="solid" onClick={navigateToAddProposalPage}>
+          Añadir propuesta
+        </Button>
+      </Container>
     );
   }
 

@@ -31,7 +31,7 @@ describe('Proposals page', function () {
       expect(props.navigateToAddProposalPage).toHaveBeenCalledTimes(1);
     });
 
-    it('should list the proposals passed with some information', function () {
+    it('should the proposals passed in a table', function () {
       const [firstProposal, secondProposal] = [aProposal(), aProposal()];
       const props = {
         ...defaultProps,
@@ -40,12 +40,15 @@ describe('Proposals page', function () {
 
       render(<ProposalsPage {...props} />);
 
-      const [firstRenderedProposal, secondRenderedProposal] = screen.getAllByRole('listitem');
-      expect(firstRenderedProposal).toHaveTextContent(firstProposal.title);
-      expect(secondRenderedProposal).toHaveTextContent(secondProposal.title);
+      const [headersRow, firstProposalRow, secondProposalRow] = screen.getAllByRole('row');
+
+      expect(headersRow).toHaveTextContent('Título de la charla');
+      expect(headersRow).toHaveTextContent('Descripción de la charla');
+      expect(firstProposalRow).toHaveTextContent(firstProposal.title);
+      expect(secondProposalRow).toHaveTextContent(secondProposal.title);
     });
 
-    it('should show the proposal description of the proposal clicked', function () {
+    it('should show the proposal description when clicking the button', function () {
       const [firstProposal, secondProposal] = [aProposal(), aProposal()]
       const props = {
         ...defaultProps,
@@ -54,11 +57,8 @@ describe('Proposals page', function () {
 
       render(<ProposalsPage {...props} />);
 
-      expect(screen.queryByText(firstProposal.description)).not.toBeInTheDocument();
-      expect(screen.queryByText(secondProposal.description)).not.toBeInTheDocument();
-
-      const [firstRenderedProposal] = screen.getAllByRole('listitem');
-      userEvent.click(firstRenderedProposal);
+      const [firstProposalDescriptionButton] = screen.getAllByRole('button');
+      userEvent.click(firstProposalDescriptionButton);
 
       expect(screen.queryByText(firstProposal.description)).toBeInTheDocument();
       expect(screen.queryByText(secondProposal.description)).not.toBeInTheDocument();
@@ -96,7 +96,7 @@ describe('Proposals page', function () {
 
       render(<ProposalsPage {...props} />);
 
-      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.getByText('There was an unexpected error, try reloading the page.')).toBeInTheDocument();
     });
   });
 });
