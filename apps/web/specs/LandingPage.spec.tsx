@@ -25,9 +25,7 @@ describe('LandingPage', function () {
 
       expect(screen.queryByText(conference.name)).toBeInTheDocument();
       expect(screen.queryByText(conference.place)).toBeInTheDocument();
-      expect(screen.queryByText(conference.slug)).toBeInTheDocument();
-      expect(screen.queryByText(conference.startDate)).toBeInTheDocument();
-      expect(screen.queryByText(conference.endDate)).toBeInTheDocument();
+      expect(screen.queryByTestId('conference-date'));
 
       expect(screen.queryByRole('button', { name: 'Adquirir entrada' })).not.toBeInTheDocument();
     });
@@ -76,29 +74,30 @@ describe('LandingPage', function () {
     it('should show an error when the landing page info is not found', function () {
       const props = {
         ...defaultProps,
-        isFetching: true,
-      };
-
-      render(<LandingPage {...props} />);
-
-      expect(screen.queryByText('Loading')).toBeInTheDocument();
-    });
-
-    it('should show a loading when the landing page info is being fetched', function () {
-      const props = {
-        ...defaultProps,
         isError: true,
       };
 
       render(<LandingPage {...props} />);
 
-      expect(screen.queryByText('Error')).toBeInTheDocument();
+      expect(screen.queryByText('There was an unexpected error, try reloading the page.')).toBeInTheDocument();
+    });
+
+    it('should show a loading when the landing page info is being fetched', function () {
+      const props = {
+        ...defaultProps,
+        isFetching: true,
+      };
+
+      render(<LandingPage {...props} />);
+
+      expect(screen.queryByTestId('loading-icon')).toBeInTheDocument();
     });
   });
 });
 
 function aConference(): ConferenceDTO {
   return {
+    ownerId: faker.datatype.uuid(),
     id: faker.datatype.uuid(),
     name: faker.random.word(),
     slug: faker.random.word(),
@@ -107,7 +106,7 @@ function aConference(): ConferenceDTO {
     endDate: faker.date.future().toISOString().split('T')[0],
     isLandingPageOpen: true,
     isCallForPapersOpen: false,
-    isTicketSalesOpen: false,
+    isTicketSalesOpen: false
   };
 }
 
